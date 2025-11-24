@@ -22,7 +22,7 @@ class Actions:
     def go(game, list_of_words, number_of_parameters):
         """
         Move the player in the direction specified by the parameter.
-        The parameter must be a cardinal direction (N, E, S, O).
+        The parameter must be a cardinal direction (Up, E, Down, O).
 
         Args:
             game (Game): The game object.
@@ -37,9 +37,9 @@ class Actions:
         >>> from game import Game
         >>> game = Game()
         >>> game.setup()
-        >>> go(game, ["go", "N"], 1)
+        >>> go(game, ["go", "Up"], 1)
         True
-        >>> go(game, ["go", "N", "E"], 1)
+        >>> go(game, ["go", "Up", "E"], 1)
         False
         >>> go(game, ["go"], 1)
         False
@@ -79,9 +79,9 @@ class Actions:
         >>> game.setup()
         >>> quit(game, ["quit"], 0)
         True
-        >>> quit(game, ["quit", "N"], 0)
+        >>> quit(game, ["quit", "Up"], 0)
         False
-        >>> quit(game, ["quit", "N", "E"], 0)
+        >>> quit(game, ["quit", "Up", "E"], 0)
         False
 
         """
@@ -118,9 +118,9 @@ class Actions:
         >>> game.setup()
         >>> help(game, ["help"], 0)
         True
-        >>> help(game, ["help", "N"], 0)
+        >>> help(game, ["help", "Up"], 0)
         False
-        >>> help(game, ["help", "N", "E"], 0)
+        >>> help(game, ["help", "Up", "E"], 0)
         False
 
         """

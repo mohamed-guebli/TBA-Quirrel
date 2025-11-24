@@ -25,7 +25,7 @@ class Game:
         self.commands["help"] = help
         quit = Command("quit", " : quitter le jeu", Actions.quit, 0)
         self.commands["quit"] = quit
-        go = Command("go", " <direction> : se déplacer dans une direction cardinale (N, E, S, O)", Actions.go, 1)
+        go = Command("go", " <direction> : se déplacer dans une direction cardinale (Up, E, Down, O)", Actions.go, 1)
         self.commands["go"] = go
         
         # Setup rooms
@@ -57,17 +57,23 @@ class Game:
 
         # Create exits for rooms
 
-        howling_cliffs.exits = {"N" : cave, "E" : None, "S" : castle, "O" : None}
-        tower.exits = {"N" : cottage, "E" : None, "S" : None, "O" : None}
-        cave.exits = {"N" : None, "E" : cottage, "S" : forest, "O" : None}
-        cottage.exits = {"N" : None, "E" : None, "S" : tower, "O" : cave}
-        swamp.exits = {"N" : tower, "E" : None, "S" : None, "O" : castle}
-        castle.exits = {"N" : forest, "E" : swamp, "S" : None, "O" : None}
+        howling_cliffs.exits = {"Up" : None, "E" : dirtmouth, "Down" : greenpath, "O" : None}
+        dirtmouth.exits = {"Up" : None, "E" : crystal_peak, "Down" : forgotten_crossroads, "O" : howling_cliffs}
+        crystal_peak.exits = {"Up" : None, "E" : None, "Down" : None, "O" : dirtmouth}
+        greenpath.exits = {"Up" : howling_cliffs, "E" : forgotten_crossroads, "Down" : fog_canyon, "O" : None}
+        forgotten_crossroads.exits = {"Up" : dirtmouth, "E" : temple_black_egg, "Down" : fungal_wastes, "O" : greenpath}
+        temple_black_egg.exits = {"Up" : None, "E" : None, "Down" : None, "O" : forgotten_crossroads}
+        blue_lake.exits = {"Up" : None, "E" : None, "Down" : None, "O" : None}
+        fog_canyon.exits = {"Up" : greenpath, "E" : fungal_wastes, "Down" : None, "O" : None}
+        fungal_wastes.exits = {"Up" : forgotten_crossroads, "E" : city_of_tears, "Down" : mantis_village, "O" : fog_canyon}
+        city_of_tears.exits = {"Up" : None, "E" : None, "Down" : None, "O" : None}
+        mantis_village.exits = {"Up" : forgotten_crossroads, "E" : None, "Down" : deepnest, "O" : None}
+        deepnest.exits = {"Up" : mantis_village, "E" : None, "Down" : None, "O" : None}
 
         # Setup player and starting room
 
         self.player = Player(input("\nEntrez votre nom: "))
-        self.player.current_room = swamp
+        self.player.current_room = howling_cliffs
 
     # Play the game
     def play(self):
