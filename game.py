@@ -75,6 +75,13 @@ class Game:
         self.player = Player(input("\nEntrez votre nom: "))
         self.player.current_room = howling_cliffs
 
+        # Gestion directions et directions inconnues
+
+        self.direction_up = {'Haut', 'HAUT','haut','H','h','UP', 'U','Up','up','u'}
+        self.direction_down = {'Bas','BAS','B','b','bas','DOWN','down','Down','D','d'}
+        self.direction_west = {'Gauche','GAUCHE','gauche','G','g','Ouest','OUEST','ouest','O','o'}
+        self.direction_east = {'Droite','DROITE','droite','D','d','EST','Est','est','e','E'}
+
     # Play the game
     def play(self):
         self.setup()

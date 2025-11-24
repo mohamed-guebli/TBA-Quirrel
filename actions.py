@@ -56,9 +56,22 @@ class Actions:
 
         # Get the direction from the list of words.
         direction = list_of_words[1]
+        if direction in game.direction_up :
+            direction = "Up"
+        elif direction in game.direction_down :
+            direction = "Down"
+        elif direction in game.direction_east :
+            direction = "E"
+        elif direction in game.direction_west :
+            direction = "W"
+        else :
+            print("La direction est inconnue")
+            return True
         # Move the player in the direction specified by the parameter.
         player.move(direction)
         return True
+
+        
 
     def quit(game, list_of_words, number_of_parameters):
         """
