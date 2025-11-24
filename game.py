@@ -30,22 +30,34 @@ class Game:
         
         # Setup rooms
 
-        forest = Room("Forest", "dans une forêt enchantée. Vous entendez une brise légère à travers la cime des arbres.")
-        self.rooms.append(forest)
-        tower = Room("Tower", "dans une immense tour en pierre qui s'élève au dessus des nuages.")
-        self.rooms.append(tower)
-        cave = Room("Cave", "dans une grotte profonde et sombre. Des voix semblent provenir des profondeurs.")
-        self.rooms.append(cave)
-        cottage = Room("Cottage", "dans un petit chalet pittoresque avec un toit de chaume. Une épaisse fumée verte sort de la cheminée.")
-        self.rooms.append(cottage)
-        swamp = Room("Swamp", "dans un marécage sombre et ténébreux. L'eau bouillonne, les abords sont vaseux.")
-        self.rooms.append(swamp)
-        castle = Room("Castle", "dans un énorme château fort avec des douves et un pont levis. Sur les tours, des flèches en or massif.")
-        self.rooms.append(castle)
+        howling_cliffs = Room("Howling Cliffs", ".")
+        self.rooms.append(howling_cliffs)
+        dirtmouth = Room("Dirtmouth", ".")
+        self.rooms.append(dirtmouth)
+        crystal_peak = Room("Crystal Peak", ".")
+        self.rooms.append(crystal_peak)
+        greenpath = Room("Greenpath", ".")
+        self.rooms.append(greenpath)
+        forgotten_crossroads = Room("Forgotten Crossroads", ".")
+        self.rooms.append(forgotten_crossroads)
+        temple_black_egg = Room("Temple of the Black Egg", ".")
+        self.rooms.append(temple_black_egg)
+        blue_lake = Room("Blue Lake", ".")
+        self.rooms.append(blue_lake)
+        fog_canyon = Room("Fog Canyon", ".")
+        self.rooms.append(fog_canyon)
+        fungal_wastes = Room("Fungal Wastes", ".")
+        self.rooms.append(fungal_wastes)
+        city_of_tears = Room("City Of Tears", ".")
+        self.rooms.append(city_of_tears)
+        mantis_village = Room("Mantis Village",".")
+        self.rooms.append(mantis_village)
+        deepnest = Room("Deepnest", ".")
+        self.rooms.append(deepnest)
 
         # Create exits for rooms
 
-        forest.exits = {"N" : cave, "E" : None, "S" : castle, "O" : None}
+        howling_cliffs.exits = {"N" : cave, "E" : None, "S" : castle, "O" : None}
         tower.exits = {"N" : cottage, "E" : None, "S" : None, "O" : None}
         cave.exits = {"N" : None, "E" : cottage, "S" : forest, "O" : None}
         cottage.exits = {"N" : None, "E" : None, "S" : tower, "O" : cave}
