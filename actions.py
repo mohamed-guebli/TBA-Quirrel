@@ -65,7 +65,7 @@ class Actions:
         elif direction in game.direction_west :
             direction = "W"
         else :
-            print("La direction est inconnue")
+            print(f"Quirrel a heurté un mur en se dirigeant vers '{direction}'")
             return True
         # Move the player in the direction specified by the parameter.
         player.move(direction)
