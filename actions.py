@@ -63,7 +63,7 @@ class Actions:
         elif direction in game.direction_east :
             direction = "E"
         elif direction in game.direction_west :
-            direction = "W"
+            direction = "O"
         else :
             print(f"Quirrel a heurté un mur en se dirigeant vers '{direction}'")
             return True
