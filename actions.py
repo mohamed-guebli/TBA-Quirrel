@@ -112,6 +112,21 @@ class Actions:
         game.finished = True
         return True
 
+    def history(game, list_of_words, number_of_parameters):
+
+            # If the number of parameters is incorrect, print an error message and return False.
+            l = len(list_of_words)
+            if l != number_of_parameters + 1:
+                command_word = list_of_words[0]
+                print(MSG0.format(command_word=command_word))
+                return False
+            
+            # Print the history of rooms visited by the player.
+            player = game.player
+            player.get_history()
+            return True
+
+
     def help(game, list_of_words, number_of_parameters):
         """
         Print the list of available commands.
@@ -151,3 +166,5 @@ class Actions:
             print("\t- " + str(command))
         print()
         return True
+    
+    
