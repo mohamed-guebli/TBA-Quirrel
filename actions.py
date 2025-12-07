@@ -126,6 +126,24 @@ class Actions:
             player.get_history()
             return True
 
+    def back(game, list_of_words, number_of_parameters):
+                # Vérification du nombre de paramètres
+            l = len(list_of_words)
+            if l != number_of_parameters + 1:
+                command_word = list_of_words[0]
+                print(MSG0.format(command_word=command_word))
+                return False
+            player = game.player
+            # Si l'historique est vide, on ne peut pas revenir en arrière
+            if not player.history:
+                print("\nVous ne pouvez pas revenir en arrière : aucun déplacement précédent.\n")
+                return True
+            
+            previous_room = player.history.pop() # On retire la dernière salle visitée (pop)
+            player.current_room = previous_room # On déplace le joueur dans la salle précédente
+            print(player.current_room.get_long_description()) # On affiche la description de la salle
+            player.get_history() # Et on réaffiche l’historique restant
+            return True
 
     def help(game, list_of_words, number_of_parameters):
         """
