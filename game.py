@@ -46,7 +46,7 @@ class Game:
         self.rooms.append(forgotten_crossroads)
         temple_black_egg = Room("Temple of the Black Egg", ".")
         self.rooms.append(temple_black_egg)
-        blue_lake = Room("Blue Lake", ".")
+        blue_lake = Room("Blue Lake", "test")
         self.rooms.append(blue_lake)
         fog_canyon = Room("Fog Canyon", ".")
         self.rooms.append(fog_canyon)
@@ -67,7 +67,7 @@ class Game:
         greenpath.exits = {"Up" : howling_cliffs, "E" : forgotten_crossroads, "Down" : fog_canyon, "O" : None}
         forgotten_crossroads.exits = {"Up" : dirtmouth, "E" : temple_black_egg, "Down" : fungal_wastes, "O" : greenpath}
         temple_black_egg.exits = {"Up" : None, "E" : None, "Down" : None, "O" : forgotten_crossroads}
-        blue_lake.exits = {"Up" : None, "E" : None, "Down" : None, "O" : None}
+        blue_lake.exits = {"Up" : crystal_peak, "E" : None, "Down" : None, "O" : None}
         fog_canyon.exits = {"Up" : greenpath, "E" : fungal_wastes, "Down" : None, "O" : None}
         fungal_wastes.exits = {"Up" : forgotten_crossroads, "E" : city_of_tears, "Down" : mantis_village, "O" : fog_canyon}
         city_of_tears.exits = {"Up" : None, "E" : None, "Down" : None, "O" : None}
