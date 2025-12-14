@@ -59,9 +59,10 @@ class Room:
 
     def get_inventory(self):
         if not self.inventory:
-            print("\nIl n'y a rien ici.\n")
-            return
-        
-        print("\nLa pièce contient :")
+            return "\nIl n'y a rien ici.\n"
+
+        inv = "\nLa pièce contient :\n"
         for item in self.inventory.values():
-            print(f"    - {item}")
+            inv += f"    - {item}\n"
+        return inv
+

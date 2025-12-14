@@ -6,6 +6,7 @@ from room import Room
 from player import Player
 from command import Command
 from actions import Actions
+from item import Item
 
 class Game:
 
@@ -31,6 +32,8 @@ class Game:
         self.commands["history"] = history
         back = Command("back", " : revenir dans la salle précédente", Actions.back, 0)
         self.commands["back"] = back
+        look = Command("look", " : regarder les items présents dans la salle", Actions.look, 0 )
+        self.commands["look"] = look
         
         # Setup rooms
 
@@ -73,6 +76,19 @@ class Game:
         city_of_tears.exits = {"Up" : None, "E" : None, "Down" : None, "O" : None}
         mantis_village.exits = {"Up" : forgotten_crossroads, "E" : None, "Down" : deepnest, "O" : None}
         deepnest.exits = {"Up" : mantis_village, "E" : None, "Down" : None, "O" : None}
+
+        #creation d'items dans les salles
+        minerai_pale = Item("Minerai Pale", "Un minerai rare et pale, prié par ceux qui fabriquent des armes.", 2)
+        crystal_peak.inventory[minerai_pale.name] = minerai_pale
+        blason_ville = Item("Blason de la Ville", "dalle de pierre arborant le blason de la capitale d'Hallownest.", 1)
+        fungal_wastes.inventory[blason_ville.name] = blason_ville
+        cle_marchand = Item("Clé du Marchand", "Une clé de cuivre qui ouvre la boutique du Marchand à Dirtmouth.", 0.5)
+        crystal_peak.inventory[cle_marchand.name] = cle_marchand
+        lanterne = Item("Lanterne", "Une lanterne en cristal qui éclaire les cavernes plongées de Deepnest afin que les voyageurs puissent retrouver leur chemin.", 1)
+        deepnest.inventory[lanterne.name] = lanterne
+        trampass = Item("Trampass", "Un pass qui permet d'accéder à Blue Lake.", 0.2)
+        forgotten_crossroads.inventory[trampass.name] = trampass
+        masque_erudit = Item("Masque de l'Erudit", "Un masque ancien qui augmente votre sagesse.", 1)
 
         # Setup player and starting room
 
