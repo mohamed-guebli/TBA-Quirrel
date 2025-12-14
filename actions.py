@@ -158,12 +158,35 @@ class Actions:
             print(f"\nImpossible : poids max = {player.max_weight} kg.\n")
             return True
 
-        # transfert pièce vers inventaire joueur
+        # transfert de la pièce vers inventaire du joueur
         item = room.inventory.pop(item_name)
         player.inventory[item_name] = item
 
         print(f"\nVous avez pris l'objet '{item_name}'.\n")
-        return True            
+        return True        
+
+    def drop(game, list_of_words, number_of_parameters):
+
+        l = len(list_of_words)
+        if l != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG1.format(command_word=command_word))
+            return False
+
+        player = game.player
+        room = player.current_room
+        item_name = list_of_words[1]
+
+        if item_name not in player.inventory:
+            print(f"\nL'objet '{item_name}' n'est pas dans l'inventaire'.\n")
+            return True
+
+        # transfert inventaire du joueur vers la pièce
+        item = player.inventory.pop(item_name)
+        room.inventory[item_name] = item
+
+        print(f"\nVous avez déposé l'objet '{item_name}'.\n")
+        return True 
 
     def back(game, list_of_words, number_of_parameters):
                 # Vérification du nombre de paramètres
