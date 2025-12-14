@@ -136,6 +136,35 @@ class Actions:
             print(room.get_inventory())
             return True
 
+    def take(game, list_of_words, number_of_parameters):
+        l = len(list_of_words)
+        if l != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG1.format(command_word=command_word))
+            return False
+
+        player = game.player
+        room = player.current_room
+        item_name = list_of_words[1]
+
+        if item_name not in room.inventory:
+            print(f"\nL'objet '{item_name}' n'est pas dans la pièce.\n")
+            return True
+
+        item = room.inventory[item_name]
+
+        # limite de poids
+        if player.get_total_weight() + item.weight > player.max_weight:
+            print(f"\nImpossible : poids max = {player.max_weight} kg.\n")
+            return True
+
+        # transfert pièce vers inventaire joueur
+        item = room.inventory.pop(item_name)
+        player.inventory[item_name] = item
+
+        print(f"\nVous avez pris l'objet '{item_name}'.\n")
+        return True            
+
     def back(game, list_of_words, number_of_parameters):
                 # Vérification du nombre de paramètres
             l = len(list_of_words)

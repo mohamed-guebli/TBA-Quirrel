@@ -35,6 +35,7 @@ class Player():
         self.history = []
         self.inventory = {}
     # on peut aussi ajouter max_weight si on veut s'en servir
+        self.max_weight = 10  # poids max en kg
 
     
     # Define the move method.
@@ -70,6 +71,12 @@ class Player():
         print("\nVous disposez des items suivants :")
         for item in self.inventory.values():
             print(f"    - {item}")
+    
+    def get_total_weight(self):
+        total = 0
+        for item in self.inventory.values():
+            total += item.weight
+        return total
 
 
 
