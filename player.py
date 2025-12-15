@@ -65,12 +65,12 @@ class Player():
 
     def get_inventory(self):
         if not self.inventory:
-            print("\nVotre inventaire est vide.\n")
-            return
+            return "\nVotre inventaire est vide.\n"
         
-        print("\nVous disposez des items suivants :")
+        inv = "\nVous disposez des items suivants :"
         for item in self.inventory.values():
-            print(f"    - {item}")
+            inv += f"    - {item}\n"
+        return inv
     
     def get_total_weight(self):
         total = 0

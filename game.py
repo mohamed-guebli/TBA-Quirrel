@@ -38,7 +38,9 @@ class Game:
         self.commands["take"] = take
         drop = Command("drop", " <item> : déposer un objet", Actions.drop, 1)
         self.commands["drop"] = drop
-        
+        check = Command("check", " : vérifier l'inventaire du joueur", Actions.check, 0)
+        self.commands["check"] = check
+
         # Setup rooms
 
         howling_cliffs = Room("Howling Cliffs", ".")
@@ -81,14 +83,14 @@ class Game:
         mantis_village.exits = {"Up" : forgotten_crossroads, "E" : None, "Down" : deepnest, "O" : None}
         deepnest.exits = {"Up" : mantis_village, "E" : None, "Down" : None, "O" : None}
 
-        #creation d'items dans les salles
+        #create items for rooms
         minerai_pale = Item("minerai_pale", "Un minerai rare et pale, prié par ceux qui fabriquent des armes.", 2)
         crystal_peak.inventory[minerai_pale.name] = minerai_pale
         blason_ville = Item("blason_ville", "dalle de pierre arborant le blason de la capitale d'Hallownest.", 1)
         fungal_wastes.inventory[blason_ville.name] = blason_ville
         cle_marchand = Item("cle_marchand", "Une clé de cuivre qui ouvre la boutique du Marchand à Dirtmouth.", 0.5)
         crystal_peak.inventory[cle_marchand.name] = cle_marchand
-        lanterne = Item("anterne", "Une lanterne en cristal qui éclaire les cavernes plongées de Deepnest afin que les voyageurs puissent retrouver leur chemin.", 1)
+        lanterne = Item("lanterne", "Une lanterne en cristal qui éclaire les cavernes plongées de Deepnest afin que les voyageurs puissent retrouver leur chemin.", 1)
         deepnest.inventory[lanterne.name] = lanterne
         trampass = Item("trampass", "Un pass qui permet d'accéder à Blue Lake.", 0.2)
         forgotten_crossroads.inventory[trampass.name] = trampass

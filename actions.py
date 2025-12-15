@@ -178,7 +178,7 @@ class Actions:
         item_name = list_of_words[1]
 
         if item_name not in player.inventory:
-            print(f"\nL'objet '{item_name}' n'est pas dans l'inventaire'.\n")
+            print(f"\nL'objet '{item_name}' n'est pas dans l'inventaire.\n")
             return True
 
         # transfert inventaire du joueur vers la pièce
@@ -187,6 +187,18 @@ class Actions:
 
         print(f"\nVous avez déposé l'objet '{item_name}'.\n")
         return True 
+    
+    def check(game, list_of_words, number_of_parameters):
+
+            l = len(list_of_words)
+            if l != number_of_parameters + 1:
+                command_word = list_of_words[0]
+                print(MSG0.format(command_word=command_word))
+                return False
+            
+            player = game.player
+            print(player.get_inventory())
+            return True
 
     def back(game, list_of_words, number_of_parameters):
                 # Vérification du nombre de paramètres
