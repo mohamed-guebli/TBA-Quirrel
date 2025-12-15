@@ -7,6 +7,7 @@ from player import Player
 from command import Command
 from actions import Actions
 from item import Item
+from character import Character
 
 class Game:
 
@@ -95,7 +96,7 @@ class Game:
         trampass = Item("trampass", "Un pass qui permet d'accéder à Blue Lake.", 0.2)
         forgotten_crossroads.inventory[trampass.name] = trampass
         masque_erudit = Item("masque_erudit", "Un masque ancien qui augmente votre sagesse.", 1)
-        
+
         # Setup player and starting room
 
         self.player = Player(input("\nEntrez votre nom: "))
