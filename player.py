@@ -1,4 +1,5 @@
 # Define the Player class.
+import random
 class Player():
     '''
     This class represents a player in the game. A player has a name and a current room.
@@ -42,7 +43,7 @@ class Player():
     def move(self, direction):
         # Get the next room from the exits dictionary of the current room.
         next_room = self.current_room.exits[direction]
-
+       
         # If the next room is None, print an error message and return False.
         if next_room is None:
             print("\nAucune porte dans cette direction !\n")
