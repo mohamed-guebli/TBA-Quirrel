@@ -97,6 +97,11 @@ class Game:
         forgotten_crossroads.inventory[trampass.name] = trampass
         masque_erudit = Item("masque_erudit", "Un masque ancien qui augmente votre sagesse.", 1)
 
+        #Setup PNJ
+
+        sly = Character("Sly","Un marchand qui semble s'y connaitre dans l'art de l'aiguillon", forgotten_crossroads, ["Donne l'argent là"])
+        forgotten_crossroads.characters[sly.name] = sly
+        
         # Setup player and starting room
 
         self.player = Player(input("\nEntrez votre nom: "))
