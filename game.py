@@ -35,7 +35,7 @@ class Game:
         self.commands["back"] = back
         look = Command("look", " : regarder les items présents dans la salle", Actions.look, 0 )
         self.commands["look"] = look
-        take = Command("take", " <item> : prendre un objet", Actions.take, 1)
+        take = Command("take", " <item> : prendre un objet", Actions.take, "several")
         self.commands["take"] = take
         drop = Command("drop", " <item> : déposer un objet", Actions.drop, 1)
         self.commands["drop"] = drop
@@ -96,6 +96,18 @@ class Game:
         trampass = Item("trampass", "Un pass qui permet d'accéder à Blue Lake.", 0.2)
         forgotten_crossroads.inventory[trampass.name] = trampass
         masque_erudit = Item("masque_erudit", "Un masque ancien qui augmente votre sagesse.", 1)
+        
+        journal_vagabond = Item("journal vagabond", "Ces journaux nous offrent un aperçu intéressant des esprits et des cœurs de ceux qui ont vécu avant nous.", 2)
+        howling_cliffs.inventory[journal_vagabond.name] = journal_vagabond
+        forgotten_crossroads.inventory[journal_vagabond.name] = journal_vagabond
+        crystal_peak.inventory[journal_vagabond.name] = journal_vagabond
+        sceau_hallownest = Item("sceau_hallownest", "Ces sceaux ornés étaient les symboles officiels du Roi et de ses Chevaliers, et étaient précieux de ceux qui les portaient.", 2)
+        fog_canyon.inventory[sceau_hallownest.name] = sceau_hallownest
+        greenpath.inventory[sceau_hallownest.name] = sceau_hallownest
+        fungal_wastes.inventory[sceau_hallownest.name] = sceau_hallownest
+        idole_roi = Item("idole_roi", "Une icône du roi de Hallownest, vénéré à la fois comme dieu et comme souverain. Fabriqués dans un matériau blanc mystérieux, ils sont rares et très précieux.", 2)
+        oeuf_arcanique = Item("œuf_arcanique", "Cela semble être un simple œuf, mais c’est en réalité une relique précieuse d’avant la naissance de Hallownest !", 2)
+
 
         #Setup PNJ
 

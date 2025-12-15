@@ -136,16 +136,26 @@ class Actions:
             print(room.get_inventory())
             return True
 
+sev = "several"
+
     def take(game, list_of_words, number_of_parameters):
         l = len(list_of_words)
-        if l != number_of_parameters + 1:
-            command_word = list_of_words[0]
-            print(MSG1.format(command_word=command_word))
+        # if l != number_of_parameters + 1:
+        #     command_word = list_of_words[0]
+        #     print(MSG1.format(command_word=command_word))
+        #     return False
+
+        if number_of_parameters == sev and l <= 2:
             return False
+        else:
+            command_word = list_of_words[0]
+            list_word = list_of_words[1:]
+            item_name = " ".join(list_word)
+
 
         player = game.player
         room = player.current_room
-        item_name = list_of_words[1]
+        
 
         if item_name not in room.inventory:
             print(f"\nL'objet '{item_name}' n'est pas dans la pièce.\n")
