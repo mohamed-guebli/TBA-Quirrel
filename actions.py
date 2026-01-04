@@ -148,7 +148,7 @@ class Actions:
         else:
             command_word = list_of_words[0]
             list_word = list_of_words[1:]
-            item_name = " ".join(list_word)
+            item_name = " ".join(list_word).lower()
 
 
         player = game.player
@@ -183,7 +183,7 @@ class Actions:
         else:
             command_word = list_of_words[0]
             list_word = list_of_words[1:]
-            item_name = " ".join(list_word)
+            item_name = " ".join(list_word).lower()
 
         player = game.player
         room = player.current_room
