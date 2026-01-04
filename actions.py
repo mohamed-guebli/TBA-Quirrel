@@ -17,6 +17,8 @@ MSG0 = "\nLa commande '{command_word}' ne prend pas de paramètre.\n"
 # The MSG1 variable is used when the command takes 1 parameter.
 MSG1 = "\nLa commande '{command_word}' prend 1 seul paramètre.\n"
 
+from door import Door
+
 class Actions:
 
     def go(game, list_of_words, number_of_parameters):
@@ -67,11 +69,33 @@ class Actions:
         else :
             print(f"Quirrel a heurté un mur en se dirigeant vers '{direction}'")
             return True
-        # Move the player in the direction specified by the parameter.
-        player.move(direction)
-        return True
 
+        exit_obj = player.current_room.exits.get(direction)
+        if exit_obj is None:
+            print(f"\nIl n'y a pas de sortie vers '{direction}' depuis cette pièce.\n")
+            return True 
+
+        # Move the player in the direction specified by the parameter.
+        if not isinstance(exit_obj, Door):
+            player.move(direction)
+            return True
         
+        #si il y a une porte verrouillée
+        if exit_obj.locked:
+            #vérifier si le joueur a l'item requis
+            if player.has_item(exit_obj.key):
+                print(f"\nVous utilisez '{exit_obj.key}' pour déverrouiller la porte vers '{direction}'.\n")
+                exit_obj.locked = False
+            else:
+                print(f"\nLa porte vers '{direction}' est verrouillée. Il vous faut '{exit_obj.key}' pour l'ouvrir.\n")
+                return True
+        
+        
+        player.current_room = exit_obj.destination
+        player.history.append(player.current_room) # On ajoute la salle actuelle à l'historique
+        print(player.current_room.get_long_description())
+        return True
+                
 
     def quit(game, list_of_words, number_of_parameters):
         """
