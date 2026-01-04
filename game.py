@@ -80,7 +80,7 @@ class Game:
         temple_black_egg.exits = {"Up" : None, "E" : None, "Down" : None, "O" : forgotten_crossroads}
         blue_lake.exits = {"Up" : crystal_peak, "E" : None, "Down" : None, "O" : None}
         fog_canyon.exits = {"Up" : greenpath, "E" : fungal_wastes, "Down" : None, "O" : None}
-        fungal_wastes.exits = {"Up" : forgotten_crossroads, "E" : city_of_tears, "Down" : mantis_village, "O" : fog_canyon}
+        fungal_wastes.exits = {"Up" : forgotten_crossroads, "E" : Door(city_of_tears, locked=True, key= "blason de la ville"), "Down" : mantis_village, "O" : fog_canyon}
         city_of_tears.exits = {"Up" : None, "E" : None, "Down" : None, "O" : None}
         mantis_village.exits = {"Up" : forgotten_crossroads, "E" : None, "Down" : deepnest, "O" : None}
         deepnest.exits = {"Up" : mantis_village, "E" : None, "Down" : None, "O" : None}
