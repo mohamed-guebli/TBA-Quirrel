@@ -35,7 +35,7 @@ class Game:
         self.commands["back"] = back
         look = Command("look", " : regarder les items présents dans la salle", Actions.look, 0 )
         self.commands["look"] = look
-        take = Command("take", " <item> : prendre un objet", Actions.take, "several")
+        take = Command("take", " <item> : prendre un objet", Actions.take, 1)
         self.commands["take"] = take
         drop = Command("drop", " <item> : déposer un objet", Actions.drop, 1)
         self.commands["drop"] = drop
