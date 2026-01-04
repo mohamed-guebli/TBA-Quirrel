@@ -135,8 +135,8 @@ class Actions:
             room = game.player.current_room
             print(room.get_inventory())
             return True
-
-sev = "several"
+            
+    sev = "several"
 
     def take(game, list_of_words, number_of_parameters):
         l = len(list_of_words)

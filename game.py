@@ -85,29 +85,42 @@ class Game:
         deepnest.exits = {"Up" : mantis_village, "E" : None, "Down" : None, "O" : None}
 
         #create items for rooms
-        minerai_pale = Item("minerai_pale", "Un minerai rare et pale, prié par ceux qui fabriquent des armes.", 2)
-        crystal_peak.inventory[minerai_pale.name] = minerai_pale
-        blason_ville = Item("blason_ville", "dalle de pierre arborant le blason de la capitale d'Hallownest.", 1)
-        fungal_wastes.inventory[blason_ville.name] = blason_ville
-        cle_marchand = Item("cle_marchand", "Une clé de cuivre qui ouvre la boutique du Marchand à Dirtmouth.", 0.5)
-        crystal_peak.inventory[cle_marchand.name] = cle_marchand
-        lanterne = Item("lanterne", "Une lanterne en cristal qui éclaire les cavernes plongées de Deepnest afin que les voyageurs puissent retrouver leur chemin.", 1)
-        deepnest.inventory[lanterne.name] = lanterne
-        trampass = Item("trampass", "Un pass qui permet d'accéder à Blue Lake.", 0.2)
-        forgotten_crossroads.inventory[trampass.name] = trampass
-        masque_erudit = Item("masque_erudit", "Un masque ancien qui augmente votre sagesse.", 1)
-        
         journal_vagabond = Item("journal vagabond", "Ces journaux nous offrent un aperçu intéressant des esprits et des cœurs de ceux qui ont vécu avant nous.", 2)
-        howling_cliffs.inventory[journal_vagabond.name] = journal_vagabond
-        forgotten_crossroads.inventory[journal_vagabond.name] = journal_vagabond
-        crystal_peak.inventory[journal_vagabond.name] = journal_vagabond
-        sceau_hallownest = Item("sceau_hallownest", "Ces sceaux ornés étaient les symboles officiels du Roi et de ses Chevaliers, et étaient précieux de ceux qui les portaient.", 2)
-        fog_canyon.inventory[sceau_hallownest.name] = sceau_hallownest
-        greenpath.inventory[sceau_hallownest.name] = sceau_hallownest
-        fungal_wastes.inventory[sceau_hallownest.name] = sceau_hallownest
-        idole_roi = Item("idole_roi", "Une icône du roi de Hallownest, vénéré à la fois comme dieu et comme souverain. Fabriqués dans un matériau blanc mystérieux, ils sont rares et très précieux.", 2)
-        oeuf_arcanique = Item("œuf_arcanique", "Cela semble être un simple œuf, mais c’est en réalité une relique précieuse d’avant la naissance de Hallownest !", 2)
+        minerai_pale = Item("minerai pale", "Un minerai rare et pale, prié par ceux qui fabriquent des armes.", 2)
+        cle_marchand = Item("cle du marchand", "Une clé de cuivre qui ouvre la boutique du Marchand à Dirtmouth.", 0.5)
+        blason_ville = Item("blason de la ville", "dalle de pierre arborant le blason de la capitale d'Hallownest.", 1)
+        lanterne = Item("lanterne", "Une lanterne en cristal qui éclaire les cavernes plongées de Deepnest afin que les voyageurs puissent retrouver leur chemin.", 1)
+        trampass = Item("trampass", "Un pass qui permet d'accéder à Blue Lake.", 0.2)
+        masque_erudit = Item("masque de l'erudit", "Un masque ancien qui augmente votre sagesse.", 1)
+        sceau_hallownest = Item("sceau hallownest", "Ces sceaux ornés étaient les symboles officiels du Roi et de ses Chevaliers, et étaient précieux de ceux qui les portaient.", 2)
+        idole_roi = Item("idole du roi", "Une icône du roi de Hallownest, vénéré à la fois comme dieu et comme souverain. Fabriqués dans un matériau blanc mystérieux, ils sont rares et très précieux.", 2)
+        oeuf_arcanique = Item("œuf arcanique", "Cela semble être un simple œuf, mais c’est en réalité une relique précieuse d’avant la naissance de Hallownest !", 2)
 
+        # Placing items in rooms
+        howling_cliffs.inventory[journal_vagabond.name] = journal_vagabond
+
+        dirtmouth.inventory[lanterne.name] = lanterne
+
+        greenpath.inventory[sceau_hallownest.name] = sceau_hallownest
+
+        forgotten_crossroads.inventory[sceau_hallownest.name] = sceau_hallownest
+
+        crystal_peak.inventory[minerai_pale.name] = minerai_pale
+        crystal_peak.inventory[cle_marchand.name] = cle_marchand
+        crystal_peak.inventory[journal_vagabond.name] = journal_vagabond
+    
+        fungal_wastes.inventory[sceau_hallownest.name] = sceau_hallownest
+        
+        deepnest.inventory[oeuf_arcanique.name] = oeuf_arcanique
+        deepnest.inventory[minerai_pale.name] = minerai_pale
+
+        fog_canyon.inventory[trampass.name] = trampass
+        fog_canyon.inventory[journal_vagabond.name] = journal_vagabond
+        
+        city_of_tears.inventory[idole_roi.name] = idole_roi
+
+        mantis_village.inventory[idole_roi.name] = idole_roi
+        mantis_village.inventory[blason_ville.name] = blason_ville
 
         #Setup PNJ
 
