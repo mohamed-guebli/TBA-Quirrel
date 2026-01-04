@@ -165,6 +165,7 @@ class Actions:
 
             # Affichage inventaire de la pièce
             print(room.get_inventory())
+            print(room.get_characters(game.characters))
             return True
             
 

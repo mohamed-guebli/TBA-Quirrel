@@ -17,6 +17,7 @@ class Game:
         self.finished = False
         self.rooms = []
         self.commands = {}
+        self.characters = []
         self.player = None
     
     # Setup the game
@@ -45,29 +46,29 @@ class Game:
 
         # Setup rooms
 
-        howling_cliffs = Room("Howling Cliffs", ".")
+        howling_cliffs = Room("Howling Cliffs", "non loin des frontières du royaume située au nord-ouest. Les falaises hurlantes n'ont pas l'air peuplées du tout.")
         self.rooms.append(howling_cliffs)
-        dirtmouth = Room("Dirtmouth", ".")
+        dirtmouth = Room("Dirtmouth", "dans un petit village presque abandonné, nommé Dirtmouth. Il y a quand même un peu de lumière et de vie cependant. (Une des maisons semble être une sorte de magasin mais il est actuellement fermé)")
         self.rooms.append(dirtmouth)
-        crystal_peak = Room("Crystal Peak", ".")
+        crystal_peak = Room("Crystal Peak", "à une certaine hauteur, dans un lieu scintillant prénommé Mont Cristal. De nombreuses mines ont été creusées dans la falaise pour obtenir les précieux cristaux roses.")
         self.rooms.append(crystal_peak)
-        greenpath = Room("Greenpath", ".")
+        greenpath = Room("Greenpath", "à Vertchemin, un lieu dont la végétation luxuriante et les insectes recouverts de feuillage en font un endroit splendide. On trouve également des flaques d'acides brûlant et une épaisse prolifération rendant la navigation difficile.")
         self.rooms.append(greenpath)
-        forgotten_crossroads = Room("Forgotten Crossroads", ".")
+        forgotten_crossroads = Room("Forgotten Crossroads", "au beau milieu des Routes Oubliées, situé sous le village de Dirtmouth. Elles permettaient autrefois de rejoindre de nombreuses autres régions du royaume.")
         self.rooms.append(forgotten_crossroads)
-        temple_black_egg = Room("Temple of the Black Egg", ".")
+        temple_black_egg = Room("Temple of the Black Egg", "en face du Temple de l'Œuf Noir, on peut y entendre que quelque chose crie depuis l'intérieur et qu'un évènement risque de déterminer l'avenir du royaume.")
         self.rooms.append(temple_black_egg)
-        blue_lake = Room("Blue Lake", "test")
+        blue_lake = Room("Blue Lake", "en face d'un lac bleu. Celui ci semble inoffensif et reposant à un tel point que l'on souhaiterait rester en face jusqu'à l'écroulement d'Hallownest.")
         self.rooms.append(blue_lake)
-        fog_canyon = Room("Fog Canyon", ".")
+        fog_canyon = Room("Fog Canyon", "dans Brumes Canyon, un endroit effervescent et gélatineux de part les méduses qui y habitent. Cependant, gare à vous car les méduses peuvent exploser au contact d'une paroi tout comme leur nid. Une énorme structure s'y trouve.")
         self.rooms.append(fog_canyon)
-        fungal_wastes = Room("Fungal Wastes", ".")
+        fungal_wastes = Room("Fungal Wastes", "dans la Caverne Nocive qui est une zone humide et recouverte de champignons de toutes les sortes. En plus de cela, des flaques d'acide caustiques sont abondantes dans toute la région.")
         self.rooms.append(fungal_wastes)
-        city_of_tears = Room("City Of Tears", ".")
+        city_of_tears = Room("City Of Tears", "dans la Cité des Larmes. C'était la capitale d'Hallownest. Elle est couverte d'une pluie perpétuelle qui provient du plafond qui la surplombe étant donné qu'elle est située en dessous du Lac Bleu. Son nom original a été perdu dans l'histoire. En plein centre de la Cité se trouve la place de la Fontaine, où se trouve la fontaine commémorative du Hollow Knight.")
         self.rooms.append(city_of_tears)
-        mantis_village = Room("Mantis Village",".")
+        mantis_village = Room("Mantis Village","dans le Village des Mantes. Un endroit où l'honneur et la souveraineté ne sont pas ceux du royaume d'Hallownest. Un pacte a été effectué pour qu'elle conserve la souveraineté sur leur domaine en échange de garder à distance les horribles bêtes du Nid Profond. Un village de guerriers et de guerrières qui défendent leur territoire au péril de leur vie !")
         self.rooms.append(mantis_village)
-        deepnest = Room("Deepnest", ".",dark=True)
+        deepnest = Room("Deepnest", "dans le Nid Profond. Son environnement lugubre et sombre, jonché d'épaisses couches de toile d'araignées, peut en faire fuir beaucoup. Malgré tout, des traces d'anciennes civilisations sont présentes, ce qui en fait un lieu riche en histoire.",dark=True)
         self.rooms.append(deepnest)
 
         # Create exits for rooms
@@ -100,7 +101,7 @@ class Game:
         idole_roi_1 = Item("idole du roi 1", "Une icône du roi de Hallownest, vénéré à la fois comme dieu et comme souverain. Fabriqués dans un matériau blanc mystérieux, ils sont rares et très précieux.", 2)
         idole_roi_2 = Item("idole du roi 2", "Une icône du roi de Hallownest, vénéré à la fois comme dieu et comme souverain. Fabriqués dans un matériau blanc mystérieux, ils sont rares et très précieux.", 2)
         blason_ville = Item("blason de la ville", "dalle de pierre arborant le blason de la capitale d'Hallownest.", 1)
-        masque_erudit = Item("masque erudit", "Un masque ancien qui augmente votre sagesse.", 1)
+        masque_erudit = Item("masque de l'erudit", "Un masque ancien qui augmente votre sagesse.", 1)
         oeuf_arcanique = Item("oeuf arcanique", "Cela semble être un simple oeuf, mais c’est en réalité une relique précieuse d’avant la naissance de Hallownest !", 2)
 
         howling_cliffs.inventory[journal_vagabond_1.name] = journal_vagabond_1
@@ -130,11 +131,11 @@ class Game:
         #Setup PNJ
 
         sly = Character("Sly","Un marchand qui semble s'y connaitre dans l'art de l'aiguillon", forgotten_crossroads, ["Donne l'argent là"])
-        forgotten_crossroads.characters[sly.name] = sly
+        self.characters.append(sly)
         
         # Setup player and starting room
 
-        self.player = Player(input("\nEntrez votre nom: "))
+        self.player = Player("Quirrel")
         self.player.current_room = howling_cliffs
 
         #item de départ dans l'inventaire du joueur
@@ -183,10 +184,14 @@ class Game:
 
     # Print the welcome message
     def print_welcome(self):
-        print(f"\nBienvenue {self.player.name} dans ce jeu d'aventure !")
+        print(f"\nVous incarnerez {self.player.name}, un insecte amnésique provenant d'une contrée lointaine.\nCependant, votre masque, le masque de l'érudit, vous a guidé jusqu'au royaume mourant d'Hallownest. Est-ce une coïncidence ?")
         print("Entrez 'help' si vous avez besoin d'aide.")
         #
         print(self.player.current_room.get_long_description())
+
+    def get_characters_in_room(self, room):
+        return [c for c in self.characters if c.current_room == room]
+
     
 
 def main():

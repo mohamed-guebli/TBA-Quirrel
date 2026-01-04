@@ -57,7 +57,7 @@ class Room:
 
     # Return a long description of this room including exits.
     def get_long_description(self):
-        return f"\nVous êtes {self.description}\n\n{self.get_exit_string()}\n"
+        return f"\nQuirrel se trouve {self.description}\n\n{self.get_exit_string()}\n"
 
     def get_inventory(self):
         if not self.inventory:
@@ -67,4 +67,15 @@ class Room:
         for item in self.inventory.values():
             inv += f"    - {item}\n"
         return inv
+    def get_characters(self, characters):
+
+        present = [c for c in characters if c.current_room == self]
+
+        if not present:
+            return "\nIl n'y a personne ici.\n"
+
+        txt = "\nVous voyez ici :\n"
+        for c in present:
+            txt += f"    - {c}\n"
+        return txt
 
