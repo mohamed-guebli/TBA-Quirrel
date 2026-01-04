@@ -8,6 +8,7 @@ from command import Command
 from actions import Actions
 from item import Item
 from character import Character
+from door import Door
 
 class Game:
 
