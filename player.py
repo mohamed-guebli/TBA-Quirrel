@@ -79,6 +79,7 @@ class Player():
             total += item.weight
         return total
 
-
-
+    # pour détecter si le joueur possède un item
+    def has_item(self, item_name):
+        return item_name in self.inventory
     

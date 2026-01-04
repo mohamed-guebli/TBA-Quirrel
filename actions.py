@@ -133,6 +133,13 @@ class Actions:
                 return False
             
             room = game.player.current_room
+
+            # gestion pièce sombre
+            if room.dark and not game.player.has_item("lanterne"):
+                print("\nIl fait trop sombre pour voir quoi que ce soit ici... Il vous faut une lanterne.\n")
+                return True
+
+            # Affichage inventaire de la pièce
             print(room.get_inventory())
             return True
             

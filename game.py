@@ -66,7 +66,7 @@ class Game:
         self.rooms.append(city_of_tears)
         mantis_village = Room("Mantis Village",".")
         self.rooms.append(mantis_village)
-        deepnest = Room("Deepnest", ".")
+        deepnest = Room("Deepnest", ".",dark=True)
         self.rooms.append(deepnest)
 
         # Create exits for rooms
