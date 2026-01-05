@@ -43,6 +43,8 @@ class Game:
         self.commands["drop"] = drop
         check = Command("check", " : vérifier l'inventaire du joueur", Actions.check, 0)
         self.commands["check"] = check
+        talk = Command("talk"," : parler à un PNJ", Actions.talk, 1)
+        self.commands["talk"] = talk
 
         # Setup rooms
 
@@ -189,7 +191,8 @@ class Game:
         #
         print(self.player.current_room.get_long_description())
 
-    def get_characters_in_room(self, room):
+    def get_characters_in_room(self):
+        room = self.player.current_room
         return [c for c in self.characters if c.current_room == room]
 
     

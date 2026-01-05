@@ -34,3 +34,10 @@ class Character:
         else:
             #Les PNJ ne se déplacent pas
             return False
+        
+    def get_msg(self):
+        if not self.msgs :
+            return "..."
+        msg = self.msgs.pop(0)
+        self.msgs.append(msg)
+        return msg

@@ -303,4 +303,35 @@ class Actions:
         print()
         return True
     
+    def talk(game, list_of_words, number_of_parameters):
+
+        characters_here = game.get_characters_in_room()
+
+        # talk
+        if len(list_of_words) == 1:
+            if not characters_here:
+                print("\nÀ part le mur, il n'y a personne à qui parler.\n")
+            else:
+                print("\nVous pouvez parler à :")
+                for c in characters_here:
+                    print(f"    - {c.name}")
+                print()
+            return True
+
+        # talk <nom>
+        if len(list_of_words) == 2:
+            name = list_of_words[1].lower()
+
+            for c in characters_here:
+                if c.name.lower() == name:
+                    print("\n" + c.get_msg() + "\n")
+                    return True
+
+            print("\nCette personne n'est pas ici.\n")
+            return True
+
+        print("\nParler à qui exactement ?\n")
+        return False
+
+
     
