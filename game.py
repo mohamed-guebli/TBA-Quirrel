@@ -131,10 +131,40 @@ class Game:
         deepnest.inventory[oeuf_arcanique.name] = oeuf_arcanique
 
         #Setup PNJ
+            #pnj pacifique
 
         sly = Character("Sly","Un marchand qui semble s'y connaitre dans l'art de l'aiguillon", forgotten_crossroads, ["Donne l'argent là"])
         self.characters.append(sly)
+        lemm = Character("Lemm","Un chercheur de reliques passionné par l'histoire du royaume", city_of_tears, ["ez les reliques"])
+        self.characters.append(lemm)
+        forgeron = Character("Forgeron","A faire", fungal_wastes, ["a faire"])
+        self.characters.append(forgeron)
+        elderbug = Character("Elderbug","A faire", dirtmouth, ["a faire"])
+        self.characters.append(elderbug)
+        monomon = Character("Monomon l'erudit","A faire", fog_canyon, ["a faire"])
+        self.characters.append(monomon)
+        sheo = Character("Sheo","A faire", deepnest, ["a faire"])
+        self.characters.append(sheo)
+        oro = Character("Oro","A faire", crystal_peak, ["a faire"])
+        self.characters.append(oro)
+        mato = Character("Mato","A faire", blue_lake, ["a faire"])
+        self.characters.append(mato)
+
+            #pnj hostile
         
+        uumuu = Character("Uumuu","A faire", fog_canyon, ["a faire"])
+        self.characters.append(uumuu)
+        hollow_knight = Character("Le Hollow Knight","A faire", fungal_wastes, ["a faire"])
+        self.characters.append(hollow_knight)
+        soul_master = Character("Le Maitre de l'ame","A faire", fungal_wastes, ["a faire"])
+        self.characters.append(soul_master)
+        hornet = Character("Hornet","A faire", greenpath, ["a faire"])
+        self.characters.append(hornet)
+        mantis_lord = Character("Dames Mantes","A faire", mantis_village, ["a faire"])
+        self.characters.append(mantis_lord)
+
+
+
         # Setup player and starting room
 
         self.player = Player("Quirrel")
