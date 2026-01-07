@@ -334,4 +334,53 @@ class Actions:
         return False
 
 
+    #La commande pour "combattre"
+    def fight(game, list_of_words, number_of_parameters):
+        player_in_room = game.player.current_room
+
+        # les ennemis hostiles sont présent ?
+        ennemis = [c for c in game.characters
+                   if c.current_room == player_in_room and c.hostile and not c.defeated]
+        
+        # quand on ecrit fight sans argument
+        if len(list_of_words) == 1:
+            if not ennemis:
+                print("\nA part le mur, il n'y a personne à combattre ici.\n")
+                return True
+            
+            print("\nVous pouvez combattre :")
+            for e in ennemis:
+                print(f"    - {e.name} (niveau {e.level})")
+            return True
+        
+        # quand on fait fight [nom de l'ennemi]
+        target_name = list_of_words[1].lower()
+        target = next ((e for e in ennemis if e.name.lower() == target_name), None)
+
+        if not target:
+            print("\nQuirrel n'aperçoit aucun ennemi de ce nom ici.\n")
+            return True
+        
+        Actions.resolve_fight(game.player,target)
+        return True
     
+    # Le combat n'est pas une mécanique qui nécessite au joueur d'effectuer des actions
+    # dans notre jeu, c'est une porte qu'il faut enfoncer pour progresser dans l'histoire
+
+    def resolve_fight(player, enemy):
+        print(f"\nQuirrel affronte {enemy.name}...\n")
+
+        if enemy.level > player.level:
+            player.die()
+            return
+        
+        print(f"Quirrel a vaincu d'un coup précis d'aiguillon {enemy.name}.")
+
+        if enemy.is_boss:
+            if enemy.defeated:
+                print("Ce boss a déjà été vaincu.")
+                return
+            
+            enemy.defeated = True
+            player.level += 1
+            print (f"\nQuirrel s'est amélioré dans l'art de l'aiguillon grâce à ce combat !\nSon niveau augmente ! Niveau actuel : {player.level}\n")

@@ -45,6 +45,8 @@ class Game:
         self.commands["check"] = check
         talk = Command("talk"," : parler à un PNJ", Actions.talk, 1)
         self.commands["talk"] = talk
+        fight = Command("fight"," : combattre un ennemi", Actions.fight, 1)
+        self.commands["fight"] = fight
 
         # Setup rooms
 
@@ -133,34 +135,34 @@ class Game:
         #Setup PNJ
             #pnj pacifique
 
-        sly = Character("Sly","Un marchand qui semble s'y connaitre dans l'art de l'aiguillon", forgotten_crossroads, ["Donne l'argent là"])
+        sly = Character("Sly","Un marchand qui semble s'y connaitre dans l'art de l'aiguillon", forgotten_crossroads, ["Donne l'argent là"],level=999,hostile=False,is_boss=False)
         self.characters.append(sly)
-        lemm = Character("Lemm","Un chercheur de reliques passionné par l'histoire du royaume", city_of_tears, ["ez les reliques"])
+        lemm = Character("Lemm","Un chercheur de reliques passionné par l'histoire du royaume", city_of_tears, ["ez les reliques"],level=999,hostile=False,is_boss=False)
         self.characters.append(lemm)
-        forgeron = Character("Forgeron","A faire", fungal_wastes, ["a faire"])
+        forgeron = Character("Forgeron","A faire", fungal_wastes, ["a faire"],level=999,hostile=False,is_boss=False)
         self.characters.append(forgeron)
-        elderbug = Character("Elderbug","A faire", dirtmouth, ["a faire"])
+        elderbug = Character("Elderbug","A faire", dirtmouth, ["a faire"],level=999,hostile=False,is_boss=False)
         self.characters.append(elderbug)
-        monomon = Character("Monomon l'erudit","A faire", fog_canyon, ["a faire"])
+        monomon = Character("Monomon l'erudit","A faire", fog_canyon, ["a faire"],level=999,hostile=False,is_boss=False)
         self.characters.append(monomon)
-        sheo = Character("Sheo","A faire", deepnest, ["a faire"])
+        sheo = Character("Sheo","A faire", deepnest, ["a faire"],level=999,hostile=False,is_boss=False)
         self.characters.append(sheo)
-        oro = Character("Oro","A faire", crystal_peak, ["a faire"])
+        oro = Character("Oro","A faire", crystal_peak, ["a faire"],level=999,hostile=False,is_boss=False)
         self.characters.append(oro)
-        mato = Character("Mato","A faire", blue_lake, ["a faire"])
+        mato = Character("Mato","A faire", blue_lake, ["a faire"],level=999,hostile=False,is_boss=False)
         self.characters.append(mato)
 
             #pnj hostile
         
-        uumuu = Character("Uumuu","A faire", fog_canyon, ["a faire"])
+        uumuu = Character("Uumuu","A faire", fog_canyon, ["a faire"], level=1,hostile=True,is_boss=True)
         self.characters.append(uumuu)
-        hollow_knight = Character("Le Hollow Knight","A faire", fungal_wastes, ["a faire"])
+        hollow_knight = Character("Le Hollow Knight","A faire", temple_black_egg, ["a faire"], level=1,hostile=True,is_boss=True)
         self.characters.append(hollow_knight)
-        soul_master = Character("Le Maitre de l'ame","A faire", fungal_wastes, ["a faire"])
+        soul_master = Character("Le Maitre de l'ame","A faire", city_of_tears, ["a faire"], level=1,hostile=True,is_boss=True)
         self.characters.append(soul_master)
-        hornet = Character("Hornet","A faire", greenpath, ["a faire"])
+        hornet = Character("Hornet","A faire", greenpath, ["a faire"], level=1,hostile=True,is_boss=True)
         self.characters.append(hornet)
-        mantis_lord = Character("Dames Mantes","A faire", mantis_village, ["a faire"])
+        mantis_lord = Character("Dames Mantes","A faire", mantis_village, ["a faire"], level=1,hostile=True,is_boss=True)
         self.characters.append(mantis_lord)
 
 

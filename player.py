@@ -37,6 +37,8 @@ class Player():
         self.inventory = {}
     # on peut aussi ajouter max_weight si on veut s'en servir
         self.max_weight = 10  # poids max en kg
+        self.level = 1
+        self.alive = True
 
     
     # Define the move method.
@@ -83,3 +85,8 @@ class Player():
     def has_item(self, item_name):
         return item_name in self.inventory
     
+    #fonction de la mort qui tue
+    def die(self):
+        print("Vous êtes mort...\n Quirrel, le royaume d'Hallownest a besoin de vous...\n")
+        self.alive = False
+        exit()

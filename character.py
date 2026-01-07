@@ -4,11 +4,15 @@ class Character:
     """"""
     """"""
 
-    def __init__(self, name : str, description : str, current_room : str, msgs : list):
+    def __init__(self, name : str, description : str, current_room : str, msgs : list, level: int = 1, hostile: bool = False, is_boss: bool = False):
         self.name = name
         self.description = description
         self.current_room = current_room
         self.msgs = msgs
+        self.level = level
+        self.hostile = hostile
+        self.is_boss = is_boss
+        self.defeated = False
     
     def __str__(self):
         return f"{self.name} : {self.description}"
