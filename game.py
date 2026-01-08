@@ -254,6 +254,7 @@ class Game:
         self.player.quest_manager.add_quest(quest_oeuf)
         self.player.quest_manager.add_quest(quest_minerais)
     
+
     # Play the game
     def play(self):
         self.setup()
@@ -299,8 +300,22 @@ class Game:
         room = self.player.current_room
         return [c for c in self.characters if c.current_room == room]
     
+    def win(self):
+        """
+        Retourne True si le joueur a complété toutes les quetes.
+        """
+        for quest in self.player.quest_manager.quests:
+            if not quest.completed:
+                return False
+        return True
 
-    
+    def loose(self):
+        """
+        Retourne True si le joueur est mort.
+        """
+        if self.player.current_room.name == "Deepnest" and not self.player.has_item("lanterne"):
+            return True
+        return False
 
 def main():
     # Create a game object and play the game
