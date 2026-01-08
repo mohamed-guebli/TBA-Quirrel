@@ -222,25 +222,37 @@ class Game:
         quest_freres = Quest(
             title="les trois frères d'aiguillon",
             description="Trouvez les trois frères et parlez-leur pour progresser dans l'art de l'aiguillon.",
-            objectives=["trouver les trois frères d'aiguillon",
-                        "échanger avec les trois frères."],
+            objectives=["trouver Sheo, Oro et Mato",
+                        "s'entrainer avec les trois frères."],
             reward="Maîtrise de l'aiguillon augmentée"
         )
 
         # Quête d'item : l'oeuf arcanique (Lemm)
         quest_oeuf = Quest(
             title="oeuf arcanique",
-            description="Lemm est à la recherche d'une relique précieuse. Trouvez l'œuf arcanique caché dans les profondeurs et apportez-le lui.",
+            description="Lemm est à la recherche d'une relique précieuse : un oeuf arcanique caché dans les profondeurs.",
             objectives=["prendre oeuf arcanique",
                         "parler à Lemm"],
-            reward="Connaissances anciennes révélées"
+            reward="Connaissances du Roi Pale"
         )
 
-        # Add quests to player's quest manager
-        self.player.quest_manager.add_quest(exploration_quest)
-        self.player.quest_manager.add_quest(travel_quest)
-        self.player.quest_manager.add_quest(discovery_quest)
+        # Quête d'item : minerais pales (Forgeron)
+        quest_minerais = Quest(
+            title="minerais pales",
+            description="Trouvez les minerais pales dans les profondeurs et apportez-les au forgeron.",
+            objectives=["prendre minerai pale 1",
+                        "prendre minerai pale 2",
+                        "parler à Forgeron"],
+            reward="Arme améliorée"
+        )
 
+
+        # Add quests to player's quest manager
+        self.player.quest_manager.add_quest(quest_cle)
+        self.player.quest_manager.add_quest(quest_monomon)
+        self.player.quest_manager.add_quest(quest_freres)
+        self.player.quest_manager.add_quest(quest_oeuf)
+        self.player.quest_manager.add_quest(quest_minerais)
     
     # Play the game
     def play(self):
