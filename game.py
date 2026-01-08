@@ -9,6 +9,7 @@ from actions import Actions
 from item import Item
 from character import Character
 from door import Door
+from quest import Quest 
 
 class Game:
 
@@ -47,7 +48,22 @@ class Game:
         self.commands["talk"] = talk
         fight = Command("fight"," : combattre un ennemi", Actions.fight, 1)
         self.commands["fight"] = fight
-
+        self.commands["quests"] = Command("quests"
+                                          , " : afficher la liste des quêtes"
+                                          , Actions.quests
+                                          , 0)
+        self.commands["quest"] = Command("quest"
+                                         , " <titre> : afficher les détails d'une quête"
+                                         , Actions.quest
+                                         , 1)
+        self.commands["activate"] = Command("activate"
+                                            , " <titre> : activer une quête"
+                                            , Actions.activate
+                                            , 1)
+        self.commands["rewards"] = Command("rewards"
+                                           , " : afficher vos récompenses"
+                                           , Actions.rewards
+                                           , 0)
         # Setup rooms
 
         howling_cliffs = Room("Howling Cliffs", "non loin des frontières du royaume située au nord-ouest. Les falaises hurlantes n'ont pas l'air peuplées du tout.")
@@ -182,6 +198,50 @@ class Game:
         self.direction_west = {'Gauche','GAUCHE','gauche','G','g','Ouest','OUEST','ouest','O','o'}
         self.direction_east = {'Droite','DROITE','droite','D','d','EST','Est','est','e','E'}
 
+    def _setup_quests(self):
+        """Initialize all quests."""
+        #Quête d'item : récupérer la clé du marchand
+        quest_cle = Quest(
+            title="clé du marchand",
+            description="Sly a perdu sa clé. Retrouvez-la au sommet du royaume.",
+            objectives=["prendre cle du marchand"],
+            reward="Boutique de Sly débloquée"
+        )
+
+        #Quête déplacement,combat, intéraction : Uumuu et Monomon (good ending)
+        quest_monomon = Quest(
+            title="débloquer Monomon",
+            description="Atteignez Fog Canyon, vianquez Uumuu et parlez à Monomon.",
+            objectives=["Visiter Fog Canyon",
+                        "Combattre Uumuu",
+                        "Parler Monomon l'erudit"],
+            reward="Personnage de Monomon débloquée"
+        )
+
+        # Quête intéraction : s'entraîner chez les 3 frères
+        quest_freres = Quest(
+            title="les trois frères d'aiguillon",
+            description="Trouvez les trois frères et parlez-leur pour progresser dans l'art de l'aiguillon.",
+            objectives=["trouver les trois frères d'aiguillon",
+                        "échanger avec les trois frères."],
+            reward="Maîtrise de l'aiguillon augmentée"
+        )
+
+        # Quête d'item : l'oeuf arcanique (Lemm)
+        quest_oeuf = Quest(
+            title="oeuf arcanique",
+            description="Lemm est à la recherche d'une relique précieuse. Trouvez l'œuf arcanique caché dans les profondeurs et apportez-le lui.",
+            objectives=["prendre oeuf arcanique",
+                        "parler à Lemm"],
+            reward="Connaissances anciennes révélées"
+        )
+
+        # Add quests to player's quest manager
+        self.player.quest_manager.add_quest(exploration_quest)
+        self.player.quest_manager.add_quest(travel_quest)
+        self.player.quest_manager.add_quest(discovery_quest)
+
+    
     # Play the game
     def play(self):
         self.setup()
@@ -226,6 +286,7 @@ class Game:
     def get_characters_in_room(self):
         room = self.player.current_room
         return [c for c in self.characters if c.current_room == room]
+    
 
     
 
