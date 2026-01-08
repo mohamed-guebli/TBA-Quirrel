@@ -384,6 +384,7 @@ class Actions:
                 return
             
             enemy.defeated = True
+            player.quest_manager.check_action_objectives("vaincre", enemy.name)
             player.level += 1
             print (f"\nQuirrel s'est amélioré dans l'art de l'aiguillon grâce à ce combat !\nSon niveau augmente ! Niveau actuel : {player.level}\n")
 
