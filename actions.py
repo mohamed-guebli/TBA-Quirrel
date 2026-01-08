@@ -203,6 +203,7 @@ class Actions:
         player.inventory[item_name] = item
 
         print(f"\nVous avez pris l'objet '{item_name}'.\n")
+        player.quest_manager.check_action_objectives("prendre",item_name)
         return True        
 
     def drop(game, list_of_words, number_of_parameters):
@@ -319,12 +320,13 @@ class Actions:
             return True
 
         # talk <nom>
-        if len(list_of_words) == 2:
-            name = list_of_words[1].lower()
+        if len(list_of_words) >= 2:
+            name = " ".join(list_of_words[1:]).lower()
 
             for c in characters_here:
                 if c.name.lower() == name:
                     print("\n" + c.get_msg() + "\n")
+                    game.player.quest_manager.check_action_objectives("parler",c.name)
                     return True
 
             print("\nCette personne n'est pas ici.\n")

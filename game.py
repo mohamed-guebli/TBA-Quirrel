@@ -263,6 +263,14 @@ class Game:
         while not self.finished:
             # Get the command from the player
             self.process_command(input("> "))
+            
+            if self.loose():
+                print("\nVous êtes mort... Deepnest était trop dangereux sans lanterne.\n")
+                self.finished = True
+            
+            if self.win():
+                print("\nFélicitations ! Vous avez complété toutes les quêtes et sauvé le royaume d'Hallownest !\n")
+                self.finished = True
         return None
 
     # Process the command entered by the player
