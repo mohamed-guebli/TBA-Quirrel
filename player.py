@@ -37,8 +37,7 @@ class Player():
         self.current_room = None
         self.history = []
         self.inventory = {}
-    # on peut aussi ajouter max_weight si on veut s'en servir
-        self.max_weight = 10  # poids max en kg
+        self.geos = 0
         self.level = 1
         self.alive = True
         self.move_count = 0
@@ -133,19 +132,18 @@ class Player():
             print(f"    - {room.name}")
 
     def get_inventory(self):
+        inv = f"\n💰 Geos : {self.geos}\n"
+
         if not self.inventory:
-            return "\nVotre inventaire est vide.\n"
-        
-        inv = "\nVous disposez des items suivants :\n"
+            inv += "\nVotre inventaire est vide.\n"
+            return inv
+
+        inv += "\nVous disposez des items suivants :\n"
         for item in self.inventory.values():
             inv += f"    - {item}\n"
+
         return inv
     
-    def get_total_weight(self):
-        total = 0
-        for item in self.inventory.values():
-            total += item.weight
-        return total
 
     # pour détecter si le joueur possède un item
     def has_item(self, item_name):

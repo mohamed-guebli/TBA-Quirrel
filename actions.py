@@ -356,7 +356,7 @@ class Actions:
             return True
         
         # quand on fait fight [nom de l'ennemi]
-        target_name = list_of_words[1].lower()
+        target_name = " ".join(list_of_words[1:]).lower()
         target = next ((e for e in ennemis if e.name.lower() == target_name), None)
 
         if not target:

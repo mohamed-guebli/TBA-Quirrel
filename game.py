@@ -151,23 +151,23 @@ class Game:
         #Setup PNJ
             #pnj pacifique
 
-        sly = Character("Sly","Un marchand qui semble s'y connaitre dans l'art de l'aiguillon", forgotten_crossroads, ["Donne l'argent là"],level=999,hostile=False,is_boss=False)
+        sly = Character("Sly","Un marchand qui semble s'y connaitre dans l'art de l'aiguillon", forgotten_crossroads, ["Donne l'argent là"], merchant=True)
         self.characters.append(sly)
-        lemm = Character("Lemm","Un chercheur de reliques passionné par l'histoire du royaume", city_of_tears, ["ez les reliques"],level=999,hostile=False,is_boss=False)
+        lemm = Character("Lemm","Un chercheur de reliques passionné par l'histoire du royaume", city_of_tears, ["ez les reliques"], merchant=True)
         self.characters.append(lemm)
-        forgeron = Character("Forgeron","A faire", fungal_wastes, ["a faire"],level=999,hostile=False,is_boss=False)
+        forgeron = Character("Forgeron","A faire", fungal_wastes, ["a faire"])
         self.characters.append(forgeron)
-        elderbug = Character("Elderbug","A faire", dirtmouth, ["a faire"],level=999,hostile=False,is_boss=False)
+        elderbug = Character("Elderbug","A faire", dirtmouth, ["a faire"])
         self.characters.append(elderbug)
-        monomon = Character("Monomon l'erudit","A faire", fog_canyon, ["a faire"],level=999,hostile=False,is_boss=False)
+        monomon = Character("Monomon l'erudit","A faire", fog_canyon, ["a faire"])
         self.characters.append(monomon)
-        sheo = Character("Sheo","A faire", deepnest, ["a faire"],level=999,hostile=False,is_boss=False)
+        sheo = Character("Sheo","A faire", deepnest, ["a faire"])
         self.characters.append(sheo)
-        oro = Character("Oro","A faire", crystal_peak, ["a faire"],level=999,hostile=False,is_boss=False)
+        oro = Character("Oro","A faire", crystal_peak, ["a faire"])
         self.characters.append(oro)
-        mato = Character("Mato","A faire", blue_lake, ["a faire"],level=999,hostile=False,is_boss=False)
+        mato = Character("Mato","A faire", blue_lake, ["a faire"])
         self.characters.append(mato)
-        zote = Character("Zote", "A faire", dirtmouth, ["a faire"],level=999,hostile=False,is_boss=False)
+        zote = Character("Zote", "A faire", dirtmouth, ["a faire"])
         self.characters.append(zote)
 
             #pnj hostile
@@ -314,10 +314,10 @@ class Game:
         """
         Retourne True si le joueur a complété toutes les quetes.
         """
-        for quest in self.player.quest_manager.quests:
-            if not quest.completed:
-                return False
-        return True
+        #for quest in self.player.quest_manager.quests:
+        #    if not quest.completed:
+        #        return False
+        #return True
 
     def loose(self):
         """
