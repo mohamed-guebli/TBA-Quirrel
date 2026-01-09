@@ -167,6 +167,8 @@ class Game:
         self.characters.append(oro)
         mato = Character("Mato","A faire", blue_lake, ["a faire"],level=999,hostile=False,is_boss=False)
         self.characters.append(mato)
+        zote = Character("Zote", "A faire", dirtmouth, ["a faire"],level=999,hostile=False,is_boss=False)
+        self.characters.append(zote)
 
             #pnj hostile
         
