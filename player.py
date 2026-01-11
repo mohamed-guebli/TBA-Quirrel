@@ -153,4 +153,3 @@ class Player():
     def die(self):
         print("Vous êtes mort...\n Quirrel, le royaume d'Hallownest a besoin de vous...\n")
         self.alive = False
-        exit()

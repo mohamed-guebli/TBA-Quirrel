@@ -102,7 +102,7 @@ class Game:
         dirtmouth.exits = {"Up" : None, "E" : crystal_peak, "Down" : forgotten_crossroads, "O" : howling_cliffs}
         crystal_peak.exits = {"Up" : None, "E" : None, "Down" : None, "O" : dirtmouth}
         greenpath.exits = {"Up" : howling_cliffs, "E" : forgotten_crossroads, "Down" : fog_canyon, "O" : None}
-        forgotten_crossroads.exits = {"Up" : dirtmouth, "E" : temple_black_egg, "Down" : fungal_wastes, "O" : greenpath}
+        forgotten_crossroads.exits = {"Up" : dirtmouth, "E" : Door(temple_black_egg,locked=True), "Down" : fungal_wastes, "O" : greenpath}
         temple_black_egg.exits = {"Up" : None, "E" : None, "Down" : None, "O" : forgotten_crossroads}
         blue_lake.exits = {"Up" : crystal_peak, "E" : None, "Down" : None, "O" : None}
         fog_canyon.exits = {"Up" : greenpath, "E" : fungal_wastes, "Down" : None, "O" : None}
@@ -197,6 +197,9 @@ class Game:
         #item de départ dans l'inventaire du joueur
         self.player.inventory[masque_erudit.name] = masque_erudit
 
+        # Setup quests
+        self._setup_quests()
+
         # Gestion directions et directions inconnues
 
         self.direction_up = {'Haut', 'HAUT','haut','H','h','UP', 'U','Up','up','u'}
@@ -260,6 +263,19 @@ class Game:
         self.player.quest_manager.add_quest(quest_oeuf)
         self.player.quest_manager.add_quest(quest_minerais)
     
+    #débloquer la porte de Temple of the Black Egg si toutes les quetes sont complétées
+    def unlock_temple_black_egg(self):
+        for room in self.rooms:
+            for direction, exit_room in room.exits.items():
+                if isinstance(exit_room, Door):
+                    if exit_room.destination.name == "Temple of the Black Egg": 
+                        for quest in self.player.quest_manager.quests:
+                            if not quest.completed:
+                                return False
+                        exit_room.locked = False
+                        print("\nLa porte du Temple de l'Œuf Noir s'est déverrouillée !\n")
+                        return True
+        return False    
 
     # Play the game
     def play(self):
@@ -271,7 +287,7 @@ class Game:
             self.process_command(input("> "))
             
             if self.loose():
-                print("\nVous êtes mort... Deepnest était trop dangereux sans lanterne.\n")
+                print("\nVous êtes mort... Quirrel a été vaincu.\n")
                 self.finished = True
             
             if self.win():
@@ -316,20 +332,18 @@ class Game:
     
     def win(self):
         """
-        Retourne True si le joueur a complété toutes les quetes.
+        Retourne True si Le Hollow Knight a été vaincu.
         """
-        #for quest in self.player.quest_manager.quests:
-        #    if not quest.completed:
-        #        return False
-        #return True
+        for c in self.characters:
+            if c.name == "Le Hollow Knight":
+                return c.de
+        return False
 
     def loose(self):
         """
-        Retourne True si le joueur est mort.
+        Retourne True si le joueur est mort(perdre un combat contre un ennemi plus fort).
         """
-        if self.player.current_room.name == "Deepnest" and not self.player.has_item("lanterne"):
-            return True
-        return False
+        return not self.player.alive
 
 def main():
     # Create a game object and play the game
