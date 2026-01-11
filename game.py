@@ -64,6 +64,8 @@ class Game:
                                            , " : afficher vos récompenses"
                                            , Actions.rewards
                                            , 0)
+        sell = Command("sell", " : vendre un objet", Actions.sell, 0)
+        self.commands["sell"] = sell
         # Setup rooms
 
         howling_cliffs = Room("Howling Cliffs", "non loin des frontières du royaume située au nord-ouest. Les falaises hurlantes n'ont pas l'air peuplées du tout.")
@@ -103,26 +105,26 @@ class Game:
         fog_canyon.exits = {"Up" : greenpath, "E" : fungal_wastes, "Down" : None, "O" : None}
         fungal_wastes.exits = {"Up" : forgotten_crossroads, "E" : Door(city_of_tears, locked=True, key= "blason de la ville"), "Down" : mantis_village, "O" : fog_canyon}
         city_of_tears.exits = {"Up" : None, "E" : None, "Down" : None, "O" : None}
-        mantis_village.exits = {"Up" : forgotten_crossroads, "E" : None, "Down" : deepnest, "O" : None}
+        mantis_village.exits = {"Up" : fungal_wastes, "E" : None, "Down" : deepnest, "O" : None}
         deepnest.exits = {"Up" : mantis_village, "E" : None, "Down" : None, "O" : None}
 
         #create items for rooms
-        journal_vagabond_1 = Item("journal vagabond 1", "Ces journaux nous offrent un aperçu intéressant des esprits et des cœurs de ceux qui ont vécu avant nous.", 2)
-        journal_vagabond_2 = Item("journal vagabond 2", "Ces journaux nous offrent un aperçu intéressant des esprits et des cœurs de ceux qui ont vécu avant nous.", 2)
-        journal_vagabond_3 = Item("journal vagabond 3", "Ces journaux nous offrent un aperçu intéressant des esprits et des cœurs de ceux qui ont vécu avant nous.", 2)
-        lanterne = Item("lanterne", "Une lanterne en cristal qui éclaire les cavernes plongées de Deepnest afin que les voyageurs puissent retrouver leur chemin.", 1)
-        minerai_pale_1 = Item("minerai pale 1", "Un minerai rare et pale, prié par ceux qui fabriquent des armes.", 2)
-        minerai_pale_2 = Item("minerai pale 2", "Un minerai rare et pale, prié par ceux qui fabriquent des armes.", 2)
-        cle_marchand = Item("cle du marchand", "Une clé de cuivre qui ouvre la boutique du Marchand à Dirtmouth.", 0.5)
-        sceau_hallownest_1 = Item("sceau hallownest 1", "Ces sceaux ornés étaient les symboles officiels du Roi et de ses Chevaliers, et étaient précieux de ceux qui les portaient.", 2)
-        sceau_hallownest_2 = Item("sceau hallownest 2", "Ces sceaux ornés étaient les symboles officiels du Roi et de ses Chevaliers, et étaient précieux de ceux qui les portaient.", 2)
-        sceau_hallownest_3 = Item("sceau hallownest 3", "Ces sceaux ornés étaient les symboles officiels du Roi et de ses Chevaliers, et étaient précieux de ceux qui les portaient.", 2)
-        trampass = Item("trampass", "Un pass qui permet d'accéder à Blue Lake.", 0.2)
-        idole_roi_1 = Item("idole du roi 1", "Une icône du roi de Hallownest, vénéré à la fois comme dieu et comme souverain. Fabriqués dans un matériau blanc mystérieux, ils sont rares et très précieux.", 2)
-        idole_roi_2 = Item("idole du roi 2", "Une icône du roi de Hallownest, vénéré à la fois comme dieu et comme souverain. Fabriqués dans un matériau blanc mystérieux, ils sont rares et très précieux.", 2)
-        blason_ville = Item("blason de la ville", "dalle de pierre arborant le blason de la capitale d'Hallownest.", 1)
-        masque_erudit = Item("masque de l'erudit", "Un masque ancien qui augmente votre sagesse.", 1)
-        oeuf_arcanique = Item("oeuf arcanique", "Cela semble être un simple oeuf, mais c’est en réalité une relique précieuse d’avant la naissance de Hallownest !", 2)
+        journal_vagabond_1 = Item("journal vagabond 1", "Ces journaux nous offrent un aperçu intéressant des esprits et des cœurs de ceux qui ont vécu avant nous.", value=150)
+        journal_vagabond_2 = Item("journal vagabond 2", "Ces journaux nous offrent un aperçu intéressant des esprits et des cœurs de ceux qui ont vécu avant nous.", value=150)
+        journal_vagabond_3 = Item("journal vagabond 3", "Ces journaux nous offrent un aperçu intéressant des esprits et des cœurs de ceux qui ont vécu avant nous.", value=150)
+        lanterne = Item("lanterne", "Une lanterne en cristal qui éclaire les cavernes plongées de Deepnest afin que les voyageurs puissent retrouver leur chemin.", value=999)
+        minerai_pale_1 = Item("minerai pale 1", "Un minerai rare et pale, prié par ceux qui fabriquent des armes.", value=0)
+        minerai_pale_2 = Item("minerai pale 2", "Un minerai rare et pale, prié par ceux qui fabriquent des armes.", value=0)
+        cle_marchand = Item("cle du marchand", "Une clé de cuivre qui ouvre la boutique du Marchand à Dirtmouth.", value=0)
+        sceau_hallownest_1 = Item("sceau hallownest 1", "Ces sceaux ornés étaient les symboles officiels du Roi et de ses Chevaliers, et étaient précieux de ceux qui les portaient.", value=500)
+        sceau_hallownest_2 = Item("sceau hallownest 2", "Ces sceaux ornés étaient les symboles officiels du Roi et de ses Chevaliers, et étaient précieux de ceux qui les portaient.", value=500)
+        sceau_hallownest_3 = Item("sceau hallownest 3", "Ces sceaux ornés étaient les symboles officiels du Roi et de ses Chevaliers, et étaient précieux de ceux qui les portaient.", value=500)
+        trampass = Item("trampass", "Un pass qui permet d'accéder à Blue Lake.", value=0)
+        idole_roi_1 = Item("idole du roi 1", "Une icône du roi de Hallownest, vénéré à la fois comme dieu et comme souverain. Fabriqués dans un matériau blanc mystérieux, ils sont rares et très précieux.", value=1000)
+        idole_roi_2 = Item("idole du roi 2", "Une icône du roi de Hallownest, vénéré à la fois comme dieu et comme souverain. Fabriqués dans un matériau blanc mystérieux, ils sont rares et très précieux.", value=1000)
+        blason_ville = Item("blason de la ville", "dalle de pierre arborant le blason de la capitale d'Hallownest.", value=0)
+        masque_erudit = Item("masque de l'erudit", "Un masque ancien qui augmente votre sagesse.", value=0)
+        oeuf_arcanique = Item("oeuf arcanique", "Cela semble être un simple oeuf, mais c’est en réalité une relique précieuse d’avant la naissance de Hallownest !", value=10000)
 
         howling_cliffs.inventory[journal_vagabond_1.name] = journal_vagabond_1
         fog_canyon.inventory[journal_vagabond_2.name] = journal_vagabond_2

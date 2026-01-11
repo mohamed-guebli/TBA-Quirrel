@@ -193,10 +193,6 @@ class Actions:
 
         item = room.inventory[item_name]
 
-        # limite de poids
-        if player.get_total_weight() + item.weight > player.max_weight:
-            print(f"\nImpossible : poids max = {player.max_weight} kg.\n")
-            return True
 
         # transfert de la pièce vers inventaire du joueur
         item = room.inventory.pop(item_name)
@@ -579,4 +575,62 @@ class Actions:
 
         # Show all rewards
         game.player.show_rewards()
+        return True
+    
+    def sell(game, list_of_words, number_of_parameters):
+        player = game.player
+        room = player.current_room
+
+        merchants = [
+            c for c in game.characters
+            if c.current_room == room and c.merchant
+        ]
+
+        if not merchants:
+            print("\nPersonne ici ne semble intéressé par vos objets.\n")
+            return True
+
+        merchant = merchants[0]
+
+        # sell (sans argument)
+        if len(list_of_words) == 1:
+            sellable = [
+                item for item in player.inventory.values()
+                if item.value > 0
+            ]
+
+            if not sellable:
+                print("\nVous n'avez rien à vendre.\n")
+                return True
+
+            print(f"\n{merchant.name} peut acheter :")
+            for item in sellable:
+                print(f"    - {item.name} ({item.value} Geos)")
+            return True
+
+        # sell <objet>
+        item_name = " ".join(list_of_words[1:]).lower()
+
+        item = next(
+            (i for i in player.inventory.values()
+            if i.name.lower() == item_name),
+            None
+        )
+
+        if not item:
+            print("\nVous ne possédez pas cet objet.\n")
+            return True
+
+        if item.value <= 0:
+            print(f"\n{merchant.name} n'est pas intéressé par cet objet.\n")
+            return True
+
+        player.geos += item.value
+        del player.inventory[item.name]
+
+        print(
+            f"\n{merchant.name} vous donne {item.value} Geos pour {item.name}."
+        )
+        print(f"Geos actuels : {player.geos}\n")
+
         return True
