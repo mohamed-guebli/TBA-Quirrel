@@ -68,6 +68,9 @@ class Game:
         self.commands["sell"] = sell
         buy = Command("buy", " : acheter un objet", Actions.buy, 0)
         self.commands["buy"] = buy
+        train = Command("train", " : s'entraîner auprès d'un maître", Actions.train, 0)
+        self.commands["train"] = train
+
 
         # Setup rooms
 
@@ -165,11 +168,11 @@ class Game:
         self.characters.append(elderbug)
         monomon = Character("Monomon l'erudit","A faire", fog_canyon, ["a faire"])
         self.characters.append(monomon)
-        sheo = Character("Sheo","A faire", deepnest, ["a faire"])
+        sheo = Character("Sheo","A faire", deepnest, ["a faire"], trainer=True, training_cost=3000)
         self.characters.append(sheo)
-        oro = Character("Oro","A faire", crystal_peak, ["a faire"])
+        oro = Character("Oro","A faire", crystal_peak, ["a faire"], trainer=True, training_cost=5000)
         self.characters.append(oro)
-        mato = Character("Mato","A faire", blue_lake, ["a faire"])
+        mato = Character("Mato","A faire", blue_lake, ["a faire"], trainer=True, training_cost=7000)
         self.characters.append(mato)
         zote = Character("Zote", "A faire", dirtmouth, ["a faire"])
         self.characters.append(zote)

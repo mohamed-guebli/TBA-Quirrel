@@ -695,3 +695,55 @@ class Actions:
         )
 
         return True
+    
+    def train(game, list_of_words, number_of_parameters):
+        player = game.player
+        room = player.current_room
+
+        trainers = [
+            c for c in game.characters
+            if c.current_room == room and c.trainer
+        ]
+
+        if not trainers:
+            print("\nIl n'y a personne ici pour vous entraîner.\n")
+            return True
+
+        # train (sans argument)
+        if len(list_of_words) == 1:
+            print("\nVous pouvez vous entraîner auprès de :")
+            for t in trainers:
+                cost = t.training_cost * player.level
+                print(f"    - {t.name} ({cost} Geos pour le niveau suivant)")
+            return True
+
+        # train <nom>
+        target_name = " ".join(list_of_words[1:]).lower()
+
+        trainer = next(
+            (t for t in trainers if t.name.lower() == target_name),
+            None
+        )
+
+        if not trainer:
+            print("\nCette personne ne peut pas vous entraîner.\n")
+            return True
+
+        cost = trainer.training_cost * player.level
+
+        if player.geos < cost:
+            print("\nVous n'avez pas assez de Geos pour cet entraînement.\n")
+            return True
+
+        # entraînement réussi
+        player.geos -= cost
+        player.level += 1
+
+        print(
+            f"\n{trainer.name} vous entraîne longuement."
+            f"\nVotre maîtrise de l'aiguillon s'améliore."
+            f"\nNiveau actuel : {player.level}"
+            f"\nGeos restants : {player.geos}\n"
+        )
+
+        return True

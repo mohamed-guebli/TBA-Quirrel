@@ -37,7 +37,7 @@ class Player():
         self.current_room = None
         self.history = []
         self.inventory = {}
-        self.geos = 0
+        self.geos = 10000
         self.level = 1
         self.alive = True
         self.move_count = 0
