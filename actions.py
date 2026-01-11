@@ -82,6 +82,9 @@ class Actions:
         
         #si il y a une porte verrouillée
         if exit_obj.locked:
+            if exit_obj.key is None:
+                print(f"\nLa porte est scellée par une force ancienne. Terminez toutes vos quetes pour tenter d'y accéder.\n")
+                return True
             #vérifier si le joueur a l'item requis
             if player.has_item(exit_obj.key):
                 print(f"\nVous utilisez '{exit_obj.key}' pour déverrouiller la porte vers '{direction}'.\n")
@@ -94,6 +97,13 @@ class Actions:
         player.current_room = exit_obj.destination
         player.history.append(player.current_room) # On ajoute la salle actuelle à l'historique
         print(player.current_room.get_long_description())
+        player.get_history()
+
+        #quete : visiter une nouvelle pièce
+        player.quest_manager.check_room_objectives(player.current_room.name)
+
+        player.move_count += 1
+        player.quest_manager.check_counter_objectives("Se déplacer", player.move_count)
         return True
                 
 
@@ -322,7 +332,7 @@ class Actions:
             for c in characters_here:
                 if c.name.lower() == name:
                     print("\n" + c.get_msg() + "\n")
-                    game.player.quest_manager.check_action_objectives("parler",c.name)
+                    game.player.quest_manager.check_action_objectives("parler à",c.name)
                     return True
 
             print("\nCette personne n'est pas ici.\n")

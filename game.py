@@ -222,8 +222,8 @@ class Game:
             title="débloquer Monomon",
             description="Atteignez Fog Canyon, vianquez Uumuu et parlez à Monomon.",
             objectives=["Visiter Fog Canyon",
-                        "Combattre Uumuu",
-                        "Parler Monomon l'erudit"],
+                        "vaincre Uumuu",
+                        "parler à Monomon l'erudit"],
             reward="Personnage de Monomon débloquée"
         )
 
@@ -231,8 +231,9 @@ class Game:
         quest_freres = Quest(
             title="les trois frères d'aiguillon",
             description="Trouvez les trois frères et parlez-leur pour progresser dans l'art de l'aiguillon.",
-            objectives=["trouver Sheo, Oro et Mato",
-                        "s'entrainer avec les trois frères."],
+            objectives=["parler à Oro",
+                        "parler à Mato",
+                        "parler à Zote",],
             reward="Maîtrise de l'aiguillon augmentée"
         )
 
@@ -267,14 +268,17 @@ class Game:
     def unlock_temple_black_egg(self):
         for room in self.rooms:
             for direction, exit_room in room.exits.items():
-                if isinstance(exit_room, Door):
-                    if exit_room.destination.name == "Temple of the Black Egg": 
-                        for quest in self.player.quest_manager.quests:
-                            if not quest.completed:
-                                return False
-                        exit_room.locked = False
-                        print("\nLa porte du Temple de l'Œuf Noir s'est déverrouillée !\n")
-                        return True
+                if isinstance(exit_room, Door) and exit_room.destination.name == "Temple of the Black Egg": 
+                    if not exit_room.locked:
+                        return False
+                        
+                    for quest in self.player.quest_manager.quests:
+                        if not quest.is_completed:
+                            return False
+
+                    exit_room.locked = False
+                    print("\nLa porte du Temple de l'Œuf Noir s'est déverrouillée !\n")
+                    return True
         return False    
 
     # Play the game
@@ -285,13 +289,15 @@ class Game:
         while not self.finished:
             # Get the command from the player
             self.process_command(input("> "))
-            
+            self.unlock_temple_black_egg()
+
+            # Check win/loose conditions
             if self.loose():
                 print("\nVous êtes mort... Quirrel a été vaincu.\n")
                 self.finished = True
             
             if self.win():
-                print("\nFélicitations ! Vous avez complété toutes les quêtes et sauvé le royaume d'Hallownest !\n")
+                print("\nFélicitations ! Vous avez vaincu Le Hollow Knight et sauvé le royaume d'Hallownest !\n")
                 self.finished = True
         return None
 
@@ -336,7 +342,7 @@ class Game:
         """
         for c in self.characters:
             if c.name == "Le Hollow Knight":
-                return c.de
+                return c.defeated
         return False
 
     def loose(self):
