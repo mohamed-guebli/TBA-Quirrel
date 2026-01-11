@@ -66,6 +66,9 @@ class Game:
                                            , 0)
         sell = Command("sell", " : vendre un objet", Actions.sell, 0)
         self.commands["sell"] = sell
+        buy = Command("buy", " : acheter un objet", Actions.buy, 0)
+        self.commands["buy"] = buy
+
         # Setup rooms
 
         howling_cliffs = Room("Howling Cliffs", "non loin des frontières du royaume située au nord-ouest. Les falaises hurlantes n'ont pas l'air peuplées du tout.")
@@ -130,7 +133,6 @@ class Game:
         fog_canyon.inventory[journal_vagabond_2.name] = journal_vagabond_2
         crystal_peak.inventory[journal_vagabond_3.name] = journal_vagabond_3
 
-        dirtmouth.inventory[lanterne.name] = lanterne
 
         crystal_peak.inventory[minerai_pale_1.name] = minerai_pale_1
         deepnest.inventory[minerai_pale_2.name] = minerai_pale_2
@@ -153,7 +155,7 @@ class Game:
         #Setup PNJ
             #pnj pacifique
 
-        sly = Character("Sly","Un marchand qui semble s'y connaitre dans l'art de l'aiguillon", forgotten_crossroads, ["Donne l'argent là"], merchant=True)
+        sly = Character("Sly","Un marchand qui semble s'y connaitre dans l'art de l'aiguillon", forgotten_crossroads, ["Donne l'argent là"], merchant=True,stock={"lanterne": lanterne})
         self.characters.append(sly)
         lemm = Character("Lemm","Un chercheur de reliques passionné par l'histoire du royaume", city_of_tears, ["ez les reliques"], merchant=True)
         self.characters.append(lemm)

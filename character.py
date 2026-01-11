@@ -4,7 +4,7 @@ class Character:
     """"""
     """"""
 
-    def __init__(self, name : str, description : str, current_room : str, msgs : list, level: int = 1, hostile: bool = False, is_boss: bool = False, merchant=False):
+    def __init__(self, name : str, description : str, current_room : str, msgs : list, level: int = 1, hostile: bool = False, is_boss: bool = False, merchant=False, stock=None):
         self.name = name
         self.description = description
         self.current_room = current_room
@@ -14,7 +14,7 @@ class Character:
         self.is_boss = is_boss
         self.defeated = False
         self.merchant = merchant
-    
+        self.stock = stock if stock is not None else {}
     def __str__(self):
         return f"{self.name} : {self.description}"
     

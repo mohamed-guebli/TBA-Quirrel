@@ -634,3 +634,54 @@ class Actions:
         print(f"Geos actuels : {player.geos}\n")
 
         return True
+    
+    def buy(game, list_of_words, number_of_parameters):
+        player = game.player
+        room = player.current_room
+
+        merchants = [
+            c for c in game.characters
+            if c.current_room == room and c.merchant
+        ]
+
+        if not merchants:
+            print("\nIl n'y a personne ici à qui acheter quoi que ce soit.\n")
+            return True
+
+        merchant = merchants[0]
+
+        # buy (sans argument)
+        if len(list_of_words) == 1:
+            if not merchant.stock:
+                print(f"\n{merchant.name} n'a rien à vendre.\n")
+                return True
+
+            print(f"\n{merchant.name} vend :")
+            for item in merchant.stock.values():
+                print(f"    - {item.name} ({item.value} Geos)")
+            return True
+
+        # buy <objet>
+        item_name = " ".join(list_of_words[1:]).lower()
+
+        if item_name not in merchant.stock:
+            print(f"\n{merchant.name} ne vend pas cet objet.\n")
+            return True
+
+        item = merchant.stock[item_name]
+
+        if player.geos < item.value:
+            print("\nVous n'avez pas assez de Geos.\n")
+            return True
+
+        # transaction
+        player.geos -= item.value
+        player.inventory[item.name] = item
+        del merchant.stock[item_name]
+
+        print(
+            f"\nVous achetez {item.name} pour {item.value} Geos."
+            f"\nGeos restants : {player.geos}\n"
+        )
+
+        return True
