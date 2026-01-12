@@ -69,7 +69,7 @@ class Room:
         return inv
     def get_characters(self, characters):
 
-        present = [c for c in characters if c.current_room == self]
+        present = [c for c in characters if c.current_room == self and (not c.defeated or not c.is_boss)]
 
         if not present:
             return "\nIl n'y a personne ici.\n"

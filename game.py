@@ -236,7 +236,7 @@ class Game:
             description="Trouvez les trois frères et parlez-leur pour progresser dans l'art de l'aiguillon.",
             objectives=["parler à Oro",
                         "parler à Mato",
-                        "parler à Zote",],
+                        "parler à Sheo",],
             reward="Maîtrise de l'aiguillon augmentée"
         )
 
