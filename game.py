@@ -70,6 +70,8 @@ class Game:
         self.commands["buy"] = buy
         train = Command("train", " : s'entraîner auprès d'un maître", Actions.train, 0)
         self.commands["train"] = train
+        upgrade = Command("upgrade", " : améliorer une arme auprès d'un forgeron", Actions.upgrade, 0)
+        self.commands["upgrade"] = upgrade
 
 
         # Setup rooms
@@ -115,22 +117,23 @@ class Game:
         deepnest.exits = {"Up" : mantis_village, "E" : None, "Down" : None, "O" : None}
 
         #create items for rooms
-        journal_vagabond_1 = Item("journal vagabond 1", "Ces journaux nous offrent un aperçu intéressant des esprits et des cœurs de ceux qui ont vécu avant nous.", value=150)
-        journal_vagabond_2 = Item("journal vagabond 2", "Ces journaux nous offrent un aperçu intéressant des esprits et des cœurs de ceux qui ont vécu avant nous.", value=150)
-        journal_vagabond_3 = Item("journal vagabond 3", "Ces journaux nous offrent un aperçu intéressant des esprits et des cœurs de ceux qui ont vécu avant nous.", value=150)
-        lanterne = Item("lanterne", "Une lanterne en cristal qui éclaire les cavernes plongées de Deepnest afin que les voyageurs puissent retrouver leur chemin.", value=999)
+        journal_vagabond_1 = Item("journal vagabond 1", "Ces journaux nous offrent un aperçu intéressant des esprits et des cœurs de ceux qui ont vécu avant nous.", value=500)
+        journal_vagabond_2 = Item("journal vagabond 2", "Ces journaux nous offrent un aperçu intéressant des esprits et des cœurs de ceux qui ont vécu avant nous.", value=500)
+        journal_vagabond_3 = Item("journal vagabond 3", "Ces journaux nous offrent un aperçu intéressant des esprits et des cœurs de ceux qui ont vécu avant nous.", value=500)
+        lanterne = Item("lanterne", "Une lanterne en cristal qui éclaire les cavernes plongées de Deepnest afin que les voyageurs puissent retrouver leur chemin.", value=2000)
         minerai_pale_1 = Item("minerai pale 1", "Un minerai rare et pale, prié par ceux qui fabriquent des armes.", value=0)
         minerai_pale_2 = Item("minerai pale 2", "Un minerai rare et pale, prié par ceux qui fabriquent des armes.", value=0)
         cle_marchand = Item("cle du marchand", "Une clé de cuivre qui ouvre la boutique du Marchand à Dirtmouth.", value=0)
-        sceau_hallownest_1 = Item("sceau hallownest 1", "Ces sceaux ornés étaient les symboles officiels du Roi et de ses Chevaliers, et étaient précieux de ceux qui les portaient.", value=500)
-        sceau_hallownest_2 = Item("sceau hallownest 2", "Ces sceaux ornés étaient les symboles officiels du Roi et de ses Chevaliers, et étaient précieux de ceux qui les portaient.", value=500)
-        sceau_hallownest_3 = Item("sceau hallownest 3", "Ces sceaux ornés étaient les symboles officiels du Roi et de ses Chevaliers, et étaient précieux de ceux qui les portaient.", value=500)
+        sceau_hallownest_1 = Item("sceau hallownest 1", "Ces sceaux ornés étaient les symboles officiels du Roi et de ses Chevaliers, et étaient précieux de ceux qui les portaient.", value=1000)
+        sceau_hallownest_2 = Item("sceau hallownest 2", "Ces sceaux ornés étaient les symboles officiels du Roi et de ses Chevaliers, et étaient précieux de ceux qui les portaient.", value=1000)
+        sceau_hallownest_3 = Item("sceau hallownest 3", "Ces sceaux ornés étaient les symboles officiels du Roi et de ses Chevaliers, et étaient précieux de ceux qui les portaient.", value=1000)
         trampass = Item("trampass", "Un pass qui permet d'accéder à Blue Lake.", value=0)
-        idole_roi_1 = Item("idole du roi 1", "Une icône du roi de Hallownest, vénéré à la fois comme dieu et comme souverain. Fabriqués dans un matériau blanc mystérieux, ils sont rares et très précieux.", value=1000)
-        idole_roi_2 = Item("idole du roi 2", "Une icône du roi de Hallownest, vénéré à la fois comme dieu et comme souverain. Fabriqués dans un matériau blanc mystérieux, ils sont rares et très précieux.", value=1000)
-        blason_ville = Item("blason de la ville", "dalle de pierre arborant le blason de la capitale d'Hallownest.", value=0)
-        masque_erudit = Item("masque de l'erudit", "Un masque ancien qui augmente votre sagesse.", value=0)
-        oeuf_arcanique = Item("oeuf arcanique", "Cela semble être un simple oeuf, mais c’est en réalité une relique précieuse d’avant la naissance de Hallownest !", value=10000)
+        idole_roi_1 = Item("idole du roi 1", "Une icône du roi de Hallownest, vénéré à la fois comme dieu et comme souverain. Fabriqués dans un matériau blanc mystérieux, ils sont rares et très précieux.", value=1500)
+        idole_roi_2 = Item("idole du roi 2", "Une icône du roi de Hallownest, vénéré à la fois comme dieu et comme souverain. Fabriqués dans un matériau blanc mystérieux, ils sont rares et très précieux.", value=1500)
+        blason_ville = Item("blason de la ville", "dalle de pierre arborant le blason de la capitale d'Hallownest.", value=1000)
+        masque_erudite = Item("masque de l'érudite", "Un masque ancien qui augmente votre sagesse.", value=0)
+        aiguillon = Item("aiguillon", "Un aiguillon simple mais efficace pour combattre les ennemis.", value=0)
+        oeuf_arcanique = Item("oeuf arcanique", "Cela semble être un simple oeuf, mais c’est en réalité une relique précieuse d’avant la naissance de Hallownest !", value=3999)
 
         howling_cliffs.inventory[journal_vagabond_1.name] = journal_vagabond_1
         fog_canyon.inventory[journal_vagabond_2.name] = journal_vagabond_2
@@ -151,44 +154,53 @@ class Game:
         city_of_tears.inventory[idole_roi_1.name] = idole_roi_1
         mantis_village.inventory[idole_roi_2.name] = idole_roi_2
 
-        mantis_village.inventory[blason_ville.name] = blason_ville
-
         deepnest.inventory[oeuf_arcanique.name] = oeuf_arcanique
 
         #Setup PNJ
             #pnj pacifique
 
-        sly = Character("Sly","Un marchand qui semble s'y connaitre dans l'art de l'aiguillon.", forgotten_crossroads, ["Donne l'argent là"], merchant=True,stock={"lanterne": lanterne})
+        sly = Character("Sly","Un marchand qui semble s'y connaitre dans l'art de l'aiguillon.", forgotten_crossroads, ["Donne l'argent là"], merchant=True,stock={"lanterne": lanterne,"Blason de la ville": blason_ville})
         self.characters.append(sly)
         lemm = Character("Lemm","Un chercheur de reliques passionné par l'histoire du royaume.", city_of_tears, ["ez les reliques"], merchant=True)
         self.characters.append(lemm)
-        forgeron = Character("Forgeron","Un forgeron en quête à la forge de l'aiguillon pur.", fungal_wastes, ["a faire"])
+        forgeron = Character("Forgeron","Un forgeron en quête à la forge de l'aiguillon pur.", fungal_wastes, ["a faire"], blacksmith=True, upgrade_cost=1500)
         self.characters.append(forgeron)
         elderbug = Character("Elderbug","Un des rares résident de Dirtmouth, il a l'air vieux et sage.", dirtmouth, ["a faire"])
         self.characters.append(elderbug)
         monomon = Character("Monomon l'érudite","Soudain, un air très familier frappe Quirrel lorsqu'il aperçoit la Rêveuse face à lui.", fog_canyon, ["a faire"])
         self.characters.append(monomon)
-        sheo = Character("Sheo","Un insecte robuste muni d'un pinceau. Sa technique semble être celle d'une entaille implacable.", deepnest, ["a faire"], trainer=True, training_cost=3000)
+        sheo = Character("Sheo","Un insecte robuste muni d'un pinceau. Sa technique semble être celle d'une entaille implacable.", deepnest, ["a faire"], trainer=True, training_cost=1000)
         self.characters.append(sheo)
-        oro = Character("Oro","Un insecte robuste muni d'un aiguillon énorme. Sa technique semble être celle d'une entaille rapide comme l'éclair.", crystal_peak, ["a faire"], trainer=True, training_cost=5000)
+        oro = Character("Oro","Un insecte robuste muni d'un aiguillon énorme. Sa technique semble être celle d'une entaille rapide comme l'éclair.", crystal_peak, ["a faire"], trainer=True, training_cost=3000)
         self.characters.append(oro)
-        mato = Character("Mato","Un insecte robuste muni d'un aiguillon énorme. Sa technique semble être celle d'une entaille circulaire.", blue_lake, ["a faire"], trainer=True, training_cost=7000)
+        mato = Character("Mato","Un insecte robuste muni d'un aiguillon énorme. Sa technique semble être celle d'une entaille circulaire.", blue_lake, ["a faire"], trainer=True, training_cost=5000)
         self.characters.append(mato)
         zote = Character("Zote", "L'incroyable et redoutable Zote se dresse devant vous ! Rare sont les créatures aussi faible que lui.", dirtmouth, ["a faire"])
         self.characters.append(zote)
 
             #pnj hostile
         
-        uumuu = Character("Uumuu","Une énorme méduse infecté par la Radiance. Il semble être le défenseur de la chambre de stase de Monomon.", fog_canyon, ["a faire"], level=1,hostile=True,is_boss=True)
-        self.characters.append(uumuu)
         hollow_knight = Character("Hollow Knight","Il a été choisi il y a fort longtemps pour sceller la Radiance… Ce vaisseau était autrefois fils du roi et de la reine d'Hallownest.", temple_black_egg, ["a faire"], level=1,hostile=True,is_boss=True)
         self.characters.append(hollow_knight)
-        soul_master = Character("Le Maitre de l'ame","Chef du Sanctuaire de l'âme dans la cité des larmes, il menait des expériences sur l'Ame pour trouver un autre moyen de repousser l'infection de la Radiance. Cela a échoué à priori…", city_of_tears, ["a faire"], level=1,hostile=True,is_boss=True)
+
+        uumuu = Character("Uumuu","Une énorme méduse infecté par la Radiance. Il semble être le défenseur de la chambre de stase de Monomon.", fog_canyon, ["a faire"], level=1,hostile=True,is_boss=True,reward_geos=500)
+        self.characters.append(uumuu)
+        soul_master = Character("Le Maitre de l'ame","Chef du Sanctuaire de l'âme dans la cité des larmes, il menait des expériences sur l'Ame pour trouver un autre moyen de repousser l'infection de la Radiance. Cela a échoué à priori…", city_of_tears, ["a faire"], level=1,hostile=True,is_boss=True,reward_geos=500)
         self.characters.append(soul_master)
-        hornet = Character("Hornet","Une voyageuse habile qui manie un aiguillon et un fil. Elle abat tout ce qui ce trouve sur son chemin.", greenpath, ["a faire"], level=1,hostile=True,is_boss=True)
+        hornet = Character("Hornet","Une voyageuse habile qui manie un aiguillon et un fil. Elle abat tout ce qui ce trouve sur son chemin.", greenpath, ["a faire"], level=1,hostile=True,is_boss=True,reward_geos=500)
         self.characters.append(hornet)
-        mantis_lord = Character("Dames Mantes","Trois sœurs Mante qui siègent chacune sur trois trônes. Leur coordination est redoutable et en font un ennemi coriace.", mantis_village, ["a faire"], level=1,hostile=True,is_boss=True)
+        mantis_lord = Character("Dames Mantes","Trois sœurs Mante qui siègent chacune sur trois trônes. Leur coordination est redoutable et en font un ennemi coriace.", mantis_village, ["a faire"], level=1,hostile=True,is_boss=True,reward_geos=500)
         self.characters.append(mantis_lord)
+        crystal_guardian = Character("Gardien de cristal","Un ancien protecteur des mines de cristal, maintenant corrompu par l'infection.", crystal_peak, ["..."], level=1,hostile=True,is_boss=True,reward_geos=500)
+        self.characters.append(crystal_guardian)
+        false_knight = Character("Faux Chevalier","Un ver rendu fou par une force étrange. Il vit dans une carapace cuirassée qu’il a volé.", forgotten_crossroads, ["..."], level=1,hostile=True,is_boss=True ,reward_geos=500)
+        self.characters.append(false_knight)
+        mawlek = Character("Mawlek Maussade","Une bête féroce, mais extrêmement sociale. Elle devient agressive si elle ne peut pas s'amuser avec ceux de son espèce.", howling_cliffs, ["..."], level=1,hostile=True,is_boss=True,reward_geos=500)
+        self.characters.append(mawlek)
+        nosk = Character("Nosk","Un prédateur métamorphe qui imite la forme de ses proies pour les attirer dans des embuscades.", deepnest, ["..."], level=1,hostile=True,is_boss=True,reward_geos=500)
+        self.characters.append(nosk)
+        elder_hu = Character("Hu L'Ancien","Un rêve persistant, appartenant à un guerrier mort. Il a voyagé partout dans ce monde et s’est occupé de ceux affectés par ce fléau.", fungal_wastes, ["..."], level=1,hostile=True,is_boss=True,reward_geos=500)
+        self.characters.append(elder_hu)
 
 
 
@@ -198,7 +210,8 @@ class Game:
         self.player.current_room = howling_cliffs
 
         #item de départ dans l'inventaire du joueur
-        self.player.inventory[masque_erudit.name] = masque_erudit
+        self.player.inventory[masque_erudite.name] = masque_erudite
+        self.player.inventory[aiguillon.name] = aiguillon
 
         # Setup quests
         self._setup_quests()
@@ -226,7 +239,7 @@ class Game:
             description="Atteignez Fog Canyon, vianquez Uumuu et parlez à Monomon.",
             objectives=["Visiter Fog Canyon",
                         "vaincre Uumuu",
-                        "parler à Monomon l'erudit"],
+                        "parler à Monomon l'érudite"],
             reward="Personnage de Monomon débloquée"
         )
 

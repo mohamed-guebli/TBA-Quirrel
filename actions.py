@@ -388,11 +388,16 @@ class Actions:
             if enemy.defeated:
                 print("Ce boss a déjà été vaincu.")
                 return
-            
+            if enemy.reward_geos > 0:
+                player.geos += enemy.reward_geos
+                print(
+                    f"\nVous récupérez {enemy.reward_geos} Geos "
+                    f"sur les restes de {enemy.name}."
+                )
             enemy.defeated = True
             player.quest_manager.check_action_objectives("vaincre", enemy.name)
             player.level += 1
-            print (f"\nQuirrel s'est amélioré dans l'art de l'aiguillon grâce à ce combat !\nSon niveau augmente ! Niveau actuel : {player.level}\n")
+            print (f"\nQuirrel s'est amélioré dans l'art de l'aiguillon grâce à ce combat !\nSon niveau augmente ! \nNiveau actuel : {player.level}\n")
 
     def quests(game, list_of_words, number_of_parameters):
         """
@@ -747,3 +752,45 @@ class Actions:
         )
 
         return True
+
+
+    def upgrade(game, list_of_words, number_of_parameters):
+        player = game.player
+
+        # Vérifier forgeron
+        room = player.current_room
+        forgeron = next(
+            (c for c in game.characters if c.current_room == room and c.blacksmith),
+            None
+        )
+
+        if not forgeron:
+            print("\nIl n'y a personne ici capable d'améliorer votre arme.\n")
+            return True
+
+        COST = 500
+
+        if player.geos < COST:
+            print("\nVous n'avez pas assez de Geos.\n")
+            return True
+
+        minerai = player.get_minerai_pale()
+
+        if not minerai:
+            print("\nIl vous faut un minerai pâle pour améliorer votre aiguillon.\n")
+            return True
+
+        # Paiement
+        player.geos -= COST
+        del player.inventory[minerai.name]
+
+        # Upgrade
+        player.level += 1
+
+        print(
+            f"\nLe forgeron frappe l'aiguillon avec puissance...\n"
+            f"L'aiguillon est amélioré !\n"
+            f"Niveau actuel : {player.level}\n"
+        )
+        return True
+

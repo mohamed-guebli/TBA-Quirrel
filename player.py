@@ -153,3 +153,12 @@ class Player():
     def die(self):
         print("Vous êtes mort...\n Quirrel, le royaume d'Hallownest a besoin de vous...\n")
         self.alive = False
+
+    def get_minerai_pale(self):
+        """
+        Retourne le premier minerai pâle trouvé dans l'inventaire, ou None.
+        """
+        for item in self.inventory.values():
+            if item.name.startswith("minerai pale"):
+                return item
+        return None
