@@ -159,7 +159,7 @@ class Game:
         #Setup PNJ
             #pnj pacifique
 
-        sly = Character("Sly","Un marchand qui semble s'y connaitre dans l'art de l'aiguillon.", forgotten_crossroads, ["Donne l'argent là"], merchant=True,stock={"lanterne": lanterne,"Blason de la ville": blason_ville})
+        sly = Character("Sly","Un marchand qui semble s'y connaitre dans l'art de l'aiguillon.", forgotten_crossroads, ["Merci de m'avoir réveillé... je sentais que je commençais à succomber à la lumière.","Je m'appelle Sly. Je suis un marchand qui vend des objets, ma boutique se situe à Dirtmouth.","Si tu trouves ma clé, rapporte-la moi s'il te plaît. Tu me retrouveras à Dirtmouth."], merchant=True,stock={"lanterne": lanterne,"Blason de la ville": blason_ville})
         self.characters.append(sly)
         lemm = Character("Lemm","Un chercheur de reliques passionné par l'histoire du royaume.", city_of_tears, ["ez les reliques"], merchant=True)
         self.characters.append(lemm)
