@@ -180,26 +180,26 @@ class Game:
 
             #pnj hostile
         
-        hollow_knight = Character("Hollow Knight","Il a été choisi il y a fort longtemps pour sceller la Radiance… Ce vaisseau était autrefois fils du roi et de la reine d'Hallownest.", temple_black_egg, ["a faire"], level=1,hostile=True,is_boss=True)
+        hollow_knight = Character("Hollow Knight","Il a été choisi il y a fort longtemps pour sceller la Radiance… Ce vaisseau était autrefois fils du roi et de la reine d'Hallownest.", temple_black_egg, ["a faire"], level=14,hostile=True,is_boss=True)
         self.characters.append(hollow_knight)
 
-        uumuu = Character("Uumuu","Une énorme méduse infecté par la Radiance. Il semble être le défenseur de la chambre de stase de Monomon.", fog_canyon, ["a faire"], level=1,hostile=True,is_boss=True,reward_geos=500)
+        uumuu = Character("Uumuu","Une énorme méduse infecté par la Radiance. Il semble être le défenseur de la chambre de stase de Monomon.", fog_canyon, ["a faire"], level=10,hostile=True,is_boss=True,reward_geos=500)
         self.characters.append(uumuu)
-        soul_master = Character("Le Maitre de l'ame","Chef du Sanctuaire de l'âme dans la cité des larmes, il menait des expériences sur l'Ame pour trouver un autre moyen de repousser l'infection de la Radiance. Cela a échoué à priori…", city_of_tears, ["a faire"], level=1,hostile=True,is_boss=True,reward_geos=500)
+        soul_master = Character("Le Maitre de l'ame","Chef du Sanctuaire de l'âme dans la cité des larmes, il menait des expériences sur l'Ame pour trouver un autre moyen de repousser l'infection de la Radiance. Cela a échoué à priori…", city_of_tears, ["a faire"], level=12,hostile=True,is_boss=True,reward_geos=500)
         self.characters.append(soul_master)
-        hornet = Character("Hornet","Une voyageuse habile qui manie un aiguillon et un fil. Elle abat tout ce qui ce trouve sur son chemin.", greenpath, ["a faire"], level=1,hostile=True,is_boss=True,reward_geos=500)
+        hornet = Character("Hornet","Une voyageuse habile qui manie un aiguillon et un fil. Elle abat tout ce qui ce trouve sur son chemin.", greenpath, ["a faire"], level=3,hostile=True,is_boss=True,reward_geos=500)
         self.characters.append(hornet)
-        mantis_lord = Character("Dames Mantes","Trois sœurs Mante qui siègent chacune sur trois trônes. Leur coordination est redoutable et en font un ennemi coriace.", mantis_village, ["a faire"], level=1,hostile=True,is_boss=True,reward_geos=500)
+        mantis_lord = Character("Dames Mantes","Trois sœurs Mante qui siègent chacune sur trois trônes. Leur coordination est redoutable et en font un ennemi coriace.", mantis_village, ["a faire"], level=5,hostile=True,is_boss=True,reward_geos=500)
         self.characters.append(mantis_lord)
-        crystal_guardian = Character("Gardien de cristal","Un ancien protecteur des mines de cristal, maintenant corrompu par l'infection.", crystal_peak, ["..."], level=1,hostile=True,is_boss=True,reward_geos=500)
+        crystal_guardian = Character("Gardien de cristal","Un ancien protecteur des mines de cristal, maintenant corrompu par l'infection.", crystal_peak, ["..."], level=2,hostile=True,is_boss=True,reward_geos=500)
         self.characters.append(crystal_guardian)
         false_knight = Character("Faux Chevalier","Un ver rendu fou par une force étrange. Il vit dans une carapace cuirassée qu’il a volé.", forgotten_crossroads, ["..."], level=1,hostile=True,is_boss=True ,reward_geos=500)
         self.characters.append(false_knight)
-        mawlek = Character("Mawlek Maussade","Une bête féroce, mais extrêmement sociale. Elle devient agressive si elle ne peut pas s'amuser avec ceux de son espèce.", howling_cliffs, ["..."], level=1,hostile=True,is_boss=True,reward_geos=500)
+        mawlek = Character("Mawlek Maussade","Une bête féroce, mais extrêmement sociale. Elle devient agressive si elle ne peut pas s'amuser avec ceux de son espèce.", howling_cliffs, ["..."], level=4,hostile=True,is_boss=True,reward_geos=500)
         self.characters.append(mawlek)
-        nosk = Character("Nosk","Un prédateur métamorphe qui imite la forme de ses proies pour les attirer dans des embuscades.", deepnest, ["..."], level=1,hostile=True,is_boss=True,reward_geos=500)
+        nosk = Character("Nosk","Un prédateur métamorphe qui imite la forme de ses proies pour les attirer dans des embuscades.", deepnest, ["..."], level=9,hostile=True,is_boss=True,reward_geos=500)
         self.characters.append(nosk)
-        elder_hu = Character("Hu L'Ancien","Un rêve persistant, appartenant à un guerrier mort. Il a voyagé partout dans ce monde et s’est occupé de ceux affectés par ce fléau.", fungal_wastes, ["..."], level=1,hostile=True,is_boss=True,reward_geos=500)
+        elder_hu = Character("Hu L'Ancien","Un rêve persistant, appartenant à un guerrier mort. Il a voyagé partout dans ce monde et s’est occupé de ceux affectés par ce fléau.", fungal_wastes, ["..."], level=7,hostile=True,is_boss=True,reward_geos=500)
         self.characters.append(elder_hu)
 
 
