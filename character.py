@@ -4,7 +4,11 @@ class Character:
     """"""
     """"""
 
-    def __init__(self, name : str, description : str, current_room : str, msgs : list, level: int = 1, hostile: bool = False, is_boss: bool = False, merchant=False, stock=None,trainer = False,training_cost = 0, reward_geos=0, blacksmith = False, upgrade_cost = 0):
+    def __init__(self, name : str, description : str, current_room : str, msgs : list,
+                  level: int = 1, hostile: bool = False, is_boss: bool = False,
+                  merchant=False, stock=None,
+                  trainer = False,training_cost = 0, reward_geos=0,
+                  blacksmith = False, upgrade_cost = 0):
         self.name = name
         self.description = description
         self.current_room = current_room
@@ -21,30 +25,15 @@ class Character:
         self.blacksmith = blacksmith
         self.upgrade_cost = upgrade_cost
         
+        
     def __str__(self):
         return f"{self.name} : {self.description}"
     
-    def move(self):
+    def move_between(self, room_a, room_b):
         """
-        Déplace les PNJ aléatoirement avec une chance sur deux.
-        Retourne True si le PNJ s'est déplacé, False sinon.
+        Fait bouger le PNJ aléatoirement entre deux salles.
         """
-        if random.choice([True, False]):
-            # Récupérer les pièces adjacentes valides
-            possible_exits = [room for room in self.current_room.exits.values() if room is not None]
-            if not possible_exits:
-                return False
-
-            # Choisir une pièce adjacente au hasard
-            next_room = random.choice(possible_exits)
-
-            # Mettre à jour la pièce actuelle et l'historique
-            self.current_room = next_room
-
-            return True
-        else:
-            #Les PNJ ne se déplacent pas
-            return False
+        self.current_room = random.choice([room_a, room_b])
         
     def get_msg(self):
         if not self.msgs :

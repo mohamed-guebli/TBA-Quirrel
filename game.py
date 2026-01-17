@@ -85,14 +85,14 @@ class Game:
 
         howling_cliffs = Room("Howling Cliffs", "non loin des frontières du royaume située au nord-ouest. Les falaises hurlantes n'ont pas l'air peuplées du tout.")
         self.rooms.append(howling_cliffs)
-        dirtmouth = Room("Dirtmouth", "dans un petit village presque abandonné, nommé Dirtmouth. Il y a quand même un peu de lumière et de vie cependant. (Une des maisons semble être une sorte de magasin mais il est actuellement fermé)")
-        self.rooms.append(dirtmouth)
+        self.dirtmouth = Room("Dirtmouth", "dans un petit village presque abandonné, nommé Dirtmouth. Il y a quand même un peu de lumière et de vie cependant. (Une des maisons semble être une sorte de magasin mais il est actuellement fermé)")
+        self.rooms.append(self.dirtmouth)
         crystal_peak = Room("Crystal Peak", "à une certaine hauteur, dans un lieu scintillant prénommé Mont Cristal. De nombreuses mines ont été creusées dans la falaise pour obtenir les précieux cristaux roses.")
         self.rooms.append(crystal_peak)
         greenpath = Room("Greenpath", "à Vertchemin, un lieu dont la végétation luxuriante et les insectes recouverts de feuillage en font un endroit splendide. On trouve également des flaques d'acides brûlant et une épaisse prolifération rendant la navigation difficile.")
         self.rooms.append(greenpath)
-        forgotten_crossroads = Room("Forgotten Crossroads", "au beau milieu des Routes Oubliées, situé sous le village de Dirtmouth. Elles permettaient autrefois de rejoindre de nombreuses autres régions du royaume.")
-        self.rooms.append(forgotten_crossroads)
+        self.forgotten_crossroads = Room("Forgotten Crossroads", "au beau milieu des Routes Oubliées, situé sous le village de Dirtmouth. Elles permettaient autrefois de rejoindre de nombreuses autres régions du royaume.")
+        self.rooms.append(self.forgotten_crossroads)
         temple_black_egg = Room("Temple of the Black Egg", "en face du Temple de l'Œuf Noir, on peut y entendre que quelque chose crie depuis l'intérieur et qu'un évènement risque de déterminer l'avenir du royaume.")
         self.rooms.append(temple_black_egg)
         blue_lake = Room("Blue Lake", "en face d'un lac bleu. Celui ci semble inoffensif et reposant à un tel point que l'on souhaiterait rester en face jusqu'à l'écroulement d'Hallownest.")
@@ -110,15 +110,15 @@ class Game:
 
         # Create exits for rooms
 
-        howling_cliffs.exits = {"Up" : None, "E" : dirtmouth, "Down" : greenpath, "O" : None}
-        dirtmouth.exits = {"Up" : None, "E" : crystal_peak, "Down" : forgotten_crossroads, "O" : howling_cliffs}
-        crystal_peak.exits = {"Up" : None, "E" : None, "Down" : None, "O" : dirtmouth}
-        greenpath.exits = {"Up" : howling_cliffs, "E" : forgotten_crossroads, "Down" : fog_canyon, "O" : None}
-        forgotten_crossroads.exits = {"Up" : dirtmouth, "E" : Door(temple_black_egg,locked=True), "Down" : fungal_wastes, "O" : greenpath}
-        temple_black_egg.exits = {"Up" : None, "E" : None, "Down" : None, "O" : forgotten_crossroads}
+        howling_cliffs.exits = {"Up" : None, "E" : self.dirtmouth, "Down" : greenpath, "O" : None}
+        self.dirtmouth.exits = {"Up" : None, "E" : crystal_peak, "Down" : self.forgotten_crossroads, "O" : howling_cliffs}
+        crystal_peak.exits = {"Up" : None, "E" : None, "Down" : None, "O" : self.dirtmouth}
+        greenpath.exits = {"Up" : howling_cliffs, "E" : self.forgotten_crossroads, "Down" : fog_canyon, "O" : None}
+        self.forgotten_crossroads.exits = {"Up" : self.dirtmouth, "E" : Door(temple_black_egg,locked=True), "Down" : fungal_wastes, "O" : greenpath}
+        temple_black_egg.exits = {"Up" : None, "E" : None, "Down" : None, "O" : self.forgotten_crossroads}
         blue_lake.exits = {"Up" : crystal_peak, "E" : None, "Down" : None, "O" : None}
         fog_canyon.exits = {"Up" : greenpath, "E" : fungal_wastes, "Down" : None, "O" : None}
-        fungal_wastes.exits = {"Up" : forgotten_crossroads, "E" : Door(city_of_tears, locked=True, key= "blason de la ville"), "Down" : mantis_village, "O" : fog_canyon}
+        fungal_wastes.exits = {"Up" : self.forgotten_crossroads, "E" : Door(city_of_tears, locked=True, key= "blason de la ville"), "Down" : mantis_village, "O" : fog_canyon}
         city_of_tears.exits = {"Up" : None, "E" : None, "Down" : None, "O" : None}
         mantis_village.exits = {"Up" : fungal_wastes, "E" : None, "Down" : deepnest, "O" : None}
         deepnest.exits = {"Up" : mantis_village, "E" : None, "Down" : None, "O" : None}
@@ -153,7 +153,7 @@ class Game:
         crystal_peak.inventory[cle_marchand.name] = cle_marchand
 
         greenpath.inventory[sceau_hallownest_1.name] = sceau_hallownest_1
-        forgotten_crossroads.inventory[sceau_hallownest_2.name] = sceau_hallownest_2
+        self.forgotten_crossroads.inventory[sceau_hallownest_2.name] = sceau_hallownest_2
         fungal_wastes.inventory[sceau_hallownest_3.name] = sceau_hallownest_3
 
         fog_canyon.inventory[trampass.name] = trampass
@@ -166,13 +166,13 @@ class Game:
         #Setup PNJ
             #pnj pacifique
 
-        sly = Character("Sly","Un marchand qui semble s'y connaitre dans l'art de l'aiguillon.", forgotten_crossroads, ["Merci de m'avoir réveillé... je sentais que je commençais à succomber à la lumière.","Je m'appelle Sly. Je suis un marchand qui vend des objets, ma boutique se situe à Dirtmouth.","Si tu trouves ma clé, rapporte-la moi s'il te plaît. Tu me retrouveras à Dirtmouth."], merchant=True,stock={"lanterne": lanterne,"Blason de la ville": blason_ville})
+        sly = Character("Sly","Un marchand qui semble s'y connaitre dans l'art de l'aiguillon.", self.forgotten_crossroads, ["Merci de m'avoir réveillé... je sentais que je commençais à succomber à la lumière.","Je m'appelle Sly. Je suis un marchand qui vend des objets, ma boutique se situe à Dirtmouth.","Si tu trouves ma clé, rapporte-la moi s'il te plaît. Tu me retrouveras à Dirtmouth. Et si je ne suis pas à Dirtmouth, alors tu me trouveras ici."], merchant=True,stock={"lanterne": lanterne,"Blason de la ville": blason_ville})
         self.characters.append(sly)
-        lemm = Character("Lemm","Un chercheur de reliques passionné par l'histoire du royaume.", city_of_tears, ["ez les reliques"], merchant=True)
+        lemm = Character("Lemm","Un chercheur de reliques passionné par l'histoire du royaume.",city_of_tears, ["ez les reliques"], merchant=True)
         self.characters.append(lemm)
         forgeron = Character("Forgeron","Un forgeron en quête à la forge de l'aiguillon pur.", fungal_wastes, ["Mon aiguille est émoussée... tout comme ce royaume","Apporte-moi des Geo, et je rendrai ton aiguillon digne d'un véritable guerrier."], blacksmith=True, upgrade_cost=1500)
         self.characters.append(forgeron)
-        elderbug = Character("Elderbug","Un des rares résident de Dirtmouth, il a l'air vieux et sage.", dirtmouth, ["a faire"])
+        elderbug = Character("Elderbug","Un des rares résident de Dirtmouth, il a l'air vieux et sage.", self.dirtmouth, ["a faire"])
         self.characters.append(elderbug)
         monomon = Character("Monomon l'érudite","Soudain, un air très familier frappe Quirrel lorsqu'il aperçoit la Rêveuse face à lui.", fog_canyon, ["a faire"])
         self.characters.append(monomon)
@@ -182,7 +182,7 @@ class Game:
         self.characters.append(oro)
         mato = Character("Mato","Un insecte robuste muni d'un aiguillon énorme. Sa technique semble être celle d'une entaille circulaire.", blue_lake, ["La force brute ne suffit pas.","Observe ton ennemi, puis frappe là où il ne s'y attend pas.","ma technique, le Cyclone Slash, balaie tout sur son passage."], trainer=True, training_cost=5000)
         self.characters.append(mato)
-        zote = Character("Zote", "L'incroyable et redoutable Zote se dresse devant vous ! Rare sont les créatures aussi faible que lui.", dirtmouth, ["a faire"])
+        zote = Character("Zote", "L'incroyable et redoutable Zote se dresse devant vous ! Rare sont les créatures aussi faible que lui.", self.dirtmouth, ["a faire"])
         self.characters.append(zote)
 
             #pnj hostile
@@ -200,7 +200,7 @@ class Game:
         self.characters.append(mantis_lord)
         crystal_guardian = Character("Gardien de cristal","Un ancien protecteur des mines de cristal, maintenant corrompu par l'infection.", crystal_peak, ["..."], level=2,hostile=True,is_boss=True,reward_geos=500)
         self.characters.append(crystal_guardian)
-        false_knight = Character("Faux Chevalier","Un ver rendu fou par une force étrange. Il vit dans une carapace cuirassée qu’il a volé.", forgotten_crossroads, ["..."], level=1,hostile=True,is_boss=True ,reward_geos=500)
+        false_knight = Character("Faux Chevalier","Un ver rendu fou par une force étrange. Il vit dans une carapace cuirassée qu’il a volé.", self.forgotten_crossroads, ["..."], level=1,hostile=True,is_boss=True ,reward_geos=500)
         self.characters.append(false_knight)
         mawlek = Character("Mawlek Maussade","Une bête féroce, mais extrêmement sociale. Elle devient agressive si elle ne peut pas s'amuser avec ceux de son espèce.", howling_cliffs, ["..."], level=4,hostile=True,is_boss=True,reward_geos=500)
         self.characters.append(mawlek)
@@ -324,6 +324,14 @@ class Game:
             if self.win():
                 print("\nFélicitations ! Vous avez vaincu Le Hollow Knight et sauvé le royaume d'Hallownest !\n")
                 self.finished = True
+            while True:
+                command = input("> ")
+                self.process_command(command)
+
+                # Déplacement aléatoire de Sly
+                for c in self.characters:
+                    if c.name == "Sly":
+                        c.move_between(self.forgotten_crossroads, self.dirtmouth)
         return None
 
     # Process the command entered by the player
