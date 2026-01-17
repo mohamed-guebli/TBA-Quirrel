@@ -170,17 +170,17 @@ class Game:
         self.characters.append(sly)
         lemm = Character("Lemm","Un chercheur de reliques passionné par l'histoire du royaume.", city_of_tears, ["ez les reliques"], merchant=True)
         self.characters.append(lemm)
-        forgeron = Character("Forgeron","Un forgeron en quête à la forge de l'aiguillon pur.", fungal_wastes, ["a faire"], blacksmith=True, upgrade_cost=1500)
+        forgeron = Character("Forgeron","Un forgeron en quête à la forge de l'aiguillon pur.", fungal_wastes, ["Mon aiguille est émoussée... tout comme ce royaume","Apporte-moi des Geo, et je rendrai ton aiguillon digne d'un véritable guerrier."], blacksmith=True, upgrade_cost=1500)
         self.characters.append(forgeron)
         elderbug = Character("Elderbug","Un des rares résident de Dirtmouth, il a l'air vieux et sage.", dirtmouth, ["a faire"])
         self.characters.append(elderbug)
         monomon = Character("Monomon l'érudite","Soudain, un air très familier frappe Quirrel lorsqu'il aperçoit la Rêveuse face à lui.", fog_canyon, ["a faire"])
         self.characters.append(monomon)
-        sheo = Character("Sheo","Un insecte robuste muni d'un pinceau. Sa technique semble être celle d'une entaille implacable.", deepnest, ["a faire"], trainer=True, training_cost=1000)
+        sheo = Character("Sheo","Un insecte robuste muni d'un pinceau. Sa technique semble être celle d'une entaille implacable.", deepnest, ["Oh ! Un Visiteur ? Voilà qui rompt la monotonie.","Le combat est un art. Chaque mouvement doit être peint avec intention.","Manie ton aiguillon comme un pinceau."], trainer=True, training_cost=1000)
         self.characters.append(sheo)
-        oro = Character("Oro","Un insecte robuste muni d'un aiguillon énorme. Sa technique semble être celle d'une entaille rapide comme l'éclair.", crystal_peak, ["a faire"], trainer=True, training_cost=3000)
+        oro = Character("Oro","Un insecte robuste muni d'un aiguillon énorme. Sa technique semble être celle d'une entaille rapide comme l'éclair.", crystal_peak, ["Ne perds pas de temps. L'hésitation est une faiblesse.","La vitesse est la clé de la survie.","Si tu veux apprendre, je te montrerais mon mouvement, la Coupe de Dash."], trainer=True, training_cost=3000)
         self.characters.append(oro)
-        mato = Character("Mato","Un insecte robuste muni d'un aiguillon énorme. Sa technique semble être celle d'une entaille circulaire.", blue_lake, ["a faire"], trainer=True, training_cost=5000)
+        mato = Character("Mato","Un insecte robuste muni d'un aiguillon énorme. Sa technique semble être celle d'une entaille circulaire.", blue_lake, ["La force brute ne suffit pas.","Observe ton ennemi, puis frappe là où il ne s'y attend pas.","ma technique, le Cyclone Slash, balaie tout sur son passage."], trainer=True, training_cost=5000)
         self.characters.append(mato)
         zote = Character("Zote", "L'incroyable et redoutable Zote se dresse devant vous ! Rare sont les créatures aussi faible que lui.", dirtmouth, ["a faire"])
         self.characters.append(zote)
@@ -424,7 +424,8 @@ class GameGUI(tk.Tk):
         name = simpledialog.askstring("Nom", "Entrez votre nom:", parent=self)
         if not name:
             name = "Joueur"
-        self.game.setup(player_name=name)  # Pass name to avoid double prompt
+        self.game.setup()  # Pass name to avoid double prompt
+        self.game.player.name = name
 
         # Build UI layers
         self._build_layout()
