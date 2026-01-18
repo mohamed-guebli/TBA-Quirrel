@@ -27,6 +27,7 @@ class Game:
         self.commands = {}
         self.characters = []
         self.player = None
+
     
     # Setup the game
     def setup(self):
@@ -41,19 +42,19 @@ class Game:
         self.commands["go"] = go
         history = Command("history", " : afficher l'historique des pièces visitées", Actions.history, 0)
         self.commands["history"] = history
-        back = Command("back", " : revenir dans la salle précédente", Actions.back, 0)
+        back = Command("back", " : revenir dans la salle précédente", Actions.back, 0, consumes_turn=False)
         self.commands["back"] = back
-        look = Command("look", " : regarder les items présents dans la salle", Actions.look, 0 )
+        look = Command("look", " : regarder les items présents dans la salle", Actions.look, 0, consumes_turn=False)
         self.commands["look"] = look
-        take = Command("take", " <item> : prendre un objet", Actions.take, 1)
+        take = Command("take", " <item> : prendre un objet", Actions.take, 1, consumes_turn=True)
         self.commands["take"] = take
-        drop = Command("drop", " <item> : déposer un objet", Actions.drop, 1)
+        drop = Command("drop", " <item> : déposer un objet", Actions.drop, 1, consumes_turn=True)
         self.commands["drop"] = drop
-        check = Command("check", " : vérifier l'inventaire du joueur", Actions.check, 0)
+        check = Command("check", " : vérifier l'inventaire du joueur", Actions.check, 0, consumes_turn=False)
         self.commands["check"] = check
-        talk = Command("talk"," : parler à un PNJ", Actions.talk, 1)
+        talk = Command("talk"," : parler à un PNJ", Actions.talk, 1, consumes_turn=False)
         self.commands["talk"] = talk
-        fight = Command("fight"," : combattre un ennemi", Actions.fight, 1)
+        fight = Command("fight"," : combattre un ennemi", Actions.fight, 1, consumes_turn=True)
         self.commands["fight"] = fight
         self.commands["quests"] = Command("quests"
                                           , " : afficher la liste des quêtes"
@@ -71,13 +72,13 @@ class Game:
                                            , " : afficher vos récompenses"
                                            , Actions.rewards
                                            , 0)
-        sell = Command("sell", " : vendre un objet", Actions.sell, 0)
+        sell = Command("sell", " : vendre un objet", Actions.sell, 0, consumes_turn=False)
         self.commands["sell"] = sell
-        buy = Command("buy", " : acheter un objet", Actions.buy, 0)
+        buy = Command("buy", " : acheter un objet", Actions.buy, 0, consumes_turn=False)
         self.commands["buy"] = buy
-        train = Command("train", " : s'entraîner auprès d'un maître", Actions.train, 0)
+        train = Command("train", " : s'entraîner auprès d'un maître", Actions.train, 0, consumes_turn=False)
         self.commands["train"] = train
-        upgrade = Command("upgrade", " : améliorer une arme auprès d'un forgeron", Actions.upgrade, 0)
+        upgrade = Command("upgrade", " : améliorer une arme auprès d'un forgeron", Actions.upgrade, 0, consumes_turn=False)
         self.commands["upgrade"] = upgrade
 
 
@@ -166,22 +167,37 @@ class Game:
         #Setup PNJ
             #pnj pacifique
 
-        sly = Character("Sly","Un marchand qui semble s'y connaitre dans l'art de l'aiguillon.", self.forgotten_crossroads, ["Merci de m'avoir réveillé... je sentais que je commençais à succomber à la lumière.","Je m'appelle Sly. Je suis un marchand qui vend des objets, ma boutique se situe à Dirtmouth.","Si tu trouves ma clé, rapporte-la moi s'il te plaît. Tu me retrouveras à Dirtmouth. Et si je ne suis pas à Dirtmouth, alors tu me trouveras ici."], merchant=True,stock={"lanterne": lanterne,"Blason de la ville": blason_ville})
+        sly = Character( "Sly", "Un insecte replié sur lui-même, marmonnant des paroles incohérentes.", self.forgotten_crossroads, [ "…hein ?", "Laisse-moi tranquille…", "Je ne me souviens de rien…" ], merchant=False, stock={} )
         self.characters.append(sly)
-        lemm = Character("Lemm","Un chercheur de reliques passionné par l'histoire du royaume.",city_of_tears, ["ez les reliques"], merchant=True)
+
+        lemm = Character("Lemm","Un chercheur de reliques passionné par l'histoire du royaume.",city_of_tears, ["Je me présente en tant que Lemm, chercheurs de reliques d'Hallownest. Il existe une histoire oubliée, cachée dans les antiquités de ce royaume. Cependant, rares sont ceux qui sont disposés à s'y intéresser. Certains viennent juste pour dénicher des trésors dans les fissures et dans les ruines",
+                                                                                                                "Si tu trouves une sorte de journal, celui ci offre un aperçu intéressant dans l'esprit et le coeur de ceux qui ont vécu avant nous. Je pourrais vous l'acheter contre quelques Geo","Les sceaux ornés étaient les symboles officiels du roi et de ses chevaliers, et chéris par ceux qui les portaient. Je vous en offrirai une modeste somme en échange.",
+                                                                                                                "Il existe des idoles du roi d'Hallownest qui était vénéré à la fois comme un dieu et un souverain. Fabriquées à partir d'un matériau blanc mystérieux, celles-ci sont rares et très précieuses. Si vous me les vendez, je vous offrirai une bonne somme de Geo en échange.",
+                                                                                                                "Il existe dans les profondeurs du royaume un oeuf qui parait simple. Mais c'est en fait, une précieuse relique qui remonte bien avant l'existence d'Hallownest ! Je vous en donnerai une petite fortune. Vendez-le-moi s'il vous plaît."], merchant=True)
         self.characters.append(lemm)
+
         forgeron = Character("Forgeron","Un forgeron en quête à la forge de l'aiguillon pur.", fungal_wastes, ["Mon aiguille est émoussée... tout comme ce royaume","Apporte-moi des Geo, et je rendrai ton aiguillon digne d'un véritable guerrier."], blacksmith=True, upgrade_cost=1500)
         self.characters.append(forgeron)
-        elderbug = Character("Elderbug","Un des rares résident de Dirtmouth, il a l'air vieux et sage.", self.dirtmouth, ["a faire"])
+
+        elderbug = Character("Elderbug","Un des rares résident de Dirtmouth, il a l'air vieux et sage.", self.dirtmouth, ["J’ai bien peur qu’il ne reste plus que moi pour t’accueillir. Notre ville est devenue très silencieuse au fil du temps. Tous les autres résidents ont disparu.","Je suis Elderbug. Si tu as besoin d’aide, n’hésite pas à me parler.","Si tu cherches un marchand, tu le trouveras souvent aux Routes Oubliées ou à Dirtmouth. Il s’appelle Sly."], trainer=False)
         self.characters.append(elderbug)
-        monomon = Character("Monomon l'érudite","Soudain, un air très familier frappe Quirrel lorsqu'il aperçoit la Rêveuse face à lui.", fog_canyon, ["a faire"])
+
+        monomon = Character("Monomon l'érudite","Soudain, un air très familier frappe Quirrel lorsqu'il aperçoit la Rêveuse face à lui.", fog_canyon, ["…Quirrel. Ton esprit n'est plus lié aux chaînes d'autrefois, et pourtant tu es revenu jusqu'à moi.",
+                                                                                                                                                        "Le masque que tu portes n'est plus un sceau, mais un souvenir. Un fragment de ce que tu étais.",
+                                                                                                                                                        "Je t'ai confié mon savoir pour que tu marches librement, loin du poids des Rêveurs.",
+                                                                                                                                                        "Le chemin que tu as suivi te ramène ici, mais le choix t'appartient désormais.",
+                                                                                                                                                        "Souviens-toi : la connaissance éclaire, mais elle n'absout pas."])
         self.characters.append(monomon)
+
         sheo = Character("Sheo","Un insecte robuste muni d'un pinceau. Sa technique semble être celle d'une entaille implacable.", deepnest, ["Oh ! Un Visiteur ? Voilà qui rompt la monotonie.","Le combat est un art. Chaque mouvement doit être peint avec intention.","Manie ton aiguillon comme un pinceau."], trainer=True, training_cost=1000)
         self.characters.append(sheo)
+
         oro = Character("Oro","Un insecte robuste muni d'un aiguillon énorme. Sa technique semble être celle d'une entaille rapide comme l'éclair.", crystal_peak, ["Ne perds pas de temps. L'hésitation est une faiblesse.","La vitesse est la clé de la survie.","Si tu veux apprendre, je te montrerais mon mouvement, la Coupe de Dash."], trainer=True, training_cost=3000)
         self.characters.append(oro)
+
         mato = Character("Mato","Un insecte robuste muni d'un aiguillon énorme. Sa technique semble être celle d'une entaille circulaire.", blue_lake, ["La force brute ne suffit pas.","Observe ton ennemi, puis frappe là où il ne s'y attend pas.","ma technique, le Cyclone Slash, balaie tout sur son passage."], trainer=True, training_cost=5000)
         self.characters.append(mato)
+
         zote = Character("Zote", "L'incroyable et redoutable Zote se dresse devant vous ! Rare sont les créatures aussi faible que lui.", self.dirtmouth, ["a faire"])
         self.characters.append(zote)
 
@@ -190,22 +206,34 @@ class Game:
         hollow_knight = Character("Hollow Knight","Il a été choisi il y a fort longtemps pour sceller la Radiance… Ce vaisseau était autrefois fils du roi et de la reine d'Hallownest.", temple_black_egg, ["a faire"], level=14,hostile=True,is_boss=True)
         self.characters.append(hollow_knight)
 
-        uumuu = Character("Uumuu","Une énorme méduse infecté par la Radiance. Il semble être le défenseur de la chambre de stase de Monomon.", fog_canyon, ["a faire"], level=10,hostile=True,is_boss=True,reward_geos=500)
+        uumuu = Character("Uumuu","Une énorme méduse infecté par la Radiance. Il semble être le défenseur de la chambre de stase de Monomon.", fog_canyon, ["..."], level=10,hostile=True,is_boss=True,reward_geos=500)
         self.characters.append(uumuu)
+
         soul_master = Character("Le Maitre de l'ame","Chef du Sanctuaire de l'âme dans la cité des larmes, il menait des expériences sur l'Ame pour trouver un autre moyen de repousser l'infection de la Radiance. Cela a échoué à priori…", city_of_tears, ["a faire"], level=12,hostile=True,is_boss=True,reward_geos=500)
         self.characters.append(soul_master)
-        hornet = Character("Hornet","Une voyageuse habile qui manie un aiguillon et un fil. Elle abat tout ce qui ce trouve sur son chemin.", greenpath, ["a faire"], level=3,hostile=True,is_boss=True,reward_geos=500)
+
+        hornet = Character("Hornet","Une voyageuse habile qui manie un aiguillon et un fil. Elle abat tout ce qui ce trouve sur son chemin.", greenpath, ["Recule. Ce territoire n'est pas le tien.",
+                                                                                                                                                            "Tu avances trop librement pour quelqu'un qui devrait se souvenir de son rôle.",
+                                                                                                                                                            "Ton masque… je reconnais son origine. Et cela me déplaît.",
+                                                                                                                                                            "Les échecs du passé ne doivent pas se répéter. Je ne te laisserai pas interférer.",
+                                                                                                                                                            "Si tu fais un pas de plus, je t'arrêterai moi-même."], level=3,hostile=True,is_boss=True,reward_geos=500)
         self.characters.append(hornet)
+
         mantis_lord = Character("Dames Mantes","Trois sœurs Mante qui siègent chacune sur trois trônes. Leur coordination est redoutable et en font un ennemi coriace.", mantis_village, ["a faire"], level=5,hostile=True,is_boss=True,reward_geos=500)
         self.characters.append(mantis_lord)
+
         crystal_guardian = Character("Gardien de cristal","Un ancien protecteur des mines de cristal, maintenant corrompu par l'infection.", crystal_peak, ["..."], level=2,hostile=True,is_boss=True,reward_geos=500)
         self.characters.append(crystal_guardian)
+
         false_knight = Character("Faux Chevalier","Un ver rendu fou par une force étrange. Il vit dans une carapace cuirassée qu’il a volé.", self.forgotten_crossroads, ["..."], level=1,hostile=True,is_boss=True ,reward_geos=500)
         self.characters.append(false_knight)
+
         mawlek = Character("Mawlek Maussade","Une bête féroce, mais extrêmement sociale. Elle devient agressive si elle ne peut pas s'amuser avec ceux de son espèce.", howling_cliffs, ["..."], level=4,hostile=True,is_boss=True,reward_geos=500)
         self.characters.append(mawlek)
+
         nosk = Character("Nosk","Un prédateur métamorphe qui imite la forme de ses proies pour les attirer dans des embuscades.", deepnest, ["..."], level=9,hostile=True,is_boss=True,reward_geos=500)
         self.characters.append(nosk)
+
         elder_hu = Character("Hu L'Ancien","Un rêve persistant, appartenant à un guerrier mort. Il a voyagé partout dans ce monde et s’est occupé de ceux affectés par ce fléau.", fungal_wastes, ["..."], level=7,hostile=True,is_boss=True,reward_geos=500)
         self.characters.append(elder_hu)
 
@@ -236,7 +264,7 @@ class Game:
         quest_cle = Quest(
             title="clé du marchand",
             description="Sly a perdu sa clé. Retrouvez-la au sommet du royaume.",
-            objectives=["prendre cle du marchand"],
+            objectives=["prendre cle du marchand et lui vendre"],
             reward="Boutique de Sly débloquée"
         )
 
@@ -328,22 +356,13 @@ class Game:
                 command = input("> ")
                 self.process_command(command)
 
-                # Déplacement aléatoire de Sly
-                for c in self.characters:
-                    if c.name == "Sly":
-                        c.move_between(self.forgotten_crossroads, self.dirtmouth)
-        return None
-
     # Process the command entered by the player
     def process_command(self, command_string) -> None:
         """Process the command entered by the player."""
         # Split the command string into a list of words
         list_of_words = command_string.split(" ")
-
         command_word = list_of_words[0]
 
-        # If the command is not recognized, print an error message
-        
 
         if command_word not in self.commands.keys():
             if command_word == "":
@@ -351,8 +370,6 @@ class Game:
             else:
                 print(f"\nCommande '{command_word}' non reconnue. Entrez 'help' pour voir la liste des commandes disponibles.\n")
 
-
-        
         # If the command is recognized, execute it
         else:
             command = self.commands[command_word]

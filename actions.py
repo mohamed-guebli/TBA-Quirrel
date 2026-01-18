@@ -596,46 +596,72 @@ class Actions:
         player = game.player
         room = player.current_room
 
-        merchants = [
-            c for c in game.characters
-            if c.current_room == room and c.merchant
-        ]
+        # Obtenir les personnages dans la pièce
+        room_characters = [c for c in game.characters if c.current_room == room]
 
-        if not merchants:
+        # Identifier Sly et tous les marchands
+        sly = next((c for c in room_characters if c.name.lower() == "sly"), None)
+        merchants = [c for c in room_characters if c.merchant]
+
+        # Cas où il n'y a aucun marchand ni Sly
+        if not merchants and not sly:
             print("\nPersonne ici ne semble intéressé par vos objets.\n")
             return True
 
-        merchant = merchants[0]
-
-        # sell (sans argument)
+        # Si le joueur ne précise pas d'objet
         if len(list_of_words) == 1:
-            sellable = [
-                item for item in player.inventory.values()
-                if item.value > 0
-            ]
-
+            sellable = [item for item in player.inventory.values() if item.value > 0]
             if not sellable:
                 print("\nVous n'avez rien à vendre.\n")
                 return True
 
+            # Choisir le marchand à afficher (priorité aux marchands existants)
+            merchant = merchants[0] if merchants else sly
             print(f"\n{merchant.name} peut acheter :")
             for item in sellable:
                 print(f"    - {item.name} ({item.value} Geos)")
             return True
 
-        # sell <objet>
+        # Nom de l'objet à vendre
         item_name = " ".join(list_of_words[1:]).lower()
 
-        item = next(
-            (i for i in player.inventory.values()
-            if i.name.lower() == item_name),
-            None
-        )
+        # Cas spécial : clé du marchand
+        if item_name == "cle du marchand" and sly:
+            if not player.has_item("cle du marchand"):
+                print("\nVous n'avez pas cette clé.\n")
+                return True
 
+            # Retirer la clé et débloquer la quête
+            player.remove_item("cle du marchand")
+            player.quest_manager.complete_quest("clé du marchand")
+
+            lanterne = game.items.get("lanterne")
+            blason_ville = game.items.get("blason de la ville")
+            
+            # Transformer Sly en marchand
+            sly.merchant = True
+            sly.stock = {
+                "lanterne": lanterne,
+                "blason de la ville": blason_ville
+            }
+            sly.description = "Un marchand qui semble s'y connaître dans l'art de l'aiguillon."
+            sly.msgs = [
+                "Ah ! Ma clé ! Je commençais à désespérer.",
+                "Merci, vraiment. Ma boutique est de nouveau ouverte à Dirtmouth.",
+                "Si tu as besoin de quelque chose, je peux t'aider."
+            ]
+
+            print("\nSly récupère la clé, son regard s'éclaire.\n")
+            print("🛒 Boutique de Sly débloquée !\n")
+            return True
+
+        # Vente classique
+        item = next((i for i in player.inventory.values() if i.name.lower() == item_name), None)
         if not item:
             print("\nVous ne possédez pas cet objet.\n")
             return True
 
+        merchant = merchants[0] if merchants else sly
         if item.value <= 0:
             print(f"\n{merchant.name} n'est pas intéressé par cet objet.\n")
             return True
@@ -643,9 +669,7 @@ class Actions:
         player.geos += item.value
         del player.inventory[item.name]
 
-        print(
-            f"\n{merchant.name} vous donne {item.value} Geos pour {item.name}."
-        )
+        print(f"\n{merchant.name} vous donne {item.value} Geos pour {item.name}.")
         print(f"Geos actuels : {player.geos}\n")
 
         return True
