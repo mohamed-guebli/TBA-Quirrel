@@ -324,7 +324,7 @@ class Game:
             if self.win():
                 print("\nFélicitations ! Vous avez vaincu Le Hollow Knight et sauvé le royaume d'Hallownest !\n")
                 self.finished = True
-            while True:
+            while not self.finished:
                 command = input("> ")
                 self.process_command(command)
 
