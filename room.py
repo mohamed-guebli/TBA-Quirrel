@@ -29,14 +29,13 @@ class Room:
     '''
 
     # Define the constructor. 
-    def __init__(self, name, description,dark=False, image=None):
+    def __init__(self, name, description,dark=False):
         self.name = name
         self.description = description
         self.exits = {}
         self.inventory = {}
         self.characters = {}
         self.dark = dark
-        self.image = image  # Path to image file (PNG/JPG) for this room 
     
     # Define the get_exit method.
     def get_exit(self, direction):
