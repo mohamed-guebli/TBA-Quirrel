@@ -249,6 +249,7 @@ class Actions:
             
             player = game.player
             print(player.get_inventory())
+            print(player.level_status())
             return True
 
     def back(game, list_of_words, number_of_parameters):
@@ -745,7 +746,7 @@ class Actions:
         if len(list_of_words) == 1:
             print("\nVous pouvez vous entraîner auprès de :")
             for t in trainers:
-                cost = t.training_cost * player.level
+                cost = t.training_cost
                 print(f"    - {t.name} ({cost} Geos pour le niveau suivant)")
             return True
 

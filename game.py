@@ -114,7 +114,7 @@ class Game:
         blue_lake.exits = {"Up" : crystal_peak, "E" : None, "Down" : None, "O" : None}
         fog_canyon.exits = {"Up" : greenpath, "E" : fungal_wastes, "Down" : None, "O" : None}
         fungal_wastes.exits = {"Up" : self.forgotten_crossroads, "E" : Door(city_of_tears, locked=True, key= "blason de la ville"), "Down" : mantis_village, "O" : fog_canyon}
-        city_of_tears.exits = {"Up" : None, "E" : None, "Down" : None, "O" : None}
+        city_of_tears.exits = {"Up" : None, "E" : None, "Down" : None, "O" : fungal_wastes}
         mantis_village.exits = {"Up" : fungal_wastes, "E" : None, "Down" : deepnest, "O" : None}
         deepnest.exits = {"Up" : mantis_village, "E" : None, "Down" : None, "O" : None}
 
@@ -172,7 +172,7 @@ class Game:
                                                                                                                 "Il existe dans les profondeurs du royaume un oeuf qui parait simple. Mais c'est en fait, une précieuse relique qui remonte bien avant l'existence d'Hallownest ! Je vous en donnerai une petite fortune. Vendez-le-moi s'il vous plaît."], merchant=True)
         self.characters.append(lemm)
 
-        forgeron = Character("Forgeron","Un forgeron en quête à la forge de l'aiguillon pur.", fungal_wastes, ["Mon aiguille est émoussée... tout comme ce royaume","Apporte-moi des Geo, et je rendrai ton aiguillon digne d'un véritable guerrier."], blacksmith=True, upgrade_cost=1500)
+        forgeron = Character("Forgeron","Un forgeron en quête à la forge de l'aiguillon pur.", fungal_wastes, ["Mon aiguille est émoussée... tout comme ce royaume","Apporte-moi 1500 Geo et un minerai pale, et je rendrai ton aiguillon digne d'un véritable guerrier."], blacksmith=True, upgrade_cost=1500)
         self.characters.append(forgeron)
 
         elderbug = Character("Elderbug","Un des rares résident de Dirtmouth, il a l'air vieux et sage.", self.dirtmouth, ["J’ai bien peur qu’il ne reste plus que moi pour t’accueillir. Notre ville est devenue très silencieuse au fil du temps. Tous les autres résidents ont disparu.","Je suis Elderbug. Si tu as besoin d’aide, n’hésite pas à me parler.","Si tu cherches un marchand, tu le trouveras souvent aux Routes Oubliées ou à Dirtmouth. Il s’appelle Sly."], trainer=False)

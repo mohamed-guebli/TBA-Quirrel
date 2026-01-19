@@ -233,3 +233,18 @@ class Player():
         False
         """
         return item_name in self.inventory
+    
+    def level_status(self):
+        """
+        Retourne une chaîne décrivant le niveau actuel du joueur.
+
+        Examples:
+
+        >>> player = Player("Alice")
+        >>> player.level_status()
+        '\n⭐ Niveau actuel : 1\n'
+        >>> player.level = 5
+        >>> player.level_status()
+        '\n⭐ Niveau actuel : 5\n'
+        """
+        return f"\n⭐ Niveau actuel : {self.level}\n"
