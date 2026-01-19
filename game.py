@@ -1,4 +1,5 @@
 # Description: Game class
+import random
 
 from room import Room
 from player import Player
