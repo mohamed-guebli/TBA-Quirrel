@@ -1,4 +1,5 @@
 # Description: Game class
+import random
 
 # Import modules
 from pathlib import Path
@@ -27,6 +28,7 @@ class Game:
         self.commands = {}
         self.characters = []
         self.player = None
+        self.items = {}
 
     
     # Setup the game
@@ -129,9 +131,10 @@ class Game:
         journal_vagabond_2 = Item("journal vagabond 2", "Ces journaux nous offrent un aperçu intéressant des esprits et des cœurs de ceux qui ont vécu avant nous.", value=500)
         journal_vagabond_3 = Item("journal vagabond 3", "Ces journaux nous offrent un aperçu intéressant des esprits et des cœurs de ceux qui ont vécu avant nous.", value=500)
         lanterne = Item("lanterne", "Une lanterne en cristal qui éclaire les cavernes plongées de Deepnest afin que les voyageurs puissent retrouver leur chemin.", value=2000)
+        self.items[lanterne.name] = lanterne
         minerai_pale_1 = Item("minerai pale 1", "Un minerai rare et pale, prié par ceux qui fabriquent des armes.", value=0)
         minerai_pale_2 = Item("minerai pale 2", "Un minerai rare et pale, prié par ceux qui fabriquent des armes.", value=0)
-        cle_marchand = Item("cle du marchand", "Une clé de cuivre qui ouvre la boutique du Marchand à Dirtmouth.", value=0)
+        cle_marchand = Item("cle du marchand", "Une clé de cuivre qui ouvre la boutique du Marchand à Dirtmouth.", value=1)
         sceau_hallownest_1 = Item("sceau hallownest 1", "Ces sceaux ornés étaient les symboles officiels du Roi et de ses Chevaliers, et étaient précieux de ceux qui les portaient.", value=1000)
         sceau_hallownest_2 = Item("sceau hallownest 2", "Ces sceaux ornés étaient les symboles officiels du Roi et de ses Chevaliers, et étaient précieux de ceux qui les portaient.", value=1000)
         sceau_hallownest_3 = Item("sceau hallownest 3", "Ces sceaux ornés étaient les symboles officiels du Roi et de ses Chevaliers, et étaient précieux de ceux qui les portaient.", value=1000)
@@ -139,6 +142,7 @@ class Game:
         idole_roi_1 = Item("idole du roi 1", "Une icône du roi de Hallownest, vénéré à la fois comme dieu et comme souverain. Fabriqués dans un matériau blanc mystérieux, ils sont rares et très précieux.", value=1500)
         idole_roi_2 = Item("idole du roi 2", "Une icône du roi de Hallownest, vénéré à la fois comme dieu et comme souverain. Fabriqués dans un matériau blanc mystérieux, ils sont rares et très précieux.", value=1500)
         blason_ville = Item("blason de la ville", "dalle de pierre arborant le blason de la capitale d'Hallownest.", value=1000)
+        self.items[blason_ville.name] = blason_ville
         masque_erudite = Item("masque de l'érudite", "Un masque ancien qui augmente votre sagesse.", value=0)
         aiguillon = Item("aiguillon", "Un aiguillon simple mais efficace pour combattre les ennemis.", value=0)
         oeuf_arcanique = Item("oeuf arcanique", "Cela semble être un simple oeuf, mais c’est en réalité une relique précieuse d’avant la naissance de Hallownest !", value=3999)
@@ -198,12 +202,12 @@ class Game:
         mato = Character("Mato","Un insecte robuste muni d'un aiguillon énorme. Sa technique semble être celle d'une entaille circulaire.", blue_lake, ["La force brute ne suffit pas.","Observe ton ennemi, puis frappe là où il ne s'y attend pas.","ma technique, le Cyclone Slash, balaie tout sur son passage."], trainer=True, training_cost=5000)
         self.characters.append(mato)
 
-        zote = Character("Zote", "L'incroyable et redoutable Zote se dresse devant vous ! Rare sont les créatures aussi faible que lui.", self.dirtmouth, ["a faire"])
-        self.characters.append(zote)
+        self.zote = Character("Zote", "L'incroyable et redoutable Zote se dresse devant vous ! Rare sont les créatures aussi faible que lui.", self.dirtmouth, ["a faire"])
+        self.characters.append(self.zote)
 
             #pnj hostile
         
-        hollow_knight = Character("Hollow Knight","Il a été choisi il y a fort longtemps pour sceller la Radiance… Ce vaisseau était autrefois fils du roi et de la reine d'Hallownest.", temple_black_egg, ["a faire"], level=14,hostile=True,is_boss=True)
+        hollow_knight = Character("Hollow Knight","Il a été choisi il y a fort longtemps pour sceller la Radiance… Ce vaisseau était autrefois fils du roi et de la reine d'Hallownest.", temple_black_egg, ["..."], level=14,hostile=True,is_boss=True)
         self.characters.append(hollow_knight)
 
         uumuu = Character("Uumuu","Une énorme méduse infecté par la Radiance. Il semble être le défenseur de la chambre de stase de Monomon.", fog_canyon, ["..."], level=10,hostile=True,is_boss=True,reward_geos=500)
@@ -243,6 +247,7 @@ class Game:
 
         self.player = Player("Quirrel")
         self.player.current_room = howling_cliffs
+        self.player.game = self
 
         #item de départ dans l'inventaire du joueur
         self.player.inventory[masque_erudite.name] = masque_erudite
@@ -262,7 +267,7 @@ class Game:
         """Initialize all quests."""
         #Quête d'item : récupérer la clé du marchand
         quest_cle = Quest(
-            title="clé du marchand",
+            title="cle du marchand",
             description="Sly a perdu sa clé. Retrouvez-la au sommet du royaume.",
             objectives=["prendre cle du marchand et lui vendre"],
             reward="Boutique de Sly débloquée"
@@ -401,6 +406,26 @@ class Game:
         """
         return not self.player.alive
 
+    def move_zote_randomly(self):
+        """Fait se déplacer Zote aléatoirement entre Forgotten Crossroads et Dirtmouth."""
+        if not hasattr(self, "zote"):
+            return
+
+        zote = self.zote
+
+        # Zote ne bouge que s'il est dans l'une des deux zones
+        if zote.current_room not in (self.forgotten_crossroads, self.dirtmouth):
+            return
+
+        # Une chance sur deux de bouger
+        if random.choice([True, False]):
+            # Choisir l'autre salle
+            next_room = (
+                self.dirtmouth
+                if zote.current_room == self.forgotten_crossroads
+                else self.forgotten_crossroads
+            )
+            zote.current_room = next_room
 
 
 ##############################
@@ -422,6 +447,7 @@ class _StdoutRedirector:
 
     def flush(self):
         """Flush method required by sys.stdout interface (no-op for Text widget)."""
+
 
 
 class GameGUI(tk.Tk):

@@ -67,7 +67,12 @@ class Player():
         # Increment move counter and check movement objectives
         self.move_count += 1
         self.quest_manager.check_counter_objectives("Se déplacer", self.move_count)
+        
+    
+        if hasattr(self, "game"):
+            self.game.move_zote_randomly()
         return True
+
 
     def add_reward(self, reward):
         """
@@ -162,3 +167,69 @@ class Player():
             if item.name.startswith("minerai pale"):
                 return item
         return None
+    
+    def remove_item(self, item_name):
+        """
+        Retire un item de l'inventaire du joueur.
+
+        Args:
+            item_name (str): Le nom de l'item à retirer.
+
+        Examples:
+
+        >>> player = Player("Alice")
+        >>> from item import Item
+        >>> sword = Item("épée", "Une épée en acier.", value=100)
+        >>> player.inventory[sword.name] = sword
+        >>> player.remove_item("épée")
+        True
+        >>> player.has_item("épée")
+        False
+        >>> player.remove_item("bouclier")
+        False
+        """
+        if item_name in self.inventory:
+            del self.inventory[item_name]
+            return True
+        return False
+    
+    def add_item(self, item):
+        """
+        Ajoute un item à l'inventaire du joueur.
+
+        Args:
+            item (Item): L'item à ajouter.
+
+        Examples:
+
+        >>> player = Player("Alice")
+        >>> from item import Item
+        >>> sword = Item("épée", "Une épée en acier.", value=100)
+        >>> player.add_item(sword)
+        >>> player.has_item("épée")
+        True
+        """
+        self.inventory[item.name] = item
+
+    def has_item(self, item_name):
+        """
+        Vérifie si le joueur possède un item dans son inventaire.
+
+        Args:
+            item_name (str): Le nom de l'item à vérifier.
+
+        Returns:
+            bool: True si l'item est dans l'inventaire, False sinon.
+
+        Examples:
+
+        >>> player = Player("Alice")
+        >>> from item import Item
+        >>> sword = Item("épée", "Une épée en acier.", value=100)
+        >>> player.add_item(sword)
+        >>> player.has_item("épée")
+        True
+        >>> player.has_item("bouclier")
+        False
+        """
+        return item_name in self.inventory
