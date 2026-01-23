@@ -56,9 +56,11 @@ class Player():
             print("\nAucune porte dans cette direction !\n")
             return False
         
-        # Set the current room to the next room.
+        # sauvegarder la pièce actuelle dans l'historique avant de changer de pièce
+        previous_room = self.current_room
+
         self.current_room = next_room
-        self.history.append(next_room)
+        self.history.append(previous_room)
         print(self.current_room.get_long_description())
         self.get_history()
         
