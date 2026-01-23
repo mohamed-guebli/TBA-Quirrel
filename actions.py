@@ -265,7 +265,30 @@ class Actions:
                 print("\nVous ne pouvez pas revenir en arrière : aucun déplacement précédent.\n")
                 return True
             
-            previous_room = player.history.pop() # On retire la dernière salle visitée (pop)
+            previous_room = player.history[-1] # dernière salle visitée
+
+            # On autorise le back seulement si la pièce actuelle a une sortie vers la pièce précédente
+            can_go_back = False
+            for exit_obj in player.current_room.exits.values():
+                if exit_obj is None :
+                    continue
+
+                # Vérifier si la sortie mène à la pièce précédente
+                if exit_obj == previous_room:
+                    can_go_back = True
+                    break
+                
+                # sortie Door vers une destination
+                if isinstance(exit_obj, Door) and exit_obj.destination == previous_room:
+                    can_go_back = True # peu importe si la porte est verrouillée ou non
+                    break   
+
+            if not can_go_back:
+                print("\nVous ne pouvez pas retourner dans cette pièce.\n")
+                return True
+
+            # si le retour est possible :
+            player.history.pop() # On enlève la salle actuelle de l’historique
             player.current_room = previous_room # On déplace le joueur dans la salle précédente
             print(player.current_room.get_long_description()) # On affiche la description de la salle
             player.get_history() # Et on réaffiche l’historique restant
