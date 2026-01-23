@@ -43,6 +43,7 @@ class Player():
         self.move_count = 0
         self.quest_manager = QuestManager(self)
         self.rewards = []  # List to store earned rewards
+        self.history_limit = 5
 
     
     # Define the move method.
