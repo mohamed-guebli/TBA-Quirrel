@@ -1,7 +1,7 @@
 # Define the Player class.
 import random
 from quest import QuestManager
-
+from door import Door
 class Player():
     '''
     This class represents a player in the game. A player has a name and a current room.
@@ -46,34 +46,45 @@ class Player():
         self.history_limit = 5
 
     
-    # Define the move method.
+        # Define the move method.
     def move(self, direction):
-        # Get the next room from the exits dictionary of the current room.
-        next_room = self.current_room.exits[direction]
-       
-        # If the next room is None, print an error message and return False.
-        if next_room is None:
+        exit_obj = self.current_room.exits.get(direction)
+
+        if exit_obj is None:
             print("\nAucune porte dans cette direction !\n")
             return False
-        
-        # sauvegarder la pièce actuelle dans l'historique avant de changer de pièce
-        previous_room = self.current_room
 
+        # Gestion des portes
+        if isinstance(exit_obj, Door):
+            if exit_obj.locked:
+                if exit_obj.key and self.has_item(exit_obj.key):
+                    exit_obj.locked = False
+                    print("\nVous utilisez le Trampass. La voie est maintenant ouverte.\n")
+                else:
+                    print("\nCette voie est verrouillée. Il vous manque quelque chose...\n")
+                    return False
+            next_room = exit_obj.destination
+        else:
+            next_room = exit_obj
+
+        # Sauvegarde de la pièce précédente
+        self.history.append(self.current_room)
+
+        # Déplacement
         self.current_room = next_room
-        self.history.append(previous_room)
         print(self.current_room.get_long_description())
         self.get_history()
-        
-        # Check room visit objectives
-        self.quest_manager.check_room_objectives(self.current_room.name)
 
-        # Increment move counter and check movement objectives
+        # Quêtes et compteurs
+        self.quest_manager.check_room_objectives(self.current_room.name)
         self.move_count += 1
-        self.quest_manager.check_counter_objectives("Se déplacer", self.move_count)
-        
-    
+        self.quest_manager.check_counter_objectives(
+            "Se déplacer",
+            self.move_count
+        )
         if hasattr(self, "game"):
             self.game.move_zote_randomly()
+            
         return True
 
 
@@ -135,8 +146,11 @@ class Player():
         if not self.history:
             return
         
+        limit = self.history_limit
+        recent_rooms = self.history[-limit:]
+        
         print("\nVous avez déja visité les pièces suivantes:")
-        for room in self.history:
+        for room in recent_rooms:
             print(f"    - {room.name}")
 
     def get_inventory(self):

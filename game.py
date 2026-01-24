@@ -130,7 +130,7 @@ class Game:
         sceau_hallownest_1 = Item("sceau hallownest 1", "Ces sceaux ornés étaient les symboles officiels du Roi et de ses Chevaliers, et étaient précieux de ceux qui les portaient.", value=1000)
         sceau_hallownest_2 = Item("sceau hallownest 2", "Ces sceaux ornés étaient les symboles officiels du Roi et de ses Chevaliers, et étaient précieux de ceux qui les portaient.", value=1000)
         sceau_hallownest_3 = Item("sceau hallownest 3", "Ces sceaux ornés étaient les symboles officiels du Roi et de ses Chevaliers, et étaient précieux de ceux qui les portaient.", value=1000)
-        trampass = Item("trampass", "Un pass qui permet d'accéder à Blue Lake.", value=0)
+        trampass = Item("trampass", "Un laissez-passer ancien qui permet d'utiliser les tramways du royaume.", value=0)
         idole_roi_1 = Item("idole du roi 1", "Une icône du roi de Hallownest, vénéré à la fois comme dieu et comme souverain. Fabriqués dans un matériau blanc mystérieux, ils sont rares et très précieux.", value=1500)
         idole_roi_2 = Item("idole du roi 2", "Une icône du roi de Hallownest, vénéré à la fois comme dieu et comme souverain. Fabriqués dans un matériau blanc mystérieux, ils sont rares et très précieux.", value=1500)
         blason_ville = Item("blason de la ville", "dalle de pierre arborant le blason de la capitale d'Hallownest.", value=1000)
@@ -274,7 +274,12 @@ class Game:
                                                                                                                                                             "Si tu fais un pas de plus, je t'arrêterai moi-même."], level=3,hostile=True,is_boss=True,reward_geos=500)
         self.characters.append(hornet)
 
-        mantis_lord = Character("Dames Mantes","Trois sœurs Mante qui siègent chacune sur trois trônes. Leur coordination est redoutable et en font un ennemi coriace.", mantis_village, ["a faire"], level=5,hostile=True,is_boss=True,reward_geos=500)
+        mantis_lord = Character("Dames Mantes","Trois sœurs Mante qui siègent chacune sur trois trônes. Leur coordination est redoutable et en font un ennemi coriace.", mantis_village, ["Étranger… tu as foulé un sol que peu d’âmes osent approcher.",
+                                                                                                                                                                                           "Nous sommes les gardiennes de ce village. Ici, la faiblesse n’a pas sa place.",
+                                                                                                                                                                                             "Si tu avances, ce ne sera pas par la ruse ou la parole… mais par l’acier.",
+                                                                                                                                                                                               "Prouve ta valeur, ou tombe comme les autres.",
+                                                                                                                                                                                                 "Que le combat décide de ton droit à poursuivre ta route."],
+                                                                                                                                                                                                   level=5,hostile=True,is_boss=True,reward_geos=500)
         self.characters.append(mantis_lord)
 
         crystal_guardian = Character("Gardien de cristal","Un ancien protecteur des mines de cristal, maintenant corrompu par l'infection.", crystal_peak, ["..."], level=2,hostile=True,is_boss=True,reward_geos=500)
@@ -307,6 +312,11 @@ class Game:
         # Setup quests
         self._setup_quests()
 
+        # Porte entre Black Egg Temple et Blue Lake
+        door_tram = Door(destination=blue_lake, locked=True,key=trampass)
+        temple_black_egg.exits['E'] = door_tram
+        door_tram_back = Door(destination=temple_black_egg, locked=False)
+        blue_lake.exits['O'] = door_tram_back
         # Gestion directions et directions inconnues
 
         self.direction_up = {'Haut', 'HAUT','haut','H','h','UP', 'U','Up','up','u'}
