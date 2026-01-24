@@ -585,7 +585,8 @@ class QuestManager:
         0
         """
         for quest in self.active_quests[:]:
-            quest.check_counter_objective(counter_name, current_count, self.player)
+            quest.check_counter_objective(
+                counter_name, current_count, self.player)
             if quest.is_completed:
                 self.active_quests.remove(quest)
 

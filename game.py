@@ -102,7 +102,8 @@ class Game:
             "sell", " : vendre un objet", Actions.sell, 0, consumes_turn=False
         )
         self.commands["sell"] = sell
-        buy = Command("buy", " : acheter un objet", Actions.buy, 0, consumes_turn=False)
+        buy = Command("buy", " : acheter un objet",
+                      Actions.buy, 0, consumes_turn=False)
         self.commands["buy"] = buy
         train = Command(
             "train",
@@ -199,7 +200,8 @@ class Game:
             "Down": self.forgotten_crossroads,
             "O": howling_cliffs,
         }
-        crystal_peak.exits = {"Up": None, "E": None, "Down": None, "O": self.dirtmouth}
+        crystal_peak.exits = {"Up": None, "E": None,
+                              "Down": None, "O": self.dirtmouth}
         greenpath.exits = {
             "Up": howling_cliffs,
             "E": self.forgotten_crossroads,
@@ -236,14 +238,16 @@ class Game:
             "Down": mantis_village,
             "O": fog_canyon,
         }
-        city_of_tears.exits = {"Up": None, "E": None, "Down": None, "O": fungal_wastes}
+        city_of_tears.exits = {"Up": None, "E": None,
+                               "Down": None, "O": fungal_wastes}
         mantis_village.exits = {
             "Up": fungal_wastes,
             "E": None,
             "Down": deepnest,
             "O": None,
         }
-        deepnest.exits = {"Up": mantis_village, "E": None, "Down": None, "O": None}
+        deepnest.exits = {"Up": mantis_village,
+                          "E": None, "Down": None, "O": None}
 
         # create items for rooms
         journal_vagabond_1 = Item(

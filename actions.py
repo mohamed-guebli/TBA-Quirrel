@@ -13,11 +13,10 @@
 
 # The error message is stored in the MSG0 and MSG1 variables and formatted with the command_word variable, the first word in the command.
 # The MSG0 variable is used when the command does not take any parameter.
+from door import Door
 MSG0 = "\nLa commande '{command_word}' ne prend pas de paramètre.\n"
 # The MSG1 variable is used when the command takes 1 parameter.
 MSG1 = "\nLa commande '{command_word}' prend 1 seul paramètre.\n"
-
-from door import Door
 
 
 class Actions:
@@ -68,12 +67,14 @@ class Actions:
         elif direction in game.direction_west:
             direction = "O"
         else:
-            print(f"Quirrel a heurté un mur en se dirigeant vers '{direction}'")
+            print(
+                f"Quirrel a heurté un mur en se dirigeant vers '{direction}'")
             return True
 
         exit_obj = player.current_room.exits.get(direction)
         if exit_obj is None:
-            print(f"\nIl n'y a pas de sortie vers '{direction}' depuis cette pièce.\n")
+            print(
+                f"\nIl n'y a pas de sortie vers '{direction}' depuis cette pièce.\n")
             return True
 
         # Move the player in the direction specified by the parameter.
@@ -111,7 +112,8 @@ class Actions:
         player.quest_manager.check_room_objectives(player.current_room.name)
 
         player.move_count += 1
-        player.quest_manager.check_counter_objectives("Se déplacer", player.move_count)
+        player.quest_manager.check_counter_objectives(
+            "Se déplacer", player.move_count)
         return True
 
     def quit(game, list_of_words, number_of_parameters):
@@ -401,7 +403,8 @@ class Actions:
 
         # quand on fait fight [nom de l'ennemi]
         target_name = " ".join(list_of_words[1:]).lower()
-        target = next((e for e in ennemis if e.name.lower() == target_name), None)
+        target = next(
+            (e for e in ennemis if e.name.lower() == target_name), None)
 
         if not target:
             print("\nQuirrel n'aperçoit aucun ennemi de ce nom ici.\n")
@@ -532,7 +535,8 @@ class Actions:
         current_counts = {"Se déplacer": game.player.move_count}
 
         # Show quest details
-        game.player.quest_manager.show_quest_details(quest_title, current_counts)
+        game.player.quest_manager.show_quest_details(
+            quest_title, current_counts)
         return True
 
     @staticmethod
@@ -632,10 +636,12 @@ class Actions:
         room = player.current_room
 
         # Personnages présents
-        room_characters = [c for c in game.characters if c.current_room == room]
+        room_characters = [
+            c for c in game.characters if c.current_room == room]
 
         sly = next((c for c in room_characters if c.name.lower() == "sly"), None)
-        merchants = [c for c in room_characters if getattr(c, "merchant", False)]
+        merchants = [c for c in room_characters if getattr(
+            c, "merchant", False)]
 
         if not merchants and not sly:
             print("\nPersonne ici ne semble intéressé par vos objets.\n")
@@ -770,7 +776,8 @@ class Actions:
         player = game.player
         room = player.current_room
 
-        trainers = [c for c in game.characters if c.current_room == room and c.trainer]
+        trainers = [c for c in game.characters if c.current_room ==
+                    room and c.trainer]
 
         if not trainers:
             print("\nIl n'y a personne ici pour vous entraîner.\n")
@@ -787,7 +794,8 @@ class Actions:
         # train <nom>
         target_name = " ".join(list_of_words[1:]).lower()
 
-        trainer = next((t for t in trainers if t.name.lower() == target_name), None)
+        trainer = next(
+            (t for t in trainers if t.name.lower() == target_name), None)
 
         if not trainer:
             print("\nCette personne ne peut pas vous entraîner.\n")

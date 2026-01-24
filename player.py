@@ -85,7 +85,8 @@ class Player:
         # Quêtes et compteurs
         self.quest_manager.check_room_objectives(self.current_room.name)
         self.move_count += 1
-        self.quest_manager.check_counter_objectives("Se déplacer", self.move_count)
+        self.quest_manager.check_counter_objectives(
+            "Se déplacer", self.move_count)
         if hasattr(self, "game"):
             self.game.move_zote_randomly()
 
