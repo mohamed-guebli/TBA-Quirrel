@@ -395,7 +395,7 @@ class Actions:
             if not ennemis:
                 print("\nA part le mur, il n'y a personne à combattre ici.\n")
                 return True
-
+            print(f"Vous êtes actuellement niveau {game.player.level} !\n")
             print("\nVous pouvez combattre :")
             for e in ennemis:
                 print(f"    - {e.name} (niveau {e.level})")
@@ -680,7 +680,7 @@ class Actions:
 
             # ✅ Compléter l'objectif (PAS complete_quest)
             player.quest_manager.complete_objective("prendre cle du marchand")
-
+            player.quest_manager.complete_objective("vendre cle du marchand")
             # Débloquer la boutique
             sly.current_room = game.dirtmouth
             sly.merchant = True
@@ -701,7 +701,7 @@ class Actions:
                 "🛒 Boutique de Sly débloquée !\n  Sly se trouvera à présent à Dirtmouth.\n"
             )
             return True
-
+            
         # 💰 Vente classique
         item = player.inventory.get(item_name)
         if not item:

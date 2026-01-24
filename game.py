@@ -746,7 +746,9 @@ class Game:
         quest_cle = Quest(
             title="cle du marchand",
             description="Sly a perdu sa clé. Retrouvez-la au sommet du royaume.",
-            objectives=["prendre cle du marchand et lui vendre"],
+            objectives=[
+                "prendre cle du marchand",
+                "vendre cle du marchand"],
             reward="Boutique de Sly débloquée",
         )
 
