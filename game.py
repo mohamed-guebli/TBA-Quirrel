@@ -121,6 +121,7 @@ class Game:
             consumes_turn=False,
         )
         self.commands["upgrade"] = upgrade
+        
 
         # Setup rooms
 
