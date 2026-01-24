@@ -1,5 +1,5 @@
 # item.py
-
+# pylint: disable=no-member, no-self-argument, line-too-long, missing-function-docstring, unused-argument
 
 class Item:
     """

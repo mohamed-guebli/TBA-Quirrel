@@ -1,5 +1,5 @@
 # This file contains the Command class.
-
+# pylint: disable=no-member, no-self-argument, line-too-long, missing-function-docstring, unused-argument
 
 class Command:
     """

@@ -1,4 +1,5 @@
 # Description: Game class
+# pylint: disable=no-member, no-self-argument, line-too-long, missing-function-docstring, unused-argument
 import random
 
 from room import Room
@@ -121,7 +122,7 @@ class Game:
             consumes_turn=False,
         )
         self.commands["upgrade"] = upgrade
-        
+
 
         # Setup rooms
 

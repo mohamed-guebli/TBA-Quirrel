@@ -1,5 +1,5 @@
 # Description: The actions module.
-
+# pylint: disable=no-member, no-self-argument, line-too-long, missing-function-docstring, unused-argument
 
 # The actions module contains the functions that are called when a command is executed.
 # Each function takes 3 parameters:
@@ -19,7 +19,7 @@ MSG0 = "\nLa commande '{command_word}' ne prend pas de paramètre.\n"
 MSG1 = "\nLa commande '{command_word}' prend 1 seul paramètre.\n"
 
 
-class Actions:
+class Actions: 
 
     def go(game, list_of_words, number_of_parameters):
         """

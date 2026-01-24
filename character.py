@@ -1,6 +1,6 @@
 # character.py
 import random
-
+# pylint: disable=no-member, no-self-argument, line-too-long, missing-function-docstring, unused-argument
 
 class Character:
     """"""

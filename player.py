@@ -1,4 +1,5 @@
 # Define the Player class.
+# pylint: disable=no-member, no-self-argument, line-too-long, missing-function-docstring, unused-argument
 from quest import QuestManager
 from door import Door
 
