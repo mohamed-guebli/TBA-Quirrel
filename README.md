@@ -1,6 +1,6 @@
 # TBA - Hollow Knight
 
-Ce repo contient la première version (minimale) du jeu d’aventure TBA.
+Ce repo contient une version du jeu d’aventure TBA reprenant les idées du jeu **Hollow Knight**.
 
 ## Description de l'univers
 
@@ -42,20 +42,20 @@ L'objectif final du jeu est de vaincre le **Hollow Knight** afin de déterminer 
 Pour y parvenir, Quirrel doit faire attention autour de lui et doit :
 - explorer les différentes régions ;
 - accomplir toutes les quêtes ;
-- avant de débloquer l'accès au **Temple of the Black Egg** pour sauver le royaume d'Hallownest.
+- avant de débloquer l'accès au **Temple de l'oeuf Noir** pour sauver le royaume d'Hallownest.
 
 
 ## Condition de victoire et de défaite
 
-- Le joueur gagne lorsque le **Hollow Knight** est vaincu à **Temple of the Black Egg**
-L'accès au Temple of the Black Egg, là où se trouve le boss final est bloqué tant que toutes les quêtes ne sont pas complétées.
+- Le joueur **gagne** lorsque le **Hollow Knight** est vaincu au **Temple de l'oeuf Noir**.
+L'accès au Temple de l'oeuf Noir, là où se trouve le boss final, est bloqué tant que toutes les quêtes ne sont pas complétées.
 
-- Le joueur perd s'il engage un combat contre un ennemi hostile dont le niveau est strictement supérieur à celui de Quirrel. 
+- Le joueur **perd** s'il engage un combat contre un ennemi hostile dont le niveau est strictement supérieur à celui de Quirrel. 
 La mort met fin à la partie.
 
 
 ## Déplacement et exploration
-Quirrel se situe dans les sous-terrains profonds d'Hallownest. Pour explorer les différents lieux du royaume, vous pouvez vous déplacer selon quatre directions : Haut Bas Gauche Droite. Vous pouvez pour vous déplacer indiquer "Haut Up …" 
+Quirrel se situe dans les sous-terrains profonds d'Hallownest. Pour explorer les différents lieux du royaume, vous pouvez vous déplacer selon quatre directions : Haut Bas Ouest Est (Up, Down, O, E).
 
 Certaines zones :
 - nécessitent des objets spécifiques (les portes sont verrouillées sans ces objets).
@@ -71,33 +71,36 @@ Le jeu intègre un système de quêtes composé de :
 - quête de combat : vaincre un PNJ spécifique ;
 - quête d’interaction : interagir avec un PNJ spécifique.
 
-L'accomplissement de toutes les quêtes est indispensable pour accéder au boss final situé à Temple of the Black Egg et terminer le jeu.
+L'accomplissement de toutes les quêtes est indispensable pour accéder au boss final situé à Temple de l'oeuf Noir et terminer le jeu.
 
 
 ## Commandes disponibles
 
-- help : Affiche la liste des commandes;
-- go <direction> : se déplacer dans une direction cardinale;
-- history : afficher l'historique des pièces visitées;
-- back : revenir dans la salle précédente;
-- look : regarder les items présents dans la salle;
-- take <item> : prendre un objet;
-- drop <item> : déposer un objet;
-- check : vérifier l'inventaire du joueur;
-- talk ou talk <pnj> : parler à un PNJ;
-- fight : combattre un ennemi;
-- quests : afficher la liste des quêtes;
-- quest <titre> : afficher les détails de la quête;
-- activate <titre> : activer une quête;
-- rewards : afficher les récompenses obtenues;
-- sell ou sell <item> : vendre un objet;
-- buy ou buy <item> : acheter un objet;
-- train : s'entrainer auprès d'un maître;
-- upgrade : améliorer une arme auprès d'un forgeron;
-- quit : quitter le jeu.
+- `help` : Affiche la liste des commandes;
+- `go` direction : se déplacer dans une direction cardinale;
+- `history` : afficher l'historique des pièces visitées;
+- `back` : revenir dans la salle précédente;
+- `look` : regarder les items présents dans la salle;
+- `take` item : prendre un objet;
+- `drop` item : déposer un objet;
+- `check` : vérifier l'inventaire du joueur;
+- `talk` ou `talk` pnj : parler à un PNJ;
+- `fight` : combattre un ennemi;
+- `quests` : afficher la liste des quêtes;
+- `quest` titre : afficher les détails de la quête;
+- `activate` titre : activer une quête;
+- `rewards` : afficher les récompenses obtenues;
+- `sell` ou `sell` item : vendre un objet;
+- `buy` ou `buy` item : acheter un objet;
+- `train` : s'entrainer auprès d'un maître;
+- `upgrade` : améliorer une arme auprès d'un forgeron;
+- `quit` : quitter le jeu.
 
 
 ## Perspectives de développement
+- Ajouter un inventaire dans l'inventaire. Parmi nos items, il y avait des reliques tels que le journal du vagabond, le sceau d'hallownest, l'idole du roi et l'oeuf arcanique. Il serait interessant d'ajouter une mallette dans l'inventaire et d'ajouter une condition `relique=True` pour que les reliques soient placées dans la mallette. 
+
+
 
 
 
