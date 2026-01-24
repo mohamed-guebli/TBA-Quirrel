@@ -854,7 +854,7 @@ class Game:
 
         if command_word not in self.commands.keys():
             if command_word == "":
-                print(f">")
+                print(">")
             else:
                 print(
                     f"\nCommande '{command_word}' non reconnue. Entrez 'help' pour voir la liste des commandes disponibles.\n"
@@ -869,6 +869,15 @@ class Game:
     def print_welcome(self):
         print(
             f"\nVous incarnerez {self.player.name}, un insecte amnésique provenant d'une contrée lointaine.\nCependant, votre masque, le masque de l'érudit, vous a guidé jusqu'au royaume mourant d'Hallownest. Est-ce une coïncidence ?"
+        )
+        print(
+            "Votre objectif est de découvrir la vérité sur votre passé tout en explorant ce royaume déchu et en affrontant ses nombreux dangers."
+        )
+        print(
+            "Soyez vigilant, car chaque décision que vous prendrez pourrait influencer le destin d'Hallownest et le vôtre."
+        )
+        print(
+            "Terminez toutes les quêtes, améliorez vos compétences et préparez-vous à affronter le Hollow Knight pour restaurer la paix dans le royaume.\n"
         )
         print("Entrez 'help' si vous avez besoin d'aide.")
         #

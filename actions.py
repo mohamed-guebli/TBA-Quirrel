@@ -86,7 +86,7 @@ class Actions:
         if exit_obj.locked:
             if exit_obj.key is None:
                 print(
-                    f"\nLa porte est scellée par une force ancienne. Terminez toutes vos quetes pour tenter d'y accéder.\n"
+                    "\nLa porte est scellée par une force ancienne. Terminez toutes vos quetes pour tenter d'y accéder.\n"
                 )
                 return True
             # vérifier si le joueur a l'item requis

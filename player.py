@@ -1,5 +1,4 @@
 # Define the Player class.
-import random
 from quest import QuestManager
 from door import Door
 
