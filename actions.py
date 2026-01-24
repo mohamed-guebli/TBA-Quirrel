@@ -19,6 +19,7 @@ MSG1 = "\nLa commande '{command_word}' prend 1 seul paramètre.\n"
 
 from door import Door
 
+
 class Actions:
 
     def go(game, list_of_words, number_of_parameters):
@@ -35,7 +36,7 @@ class Actions:
             bool: True if the command was executed successfully, False otherwise.
 
         Examples:
-        
+
         >>> from game import Game
         >>> game = Game()
         >>> game.setup()
@@ -47,7 +48,7 @@ class Actions:
         False
 
         """
-        
+
         player = game.player
         l = len(list_of_words)
         # If the number of parameters is incorrect, print an error message and return False.
@@ -58,54 +59,60 @@ class Actions:
 
         # Get the direction from the list of words.
         direction = list_of_words[1]
-        if direction in game.direction_up :
+        if direction in game.direction_up:
             direction = "Up"
-        elif direction in game.direction_down :
+        elif direction in game.direction_down:
             direction = "Down"
-        elif direction in game.direction_east :
+        elif direction in game.direction_east:
             direction = "E"
-        elif direction in game.direction_west :
+        elif direction in game.direction_west:
             direction = "O"
-        else :
+        else:
             print(f"Quirrel a heurté un mur en se dirigeant vers '{direction}'")
             return True
 
         exit_obj = player.current_room.exits.get(direction)
         if exit_obj is None:
             print(f"\nIl n'y a pas de sortie vers '{direction}' depuis cette pièce.\n")
-            return True 
+            return True
 
         # Move the player in the direction specified by the parameter.
         if not isinstance(exit_obj, Door):
             player.move(direction)
             return True
-        
-        #si il y a une porte verrouillée
+
+        # si il y a une porte verrouillée
         if exit_obj.locked:
             if exit_obj.key is None:
-                print(f"\nLa porte est scellée par une force ancienne. Terminez toutes vos quetes pour tenter d'y accéder.\n")
+                print(
+                    f"\nLa porte est scellée par une force ancienne. Terminez toutes vos quetes pour tenter d'y accéder.\n"
+                )
                 return True
-            #vérifier si le joueur a l'item requis
+            # vérifier si le joueur a l'item requis
             if player.has_item(exit_obj.key):
-                print(f"\nVous utilisez '{exit_obj.key}' pour déverrouiller la porte vers '{direction}'.\n")
+                print(
+                    f"\nVous utilisez '{exit_obj.key}' pour déverrouiller la porte vers '{direction}'.\n"
+                )
                 exit_obj.locked = False
             else:
-                print(f"\nLa porte vers '{direction}' est verrouillée. Il vous faut '{exit_obj.key}' pour l'ouvrir.\n")
+                print(
+                    f"\nLa porte vers '{direction}' est verrouillée. Il vous faut '{exit_obj.key}' pour l'ouvrir.\n"
+                )
                 return True
-        
-        
+
         player.current_room = exit_obj.destination
-        player.history.append(player.current_room) # On ajoute la salle actuelle à l'historique
+        player.history.append(
+            player.current_room
+        )  # On ajoute la salle actuelle à l'historique
         print(player.current_room.get_long_description())
         player.get_history()
 
-        #quete : visiter une nouvelle pièce
+        # quete : visiter une nouvelle pièce
         player.quest_manager.check_room_objectives(player.current_room.name)
 
         player.move_count += 1
         player.quest_manager.check_counter_objectives("Se déplacer", player.move_count)
         return True
-                
 
     def quit(game, list_of_words, number_of_parameters):
         """
@@ -138,7 +145,7 @@ class Actions:
             command_word = list_of_words[0]
             print(MSG0.format(command_word=command_word))
             return False
-        
+
         # Set the finished attribute of the game object to True.
         player = game.player
         msg = f"\nMerci {player.name} d'avoir joué. Au revoir.\n"
@@ -148,36 +155,37 @@ class Actions:
 
     def history(game, list_of_words, number_of_parameters):
 
-            l = len(list_of_words)
-            if l != number_of_parameters + 1:
-                command_word = list_of_words[0]
-                print(MSG0.format(command_word=command_word))
-                return False
-            
-            player = game.player
-            player.get_history()
-            return True
-    
+        l = len(list_of_words)
+        if l != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG0.format(command_word=command_word))
+            return False
+
+        player = game.player
+        player.get_history()
+        return True
+
     def look(game, list_of_words, number_of_parameters):
 
-            l = len(list_of_words)
-            if l != number_of_parameters + 1:
-                command_word = list_of_words[0]
-                print(MSG0.format(command_word=command_word))
-                return False
-            
-            room = game.player.current_room
+        l = len(list_of_words)
+        if l != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG0.format(command_word=command_word))
+            return False
 
-            # gestion pièce sombre
-            if room.dark and not game.player.has_item("lanterne"):
-                print("\nIl fait trop sombre pour voir quoi que ce soit ici... Il vous faut une lanterne.\n")
-                return True
+        room = game.player.current_room
 
-            # Affichage inventaire de la pièce
-            print(room.get_inventory())
-            print(room.get_characters(game.characters))
+        # gestion pièce sombre
+        if room.dark and not game.player.has_item("lanterne"):
+            print(
+                "\nIl fait trop sombre pour voir quoi que ce soit ici... Il vous faut une lanterne.\n"
+            )
             return True
-            
+
+        # Affichage inventaire de la pièce
+        print(room.get_inventory())
+        print(room.get_characters(game.characters))
+        return True
 
     def take(game, list_of_words, number_of_parameters):
         l = len(list_of_words)
@@ -186,16 +194,14 @@ class Actions:
             print(MSG1.format(command_word=command_word))
             return False
 
-        #on accepte plusieurs mots pour le nom de l'objet
+        # on accepte plusieurs mots pour le nom de l'objet
         else:
             command_word = list_of_words[0]
             list_word = list_of_words[1:]
             item_name = " ".join(list_word).lower()
 
-
         player = game.player
         room = player.current_room
-        
 
         if item_name not in room.inventory:
             print(f"\nL'objet '{item_name}' n'est pas dans la pièce.\n")
@@ -203,14 +209,13 @@ class Actions:
 
         item = room.inventory[item_name]
 
-
         # transfert de la pièce vers inventaire du joueur
         item = room.inventory.pop(item_name)
         player.inventory[item_name] = item
 
         print(f"\nVous avez pris l'objet '{item_name}'.\n")
-        player.quest_manager.check_action_objectives("prendre",item_name)
-        return True        
+        player.quest_manager.check_action_objectives("prendre", item_name)
+        return True
 
     def drop(game, list_of_words, number_of_parameters):
 
@@ -227,7 +232,6 @@ class Actions:
         player = game.player
         room = player.current_room
 
-
         if item_name not in player.inventory:
             print(f"\nL'objet '{item_name}' n'est pas dans l'inventaire.\n")
             return True
@@ -237,67 +241,73 @@ class Actions:
         room.inventory[item_name] = item
 
         print(f"\nVous avez déposé l'objet '{item_name}'.\n")
-        return True 
-    
+        return True
+
     def check(game, list_of_words, number_of_parameters):
 
-            l = len(list_of_words)
-            if l != number_of_parameters + 1:
-                command_word = list_of_words[0]
-                print(MSG0.format(command_word=command_word))
-                return False
-            
-            player = game.player
-            print(player.get_inventory())
-            print(player.level_status())
-            return True
+        l = len(list_of_words)
+        if l != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG0.format(command_word=command_word))
+            return False
+
+        player = game.player
+        print(player.get_inventory())
+        print(player.level_status())
+        return True
 
     def back(game, list_of_words, number_of_parameters):
-                # Vérification du nombre de paramètres
-            l = len(list_of_words)
-            if l != number_of_parameters + 1:
-                command_word = list_of_words[0]
-                print(MSG0.format(command_word=command_word))
-                return False
-            player = game.player
-            # Si l'historique est vide, on ne peut pas revenir en arrière
-            if not player.history:
-                print("\nVous ne pouvez pas revenir en arrière : aucun déplacement précédent.\n")
-                return True
-            
-            previous_room = player.history[-1] # dernière salle visitée
-
-            # On autorise le back seulement si la pièce actuelle a une sortie vers la pièce précédente
-            can_go_back = False
-            for exit_obj in player.current_room.exits.values():
-                if exit_obj is None :
-                    continue
-
-                # Vérifier si la sortie mène à la pièce précédente
-                if exit_obj == previous_room:
-                    can_go_back = True
-                    break
-                
-                # sortie Door vers une destination
-                if isinstance(exit_obj, Door) and exit_obj.destination == previous_room:
-                    can_go_back = True # peu importe si la porte est verrouillée ou non
-                    break   
-
-            if not can_go_back:
-                print("\nVous ne pouvez pas retourner dans cette pièce.\n")
-                return True
-
-            # si le retour est possible :
-            player.history.pop() # On enlève la salle actuelle de l’historique
-            player.current_room = previous_room # On déplace le joueur dans la salle précédente
-            print(player.current_room.get_long_description()) # On affiche la description de la salle
-            player.get_history() # Et on réaffiche l’historique restant
+        # Vérification du nombre de paramètres
+        l = len(list_of_words)
+        if l != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG0.format(command_word=command_word))
+            return False
+        player = game.player
+        # Si l'historique est vide, on ne peut pas revenir en arrière
+        if not player.history:
+            print(
+                "\nVous ne pouvez pas revenir en arrière : aucun déplacement précédent.\n"
+            )
             return True
+
+        previous_room = player.history[-1]  # dernière salle visitée
+
+        # On autorise le back seulement si la pièce actuelle a une sortie vers la pièce précédente
+        can_go_back = False
+        for exit_obj in player.current_room.exits.values():
+            if exit_obj is None:
+                continue
+
+            # Vérifier si la sortie mène à la pièce précédente
+            if exit_obj == previous_room:
+                can_go_back = True
+                break
+
+            # sortie Door vers une destination
+            if isinstance(exit_obj, Door) and exit_obj.destination == previous_room:
+                can_go_back = True  # peu importe si la porte est verrouillée ou non
+                break
+
+        if not can_go_back:
+            print("\nVous ne pouvez pas retourner dans cette pièce.\n")
+            return True
+
+        # si le retour est possible :
+        player.history.pop()  # On enlève la salle actuelle de l’historique
+        player.current_room = (
+            previous_room  # On déplace le joueur dans la salle précédente
+        )
+        print(
+            player.current_room.get_long_description()
+        )  # On affiche la description de la salle
+        player.get_history()  # Et on réaffiche l’historique restant
+        return True
 
     def help(game, list_of_words, number_of_parameters):
         """
         Print the list of available commands.
-        
+
         Args:
             game (Game): The game object.
             list_of_words (list): The list of words in the command.
@@ -326,14 +336,14 @@ class Actions:
             command_word = list_of_words[0]
             print(MSG0.format(command_word=command_word))
             return False
-        
+
         # Print the list of available commands.
         print("\nVoici les commandes disponibles:")
         for command in game.commands.values():
             print("\t- " + str(command))
         print()
         return True
-    
+
     def talk(game, list_of_words, number_of_parameters):
 
         characters_here = game.get_characters_in_room()
@@ -356,7 +366,9 @@ class Actions:
             for c in characters_here:
                 if c.name.lower() == name:
                     print("\n" + c.get_msg() + "\n")
-                    game.player.quest_manager.check_action_objectives("parler à",c.name)
+                    game.player.quest_manager.check_action_objectives(
+                        "parler à", c.name
+                    )
                     return True
 
             print("\nCette personne n'est pas ici.\n")
@@ -365,37 +377,39 @@ class Actions:
         print("\nParler à qui exactement ?\n")
         return False
 
-
-    #La commande pour "combattre"
+    # La commande pour "combattre"
     def fight(game, list_of_words, number_of_parameters):
         player_in_room = game.player.current_room
 
         # les ennemis hostiles sont présent ?
-        ennemis = [c for c in game.characters
-                   if c.current_room == player_in_room and c.hostile and not c.defeated]
-        
+        ennemis = [
+            c
+            for c in game.characters
+            if c.current_room == player_in_room and c.hostile and not c.defeated
+        ]
+
         # quand on ecrit fight sans argument
         if len(list_of_words) == 1:
             if not ennemis:
                 print("\nA part le mur, il n'y a personne à combattre ici.\n")
                 return True
-            
+
             print("\nVous pouvez combattre :")
             for e in ennemis:
                 print(f"    - {e.name} (niveau {e.level})")
             return True
-        
+
         # quand on fait fight [nom de l'ennemi]
         target_name = " ".join(list_of_words[1:]).lower()
-        target = next ((e for e in ennemis if e.name.lower() == target_name), None)
+        target = next((e for e in ennemis if e.name.lower() == target_name), None)
 
         if not target:
             print("\nQuirrel n'aperçoit aucun ennemi de ce nom ici.\n")
             return True
-        
-        Actions.resolve_fight(game.player,target)
+
+        Actions.resolve_fight(game.player, target)
         return True
-    
+
     # Le combat n'est pas une mécanique qui nécessite au joueur d'effectuer des actions
     # dans notre jeu, c'est une porte qu'il faut enfoncer pour progresser dans l'histoire
 
@@ -405,7 +419,7 @@ class Actions:
         if enemy.level > player.level:
             player.die()
             return
-        
+
         print(f"Quirrel a vaincu d'un coup précis d'aiguillon {enemy.name}.")
 
         if enemy.is_boss:
@@ -421,12 +435,14 @@ class Actions:
             enemy.defeated = True
             player.quest_manager.check_action_objectives("vaincre", enemy.name)
             player.level += 1
-            print (f"\nQuirrel s'est amélioré dans l'art de l'aiguillon grâce à ce combat !\nSon niveau augmente ! \nNiveau actuel : {player.level}\n")
+            print(
+                f"\nQuirrel s'est amélioré dans l'art de l'aiguillon grâce à ce combat !\nSon niveau augmente ! \nNiveau actuel : {player.level}\n"
+            )
 
     def quests(game, list_of_words, number_of_parameters):
         """
         Show all quests and their status.
-        
+
         Args:
             game (Game): The game object.
             list_of_words (list): The list of words in the command.
@@ -466,12 +482,11 @@ class Actions:
         game.player.quest_manager.show_quests()
         return True
 
-
     @staticmethod
     def quest(game, list_of_words, number_of_parameters):
         """
         Show details about a specific quest.
-        
+
         Args:
             game (Game): The game object.
             list_of_words (list): The list of words in the command.
@@ -514,20 +529,17 @@ class Actions:
         quest_title = " ".join(list_of_words[1:])
 
         # Prepare current counter values to show progress
-        current_counts = {
-            "Se déplacer": game.player.move_count
-        }
+        current_counts = {"Se déplacer": game.player.move_count}
 
         # Show quest details
         game.player.quest_manager.show_quest_details(quest_title, current_counts)
         return True
 
-
     @staticmethod
     def activate(game, list_of_words, number_of_parameters):
         """
         Activate a specific quest.
-        
+
         Args:
             game (Game): The game object.
             list_of_words (list): The list of words in the command.
@@ -575,12 +587,11 @@ class Actions:
         #             Vérifiez le nom ou si elle n'est pas déjà active.\n")
         return False
 
-
     @staticmethod
     def rewards(game, list_of_words, number_of_parameters):
         """
         Display all rewards earned by the player.
-        
+
         Args:
             game (Game): The game object.
             list_of_words (list): The list of words in the command.
@@ -615,7 +626,7 @@ class Actions:
         # Show all rewards
         game.player.show_rewards()
         return True
-    
+
     def sell(game, list_of_words, number_of_parameters):
         player = game.player
         room = player.current_room
@@ -633,7 +644,8 @@ class Actions:
         # sell (sans argument)
         if len(list_of_words) == 1:
             sellable = [
-                item for item in player.inventory.values()
+                item
+                for item in player.inventory.values()
                 if item.value is not None and item.value > 0
             ]
 
@@ -668,16 +680,20 @@ class Actions:
             sly.merchant = True
             sly.stock = {
                 "lanterne": game.items["lanterne"],
-                "blason de la ville": game.items["blason de la ville"]
+                "blason de la ville": game.items["blason de la ville"],
             }
-            sly.description = "Un marchand qui semble s'y connaître dans l'art de l'aiguillon."
+            sly.description = (
+                "Un marchand qui semble s'y connaître dans l'art de l'aiguillon."
+            )
             sly.msgs = [
                 "Ah ! Ma clé ! Je commençais à désespérer.",
                 "Ma boutique est de nouveau ouverte à Dirtmouth.",
-                "Jette un œil à mes marchandises, voyageur."
+                "Jette un œil à mes marchandises, voyageur.",
             ]
 
-            print("🛒 Boutique de Sly débloquée !\n  Sly se trouvera à présent à Dirtmouth.\n")
+            print(
+                "🛒 Boutique de Sly débloquée !\n  Sly se trouvera à présent à Dirtmouth.\n"
+            )
             return True
 
         # 💰 Vente classique
@@ -700,14 +716,12 @@ class Actions:
 
         return True
 
-    
     def buy(game, list_of_words, number_of_parameters):
         player = game.player
         room = player.current_room
 
         merchants = [
-            c for c in game.characters
-            if c.current_room == room and c.merchant
+            c for c in game.characters if c.current_room == room and c.merchant
         ]
 
         if not merchants:
@@ -751,15 +765,12 @@ class Actions:
         )
 
         return True
-    
+
     def train(game, list_of_words, number_of_parameters):
         player = game.player
         room = player.current_room
 
-        trainers = [
-            c for c in game.characters
-            if c.current_room == room and c.trainer
-        ]
+        trainers = [c for c in game.characters if c.current_room == room and c.trainer]
 
         if not trainers:
             print("\nIl n'y a personne ici pour vous entraîner.\n")
@@ -776,10 +787,7 @@ class Actions:
         # train <nom>
         target_name = " ".join(list_of_words[1:]).lower()
 
-        trainer = next(
-            (t for t in trainers if t.name.lower() == target_name),
-            None
-        )
+        trainer = next((t for t in trainers if t.name.lower() == target_name), None)
 
         if not trainer:
             print("\nCette personne ne peut pas vous entraîner.\n")
@@ -804,7 +812,6 @@ class Actions:
 
         return True
 
-
     def upgrade(game, list_of_words, number_of_parameters):
         player = game.player
 
@@ -812,7 +819,7 @@ class Actions:
         room = player.current_room
         forgeron = next(
             (c for c in game.characters if c.current_room == room and c.blacksmith),
-            None
+            None,
         )
 
         if not forgeron:
@@ -844,4 +851,3 @@ class Actions:
             f"Niveau actuel : {player.level}\n"
         )
         return True
-

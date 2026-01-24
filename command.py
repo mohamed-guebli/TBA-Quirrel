@@ -1,5 +1,6 @@
 # This file contains the Command class.
 
+
 class Command:
     """
     This class represents a command. A command is composed of a command word, a help string, an action and a number of parameters.
@@ -30,17 +31,20 @@ class Command:
     """
 
     # The constructor.
-    def __init__(self, command_word, help_string, action, number_of_parameters,consumes_turn=True):
+    def __init__(
+        self,
+        command_word,
+        help_string,
+        action,
+        number_of_parameters,
+        consumes_turn=True,
+    ):
         self.command_word = command_word
         self.help_string = help_string
         self.action = action
         self.number_of_parameters = number_of_parameters
         self.consumes_turn = consumes_turn
-    
+
     # The string representation of the command.
     def __str__(self):
-        return  self.command_word \
-                + self.help_string
-    
-
-
+        return self.command_word + self.help_string

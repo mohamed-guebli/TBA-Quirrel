@@ -1,9 +1,10 @@
 # Define the Room class.
 
+
 class Room:
-    '''
-    This class represents a room in the game. A room is composed of 
-    a name, a description and exits. 
+    """
+    This class represents a room in the game. A room is composed of
+    a name, a description and exits.
 
     Attributes:
         name(str): The name.
@@ -15,7 +16,7 @@ class Room:
         get_exit(self, direction) : Return the room in the given direction.
         get_exit_string(self) : Return a string describing the room's exits.
         get_long_description(self) : Return a long description of this room including exits.
-    
+
     Examples:
 
     >>> room = Room("Salle de départ", "dans la salle de départ", {} )
@@ -26,17 +27,17 @@ class Room:
     >>> room.exits
     {}
 
-    '''
+    """
 
-    # Define the constructor. 
-    def __init__(self, name, description,dark=False):
+    # Define the constructor.
+    def __init__(self, name, description, dark=False):
         self.name = name
         self.description = description
         self.exits = {}
         self.inventory = {}
         self.characters = {}
         self.dark = dark
-    
+
     # Define the get_exit method.
     def get_exit(self, direction):
 
@@ -45,10 +46,10 @@ class Room:
             return self.exits[direction]
         else:
             return None
-    
+
     # Return a string describing the room's exits.
     def get_exit_string(self):
-        exit_string = "Sorties: " 
+        exit_string = "Sorties: "
         for exit in self.exits.keys():
             if self.exits.get(exit) is not None:
                 exit_string += exit + ", "
@@ -67,9 +68,14 @@ class Room:
         for item in self.inventory.values():
             inv += f"    - {item}\n"
         return inv
+
     def get_characters(self, characters):
 
-        present = [c for c in characters if c.current_room == self and (not c.defeated or not c.is_boss)]
+        present = [
+            c
+            for c in characters
+            if c.current_room == self and (not c.defeated or not c.is_boss)
+        ]
 
         if not present:
             return "\nIl n'y a personne ici.\n"
@@ -78,4 +84,3 @@ class Room:
         for c in present:
             txt += f"    - {c}\n"
         return txt
-

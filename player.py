@@ -2,8 +2,10 @@
 import random
 from quest import QuestManager
 from door import Door
-class Player():
-    '''
+
+
+class Player:
+    """
     This class represents a player in the game. A player has a name and a current room.
 
     Attributes:
@@ -28,9 +30,10 @@ class Player():
     >>> player.move('N')
     '\nVous êtes dans la salle au nord\n\nSorties: \n'
     >>> player.current_room == room2
-    True    
-        
-    '''
+    True
+
+    """
+
     # Define the constructor.
     def __init__(self, name):
         self.name = name
@@ -45,8 +48,8 @@ class Player():
         self.rewards = []  # List to store earned rewards
         self.history_limit = 5
 
-    
         # Define the move method.
+
     def move(self, direction):
         exit_obj = self.current_room.exits.get(direction)
 
@@ -59,9 +62,13 @@ class Player():
             if exit_obj.locked:
                 if exit_obj.key and self.has_item(exit_obj.key):
                     exit_obj.locked = False
-                    print("\nVous utilisez le Trampass. La voie est maintenant ouverte.\n")
+                    print(
+                        "\nVous utilisez le Trampass. La voie est maintenant ouverte.\n"
+                    )
                 else:
-                    print("\nCette voie est verrouillée. Il vous manque quelque chose...\n")
+                    print(
+                        "\nCette voie est verrouillée. Il vous manque quelque chose...\n"
+                    )
                     return False
             next_room = exit_obj.destination
         else:
@@ -78,25 +85,21 @@ class Player():
         # Quêtes et compteurs
         self.quest_manager.check_room_objectives(self.current_room.name)
         self.move_count += 1
-        self.quest_manager.check_counter_objectives(
-            "Se déplacer",
-            self.move_count
-        )
+        self.quest_manager.check_counter_objectives("Se déplacer", self.move_count)
         if hasattr(self, "game"):
             self.game.move_zote_randomly()
-            
-        return True
 
+        return True
 
     def add_reward(self, reward):
         """
         Add a reward to the player's rewards list.
-        
+
         Args:
             reward (str): The reward to add.
-            
+
         Examples:
-        
+
         >>> player = Player("Bob")
         >>> player.add_reward("Épée magique") # doctest: +NORMALIZE_WHITESPACE
         <BLANKLINE>
@@ -112,13 +115,12 @@ class Player():
             self.rewards.append(reward)
             print(f"\n🎁 Vous avez obtenu: {reward}\n")
 
-
     def show_rewards(self):
         """
         Display all rewards earned by the player.
-        
+
         Examples:
-        
+
         >>> player = Player("Charlie")
         >>> player.show_rewards() # doctest: +NORMALIZE_WHITESPACE
         <BLANKLINE>
@@ -140,15 +142,15 @@ class Player():
             print("\n🎁 Vos récompenses:")
             for reward in self.rewards:
                 print(f"  • {reward}")
-            print()    
+            print()
 
     def get_history(self):
         if not self.history:
             return
-        
+
         limit = self.history_limit
         recent_rooms = self.history[-limit:]
-        
+
         print("\nVous avez déja visité les pièces suivantes:")
         for room in recent_rooms:
             print(f"    - {room.name}")
@@ -165,15 +167,16 @@ class Player():
             inv += f"    - {item}\n"
 
         return inv
-    
 
     # pour détecter si le joueur possède un item
     def has_item(self, item_name):
         return item_name in self.inventory
-    
-    #fonction de la mort qui tue
+
+    # fonction de la mort qui tue
     def die(self):
-        print("Vous êtes mort...\n Quirrel, le royaume d'Hallownest a besoin de vous...\n")
+        print(
+            "Vous êtes mort...\n Quirrel, le royaume d'Hallownest a besoin de vous...\n"
+        )
         self.alive = False
 
     def get_minerai_pale(self):
@@ -184,7 +187,7 @@ class Player():
             if item.name.startswith("minerai pale"):
                 return item
         return None
-    
+
     def remove_item(self, item_name):
         """
         Retire un item de l'inventaire du joueur.
@@ -209,7 +212,7 @@ class Player():
             del self.inventory[item_name]
             return True
         return False
-    
+
     def add_item(self, item):
         """
         Ajoute un item à l'inventaire du joueur.
@@ -250,7 +253,7 @@ class Player():
         False
         """
         return item_name in self.inventory
-    
+
     def level_status(self):
         """
         Retourne une chaîne décrivant le niveau actuel du joueur.

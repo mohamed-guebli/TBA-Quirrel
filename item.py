@@ -1,4 +1,5 @@
-#item.py
+# item.py
+
 
 class Item:
     """
@@ -11,4 +12,4 @@ class Item:
         self.value = value
 
     def __str__(self):
-        return f"{self.name} : {self.description} (value: {self.value})"  
+        return f"{self.name} : {self.description} (value: {self.value})"
