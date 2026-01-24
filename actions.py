@@ -801,7 +801,7 @@ class Actions:
             print("\nCette personne ne peut pas vous entraîner.\n")
             return True
 
-        cost = trainer.training_cost * player.level
+        cost = trainer.training_cost
 
         if player.geos < cost:
             print("\nVous n'avez pas assez de Geos pour cet entraînement.\n")
