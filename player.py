@@ -179,6 +179,7 @@ class Player:
             "Vous êtes mort...\n Quirrel, le royaume d'Hallownest a besoin de vous...\n"
         )
         self.alive = False
+        self.game.finished = True
 
     def get_minerai_pale(self):
         """
