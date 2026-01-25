@@ -100,6 +100,7 @@ L'accomplissement de toutes les quêtes est indispensable pour accéder au boss 
 Voici la structure des classes
 
 ```mermaid
+classDiagram
     class Game {
         +finished : bool
         +rooms : list[Room]
@@ -175,36 +176,36 @@ Voici la structure des classes
         +__str__() : str
     }
 
-class Actions {
-        +go(game : Game, list_of_words : list[str], number_of_parameters : int) : bool
-        +quit(game : Game, list_of_words : list[str], number_of_parameters : int) : bool
-        +history(game : Game, list_of_words : list[str], number_of_parameters : int) : bool
-        +look(game : Game, list_of_words : list[str], number_of_parameters : int) : bool
-        +take(game : Game, list_of_words : list[str], number_of_parameters : int) : bool
-        +drop(game : Game, list_of_words : list[str], number_of_parameters : int) : bool
-        +check(game : Game, list_of_words : list[str], number_of_parameters : int) : bool
-        +back(game : Game, list_of_words : list[str], number_of_parameters : int) : bool
-        +help(game : Game, list_of_words : list[str], number_of_parameters : int) : bool
-        +talk(game : Game, list_of_words : list[str], number_of_parameters : int) : bool
-        +fight(game : Game, list_of_words : list[str], number_of_parameters : int) : bool
-        +resolve_fight(player : Player, enemy : Character)
-        +quests(game : Game, list_of_words : list[str], number_of_parameters : int) : bool
-        +quest(game : Game, list_of_words : list[str], number_of_parameters : int) : bool
-        +activate(game : Game, list_of_words : list[str], number_of_parameters : int) : bool
-        +rewards(game : Game, list_of_words : list[str], number_of_parameters : int) : bool
-        +sell(game : Game, list_of_words : list[str], number_of_parameters : int) : bool
-        +buy(game : Game, list_of_words : list[str], number_of_parameters : int) : bool
-        +train(game : Game, list_of_words : list[str], number_of_parameters : int) : bool
-        +upgrade(game : Game, list_of_words : list[str], number_of_parameters : int) : bool
+    class Actions {
+            +go(game : Game, list_of_words : list[str], number_of_parameters : int) : bool
+            +quit(game : Game, list_of_words : list[str], number_of_parameters : int) : bool
+            +history(game : Game, list_of_words : list[str], number_of_parameters : int) : bool
+            +look(game : Game, list_of_words : list[str], number_of_parameters : int) : bool
+            +take(game : Game, list_of_words : list[str], number_of_parameters : int) : bool
+            +drop(game : Game, list_of_words : list[str], number_of_parameters : int) : bool
+            +check(game : Game, list_of_words : list[str], number_of_parameters : int) : bool
+            +back(game : Game, list_of_words : list[str], number_of_parameters : int) : bool
+            +help(game : Game, list_of_words : list[str], number_of_parameters : int) : bool
+            +talk(game : Game, list_of_words : list[str], number_of_parameters : int) : bool
+            +fight(game : Game, list_of_words : list[str], number_of_parameters : int) : bool
+            +resolve_fight(player : Player, enemy : Character)
+            +quests(game : Game, list_of_words : list[str], number_of_parameters : int) : bool
+            +quest(game : Game, list_of_words : list[str], number_of_parameters : int) : bool
+            +activate(game : Game, list_of_words : list[str], number_of_parameters : int) : bool
+            +rewards(game : Game, list_of_words : list[str], number_of_parameters : int) : bool
+            +sell(game : Game, list_of_words : list[str], number_of_parameters : int) : bool
+            +buy(game : Game, list_of_words : list[str], number_of_parameters : int) : bool
+            +train(game : Game, list_of_words : list[str], number_of_parameters : int) : bool
+            +upgrade(game : Game, list_of_words : list[str], number_of_parameters : int) : bool
     }
 
- class Item {
-        +name : str
-        +description : str
-        +value : int
+    class Item {
+            +name : str
+            +description : str
+            +value : int
 
-        +__init__(name : str, description : str, value : int)
-        +__str__() : str
+            +__init__(name : str, description : str, value : int)
+            +__str__() : str
     }
 
     class Door {
@@ -277,7 +278,6 @@ class Actions {
         +show_quests()
         +show_quest_details(title : str, current_counts : dict)
     }
-
 ```
 
 
