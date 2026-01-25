@@ -904,7 +904,9 @@ class Game:
         """
         Retourne True si le joueur est mort(perdre un combat contre un ennemi plus fort).
         """
+        self.finished = True
         return not self.player.alive
+        
 
     def move_zote_randomly(self):
         """Fait se déplacer Zote aléatoirement entre Forgotten Crossroads et Dirtmouth."""
