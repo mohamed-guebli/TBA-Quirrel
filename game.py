@@ -461,7 +461,7 @@ class Game:
         mato = Character(
             "Mato",
             "Un insecte robuste muni d'un aiguillon énorme. Sa technique semble être celle d'une entaille circulaire.",
-            blue_lake,
+            city_of_tears,
             [
                 "La force brute ne suffit pas.",
                 "Observe ton ennemi, puis frappe là où il ne s'y attend pas.",

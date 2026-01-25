@@ -854,6 +854,7 @@ class Actions:
         player.level += 1
 
         print(
+            f"\nLe forgeron récupère votre minerai pâle et vos {COST} Geos.\n"
             f"\nLe forgeron frappe l'aiguillon avec puissance...\n"
             f"L'aiguillon est amélioré !\n"
             f"Niveau actuel : {player.level}\n"
