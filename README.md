@@ -98,7 +98,10 @@ L'accomplissement de toutes les quêtes est indispensable pour accéder au boss 
 
 
 ## Perspectives de développement
-- Ajouter un inventaire dans l'inventaire. Parmi nos items, il y avait des reliques tels que le journal du vagabond, le sceau d'hallownest, l'idole du roi et l'oeuf arcanique. Il serait interessant d'ajouter une mallette dans l'inventaire et d'ajouter une condition `relique=True` pour que les reliques soient placées dans la mallette. 
+- Ajouter un inventaire dans l'inventaire. Parmi nos items, il y avait des reliques tels que le journal du vagabond, le sceau d'hallownest, l'idole du roi et l'oeuf arcanique. Il serait interessant d'ajouter une mallette dans l'inventaire et d'ajouter une condition `relique=True` pour que les reliques soient placées dans la mallette.
+- Faire en sorte que certains PNJ hostile deviennent non hostiles apres les avoir combattus. A l'inverse, faire en sorte que des PNJ non hostile le deviennent après certains événements.
+- Ajouter de la stratégie au système de combat (attack/defense).
+- Ajouter des dialogues interactives, où l'on peut choisir sa réponse ou bien ses questions.
 
 
 

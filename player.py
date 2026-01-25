@@ -169,10 +169,6 @@ class Player:
 
         return inv
 
-    # pour détecter si le joueur possède un item
-    def has_item(self, item_name):
-        return item_name in self.inventory
-
     # fonction de la mort qui tue
     def die(self):
         print(
